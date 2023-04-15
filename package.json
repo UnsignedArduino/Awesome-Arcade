@@ -1,7 +1,41 @@
 {
   "name": "awesome-arcade-extensions-website",
   "version": "0.1.0",
+  "description": "This is the source code for the Awesome Arcade Extensions website!",
   "private": true,
+  "keywords": [
+    "react",
+    "bootstrap",
+    "website",
+    "gamedev",
+    "awesome",
+    "modules",
+    "libraries",
+    "extensions",
+    "nextjs",
+    "curated",
+    "arcade",
+    "useful",
+    "curated-list",
+    "makecode",
+    "awesome-extensions",
+    "useful-extensions",
+    "makecode-arcade",
+    "makecode-arcade-extensions",
+    "arcade-extensions"
+  ],
+  "homepage": "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
+  "bugs": "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues",
+  "license": "GPL-2.1-or-later",
+  "author": {
+    "name": "UnsignedArduino",
+    "email": "UnsignedArduino@outlook.com",
+    "url": "https://github.com/UnsignedArduino"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,18 +49,36 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@popperjs/core": "2.11.6",
+    "@types/bootstrap": "^5.2.6",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
+    "bootstrap": "5.3.0-alpha3",
+    "bootstrap-icons": "^1.10.4",
+    "next": "13.3.0",
+    "nextjs-google-adsense": "^1.0.0",
+    "nextjs-google-analytics": "^2.3.3",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-toastify": "^9.1.2",
+    "rehype-katex": "^6.0.2",
+    "rehype-stringify": "^9.0.3",
+    "remark-breaks": "^3.0.2",
+    "remark-gfm": "^3.0.1",
+    "remark-math": "^5.1.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "unified": "^10.1.2"
+  },
+  "devDependencies": {
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
-    "next": "13.3.0",
     "prettier": "^2.8.7",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "typescript": "5.0.4"
   },
   "lint-staged": {
