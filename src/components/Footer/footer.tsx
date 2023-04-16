@@ -31,7 +31,7 @@ function Footer(): JSX.Element {
       },
       {
         title: "GitHub",
-        link: "https://github.com/LogicalSimulator/LogicalSimulatorCommunity",
+        link: "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
       },
     ],
   ];

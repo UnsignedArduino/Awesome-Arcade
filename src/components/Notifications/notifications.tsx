@@ -13,7 +13,6 @@ export function getAllOpenToasts(): Id[] {
   return allOpenToasts;
 }
 
-/* eslint-disable unused-imports/no-unused-vars */
 export enum NotificationType {
   Info,
   Success,
@@ -22,7 +21,6 @@ export enum NotificationType {
   Default,
   Loading,
 }
-/* eslint-enable unused-imports/no-unused-vars */
 
 export function notify(
   text: string,
@@ -94,13 +92,11 @@ export function promiseNotify(
   );
 }
 
-/* eslint-disable unused-imports/no-unused-vars */
 type LoadingNotifyReturn = {
   successCallback: () => void;
   errorCallback: () => void;
   canceledCallback: () => void;
 };
-/* eslint-enable unused-imports/no-unused-vars */
 
 export function loadingNotify(
   loadingText: string,

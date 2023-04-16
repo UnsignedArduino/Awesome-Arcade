@@ -18,8 +18,8 @@ export default async function generateSiteWebmanifest(): Promise<string> {
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#FFF603",
+  "background_color": "#FFF603",
   "display": "standalone"
 }`);
   json.name = json.short_name = `Awesome Arcade Extensions${(() => {

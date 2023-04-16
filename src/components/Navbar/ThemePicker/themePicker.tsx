@@ -4,7 +4,6 @@ type Theme = "Light" | "Dark";
 type ThemeOptions = Theme | "Auto";
 
 declare global {
-  // eslint-disable-next-line unused-imports/no-unused-vars
   interface HTMLElementEventMap {
     themechangerequest: CustomEvent<ThemeOptions>;
     themechange: CustomEvent<ThemeOptions>;

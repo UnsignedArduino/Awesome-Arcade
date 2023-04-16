@@ -8,19 +8,20 @@ import Adsense from "../components/Adsense";
 import Analytics from "../components/Analytics";
 import ErrorBoundary from "../components/ErrorBoundary";
 
-function LogicalSimulator({ Component, pageProps }: AppProps): JSX.Element {
+export default function AwesomeArcadeExtensions({
+  Component,
+  pageProps,
+}: AppProps): JSX.Element {
   React.useEffect(() => {
     import("bootstrap");
   }, []);
 
   return (
     <ErrorBoundary>
-      <NextNProgress color="#00FFFF" options={{ showSpinner: false }} />
+      <NextNProgress color="#FFF603" options={{ showSpinner: false }} />
       <Analytics />
       <Adsense />
       <Component {...pageProps} />
     </ErrorBoundary>
   );
 }
-
-export default LogicalSimulator;
