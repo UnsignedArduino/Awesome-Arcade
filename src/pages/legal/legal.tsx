@@ -23,6 +23,17 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
       keywords="Awesome Arcade Extensions, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, legal stuff pages"
     >
       <h1>{pageName}</h1>
+      <p>
+        The source code for Awesome Arcade Extensions is licensed under the{" "}
+        <a
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/blob/main/LICENSE.md"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GNU General Public License v3.0
+        </a>
+        .
+      </p>
       <ul>
         {Object.entries(legalPages).map(([name, page]) => {
           return (
@@ -33,15 +44,23 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
         })}
       </ul>
       <p>
-        If you have any problems, you can join us on{" "}
+        If you have any problems, you can join me on{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/discussions"
           target="_blank"
           rel="noopener noreferrer"
         >
           GitHub Discussions
-        </a>{" "}
-        or email me at{" "}
+        </a>
+        , the{" "}
+        <a
+          href="https://forum.makecode.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          MakeCode forums
+        </a>
+        , or email me at{" "}
         <a href="mailto:unsignedarduino@outlook.com">
           unsignedarduino@outlook.com
         </a>

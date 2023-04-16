@@ -31,15 +31,23 @@ export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
         })}
       </ul>
       <p>
-        If you have any problems, you can join us on{" "}
+        If you have any problems, you can join me on{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/discussions"
           target="_blank"
           rel="noopener noreferrer"
         >
           GitHub Discussions
-        </a>{" "}
-        or email me at{" "}
+        </a>
+        , the{" "}
+        <a
+          href="https://forum.makecode.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          MakeCode forums
+        </a>
+        , or email me at{" "}
         <a href="mailto:unsignedarduino@outlook.com">
           unsignedarduino@outlook.com
         </a>

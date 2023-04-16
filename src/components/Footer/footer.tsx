@@ -66,7 +66,15 @@ function Footer(): JSX.Element {
                               : ""}
                           </span>
                         );
-                      })}
+                      })}{" "}
+                      and the{" "}
+                      <a
+                        href="https://forum.makecode.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        MakeCode community
+                      </a>
                       .
                     </td>
                   ) : (
@@ -123,11 +131,16 @@ function Footer(): JSX.Element {
                               : ""}
                           </span>
                         );
-                      })}
+                      })}{" "}
+                      and the{" "}
+                      <a
+                        href="https://forum.makecode.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        MakeCode community
+                      </a>
                       .
-                      <br /> <br />
-                      Copyright 2023 UnsignedArduino and Bobingstern. All rights
-                      reserved.
                     </td>
                   ) : (
                     <></>
