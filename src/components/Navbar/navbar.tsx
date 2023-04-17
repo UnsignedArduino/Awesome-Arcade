@@ -23,14 +23,16 @@ function Navbar({ appName, appProps, currentPage }: NavbarProps): JSX.Element {
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <div className="d-inline-flex align-items-center text-start">
-          <div className="d-inline-block">
-            <Image
-              src={icon}
-              alt="Logo"
-              className="d-inline-block"
-              style={{ width: "2em", height: "2em", objectFit: "contain" }}
-            />
-          </div>
+          <Image
+            src={icon}
+            alt="Logo"
+            className="d-inline-block me-1"
+            style={{
+              width: "1em",
+              height: "1em",
+              objectFit: "contain",
+            }}
+          />
           <Link className="navbar-brand mb-0 ms-1 h1" href="/">
             {appName}
           </Link>

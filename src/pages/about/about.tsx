@@ -21,15 +21,23 @@ export function About({ appProps }: { appProps: AppProps }): JSX.Element {
         into a website to learn modern web development.
       </p>
       <p>
-        We would also love it if you joined us on{" "}
+        I would love it if you joined me on{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/discussions"
           target="_blank"
           rel="noopener noreferrer"
         >
           GitHub Discussions
-        </a>{" "}
-        or emailed me at{" "}
+        </a>
+        , the{" "}
+        <a
+          href="https://forum.makecode.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          MakeCode forums
+        </a>
+        , or emailed me at{" "}
         <a href="mailto:unsignedarduino@outlook.com">
           unsignedarduino@outlook.com
         </a>
