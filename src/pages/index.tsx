@@ -1,13 +1,43 @@
 import React from "react";
 import fs from "fs";
+import path from "path";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
 
 const pageName = "Home";
 
-export function Home({ appProps }: { appProps: AppProps }): JSX.Element {
-  const [theme, setTheme] = React.useState<"dark" | "light">("light");
+type HomeProps = { appProps: AppProps; list: ExtensionList };
+
+type ExtensionList = {
+  builtIn: Extension[];
+  notBuiltIn: Extension[];
+  experimental: Extension[];
+  tools: Tool[];
+};
+
+type Extension = {
+  title: string;
+  author: string;
+  url: string;
+  description: string;
+  links: string[];
+  forks?: Extension[];
+  depreciatedBy?: Extension[];
+};
+
+type Tool = {
+  title: string;
+  author: string;
+  url: string;
+  description: string;
+  links: string[];
+  forks?: Tool[];
+  depreciatedBy?: Tool[];
+};
+
+export function Home({ appProps, list }: HomeProps): JSX.Element {
+  const [_, setTheme] = React.useState<"dark" | "light">("light");
 
   function onThemeChange(event: CustomEvent<"Dark" | "Light">) {
     setTheme(event.detail.toLowerCase() as "dark" | "light");
@@ -53,7 +83,7 @@ export function Home({ appProps }: { appProps: AppProps }): JSX.Element {
 }
 
 export async function getStaticProps(): Promise<{
-  props: { appProps: AppProps };
+  props: HomeProps;
 }> {
   fs.writeFileSync(
     "./public/site.webmanifest",
@@ -63,6 +93,11 @@ export async function getStaticProps(): Promise<{
   return {
     props: {
       appProps: await getAppProps(),
+      list: JSON.parse(
+        fs
+          .readFileSync(path.resolve(process.cwd(), "src", "extensions.json"))
+          .toString()
+      ),
     },
   };
 }
