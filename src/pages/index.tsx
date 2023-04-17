@@ -43,6 +43,10 @@ export function Home({ appProps }: { appProps: AppProps }): JSX.Element {
           This is a list of MakeCode Arcade extensions that I find super useful
           (or just plain cool) in my projects.
         </p>
+        <p>
+          Please note that this website is not developed, affiliated, or
+          endorsed by Microsoft, the owner of MakeCode Arcade.
+        </p>
       </>
     </Layout>
   );

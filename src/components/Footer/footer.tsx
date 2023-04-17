@@ -43,6 +43,42 @@ function Footer(): JSX.Element {
 
   const mobileFooterThings = footerThings.flat(Infinity) as FooterThing[];
 
+  const footerText = (
+    <>
+      Awesome Arcade Extensions is developed and maintained by{" "}
+      {DEVELOPERS.map((dev, index) => {
+        return (
+          <span key={dev}>
+            <a
+              href={"https://github.com/" + dev}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {dev}
+            </a>
+            {index < DEVELOPERS.length - 2
+              ? ", "
+              : index < DEVELOPERS.length - 1
+              ? " and "
+              : ""}
+          </span>
+        );
+      })}{" "}
+      and the{" "}
+      <a
+        href="https://forum.makecode.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        MakeCode community
+      </a>
+      .
+      <br />
+      Microsoft and MakeCode Arcade are trademarks of the Microsoft group of
+      companies.
+    </>
+  );
+
   return (
     <ErrorBoundary>
       <small>
@@ -53,34 +89,7 @@ function Footer(): JSX.Element {
                 <tr key={`row-${rowIndex}`}>
                   {rowIndex === 0 ? (
                     <td className="px-2" rowSpan={footerThings.length}>
-                      Awesome Arcade Extensions is developed and maintained by{" "}
-                      {DEVELOPERS.map((dev, index) => {
-                        return (
-                          <span key={dev}>
-                            <a
-                              href={"https://github.com/" + dev}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {dev}
-                            </a>
-                            {index < DEVELOPERS.length - 2
-                              ? ", "
-                              : index < DEVELOPERS.length - 1
-                              ? " and "
-                              : ""}
-                          </span>
-                        );
-                      })}{" "}
-                      and the{" "}
-                      <a
-                        href="https://forum.makecode.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        MakeCode community
-                      </a>
-                      .
+                      {footerText}
                     </td>
                   ) : (
                     <></>
@@ -118,34 +127,7 @@ function Footer(): JSX.Element {
                 <tr key={`row-${rowIndex}`}>
                   {rowIndex === 0 ? (
                     <td className="px-2" rowSpan={mobileFooterThings.length}>
-                      Awesome Arcade Extensions is developed and maintained by{" "}
-                      {DEVELOPERS.map((dev, index) => {
-                        return (
-                          <span key={dev}>
-                            <a
-                              href={"https://github.com/" + dev}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {dev}
-                            </a>
-                            {index < DEVELOPERS.length - 2
-                              ? ", "
-                              : index < DEVELOPERS.length - 1
-                              ? " and "
-                              : ""}
-                          </span>
-                        );
-                      })}{" "}
-                      and the{" "}
-                      <a
-                        href="https://forum.makecode.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        MakeCode community
-                      </a>
-                      .
+                      {footerText}
                     </td>
                   ) : (
                     <></>

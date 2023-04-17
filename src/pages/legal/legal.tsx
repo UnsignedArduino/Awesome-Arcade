@@ -24,6 +24,12 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
     >
       <h1>{pageName}</h1>
       <p>
+        Please note that this website is not developed, affiliated, or endorsed
+        by Microsoft, the owner of MakeCode Arcade. All trademarks mentioned on
+        this website belong to their respective owners. Microsoft and MakeCode
+        Arcade are trademarks of the Microsoft group of companies.
+      </p>
+      <p>
         The source code for Awesome Arcade Extensions is licensed under the{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/blob/main/LICENSE.md"
