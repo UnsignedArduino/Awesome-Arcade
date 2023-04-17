@@ -132,8 +132,8 @@ LayoutProps): JSX.Element {
         ) : (
           <></>
         )}
-        <meta property="og:image" content="/opengraph.png" />
-        <meta name="twitter:image" content="/opengraph.png" />
+        {/* <meta property="og:image" content="/opengraph.png" /> */}
+        {/* <meta name="twitter:image" content="/opengraph.png" /> */}
       </Head>
 
       <Navbar appName={appName} appProps={appProps} currentPage={currentPage} />
