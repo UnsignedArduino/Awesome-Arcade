@@ -24,14 +24,19 @@ function Footer(): JSX.Element {
         title: "About",
         link: "/about",
       },
-
+    ],
+    [
+      {
+        title: "GitHub",
+        link: "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
+      },
       {
         title: "Legal",
         link: "/legal",
       },
       {
-        title: "GitHub",
-        link: "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
+        title: "Status page",
+        link: "https://stats.uptimerobot.com/pjpkZH9Y0k",
       },
     ],
   ];
