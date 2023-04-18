@@ -4,37 +4,12 @@ import path from "path";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
+import { ExtensionList } from "@/scripts/Utils/ParseExtensionsXML";
+import parseExtensionXML from "@/scripts/Utils/ParseExtensionsXML/parse";
 
 const pageName = "Home";
 
 type HomeProps = { appProps: AppProps; list: ExtensionList };
-
-type ExtensionList = {
-  builtIn: Extension[];
-  notBuiltIn: Extension[];
-  experimental: Extension[];
-  tools: Tool[];
-};
-
-type Extension = {
-  title: string;
-  author: string;
-  url: string;
-  description: string;
-  links: string[];
-  forks?: Extension[];
-  depreciatedBy?: Extension[];
-};
-
-type Tool = {
-  title: string;
-  author: string;
-  url: string;
-  description: string;
-  links: string[];
-  forks?: Tool[];
-  depreciatedBy?: Tool[];
-};
 
 export function Home({ appProps, list }: HomeProps): JSX.Element {
   const [_, setTheme] = React.useState<"dark" | "light">("light");
@@ -93,9 +68,9 @@ export async function getStaticProps(): Promise<{
   return {
     props: {
       appProps: await getAppProps(),
-      list: JSON.parse(
+      list: parseExtensionXML(
         fs
-          .readFileSync(path.resolve(process.cwd(), "src", "extensions.json"))
+          .readFileSync(path.resolve(process.cwd(), "src", "extensions.xml"))
           .toString()
       ),
     },
