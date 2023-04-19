@@ -23,6 +23,12 @@ export type Extension = {
   depreciatedBy?: ExtensionRef[] | null;
 };
 
+export type ToolRef = {
+  title: string;
+  author: string;
+  url: string;
+};
+
 export type Tool = {
   title: string;
   author: string;
@@ -30,7 +36,7 @@ export type Tool = {
   description: string;
   links: Link[];
   forks?: Tool[] | null;
-  depreciatedBy?: Tool[] | null;
+  depreciatedBy?: ToolRef[] | null;
 };
 
 export type Link = {
@@ -136,6 +142,61 @@ function gatherExtensionList(exts: any[]): Extension[] {
   return newExts;
 }
 
+function gatherToolRefList(tools: any[]): ToolRef[] {
+  const newToolRefs = [];
+  for (const tool of tools) {
+    const repo: string = tool[":@"]["@_repo"];
+    const title = repo.split("/")[1];
+    const author = repo.split("/")[0];
+    const url = `https://github.com/${repo}`;
+    newToolRefs.push({
+      title,
+      author,
+      url,
+    });
+  }
+  return newToolRefs;
+}
+
+function gatherToolList(tools: any[]): Tool[] {
+  const newTools = [];
+  for (const tool of tools) {
+    const t = findElementInElement(tool, "tool").tool;
+    const description: string = findElementInElement(t, "description")
+      .description[0]["#text"];
+    const links: Link[] = findElementInElement(t, "links").links.map(
+      (obj: any): Link => {
+        return {
+          label: obj[":@"]["@_label"],
+          url: obj.url[0]["#text"],
+          isPrimary: stringToBool(obj[":@"]["@_isPrimary"]),
+        };
+      }
+    );
+    const url = links.filter((link) => {
+      return link.isPrimary;
+    })[0];
+    const repo: string = tool[":@"]["@_repo"];
+    const title = repo.split("/")[1];
+    const author = repo.split("/")[0];
+    const forks = findElementInElement(t, "forks");
+    const depreciatedBy = findElementInElement(t, "depreciatedBy");
+    newTools.push({
+      title,
+      author,
+      url: url.url,
+      description,
+      links,
+      forks: forks != undefined ? gatherToolList(forks.forks) : null,
+      depreciatedBy:
+        depreciatedBy != undefined
+          ? gatherToolRefList(depreciatedBy.depreciatedBy)
+          : null,
+    });
+  }
+  return newTools;
+}
+
 export default function parseExtensionXML(xml: string): ExtensionList {
   const parser = new XMLParser({
     preserveOrder: true,
@@ -164,12 +225,12 @@ export default function parseExtensionXML(xml: string): ExtensionList {
     allExtensions,
     "label",
     "Tools"
-  ).extensionList;
+  ).toolList;
 
   return {
     builtIn: gatherExtensionList(builtIn),
     notBuiltIn: gatherExtensionList(notBuiltIn),
     experimental: gatherExtensionList(experimental),
-    tools: [],
+    tools: gatherToolList(tools),
   };
 }
