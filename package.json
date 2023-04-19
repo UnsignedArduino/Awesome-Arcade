@@ -74,6 +74,7 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "sass": "^1.62.0",
+    "tippy.js": "^6.3.7",
     "unified": "^10.1.2"
   },
   "devDependencies": {

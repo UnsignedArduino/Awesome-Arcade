@@ -53,7 +53,6 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
       </p>
-      <p>Click anywhere in the box to copy the link to your clipboard!</p>
       <div>
         <AwesomeArcadeExtensionList list={list} />
       </div>

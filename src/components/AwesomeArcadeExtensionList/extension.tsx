@@ -1,5 +1,7 @@
 import { Extension, Link } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
+import "tippy.js/dist/tippy.css";
+import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -10,6 +12,47 @@ export function AwesomeArcadeExtension({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): JSX.Element {
+  const [tooltip, setTooltip] = React.useState("Click to copy");
+  const tippyRef = React.useRef<any>();
+  const tipRef = React.useRef<any | undefined>();
+  const urlBtnRef = React.useRef<HTMLButtonElement | null>(null);
+
+  React.useEffect(() => {
+    import("tippy.js").then((tippy) => {
+      tippyRef.current = tippy;
+      if (
+        urlBtnRef.current != undefined &&
+        tippyRef.current != undefined &&
+        tipRef.current == undefined
+      ) {
+        tipRef.current = tippyRef.current.default(urlBtnRef.current, {
+          content: tooltip,
+          hideOnClick: false,
+          onHidden: () => {
+            setTooltip("Click to copy");
+          },
+        });
+      }
+    });
+  });
+
+  React.useEffect(() => {
+    if (tipRef.current != undefined) {
+      const t = tipRef.current;
+      t.setContent(tooltip);
+    } else {
+      if (urlBtnRef.current != undefined && tippyRef.current != undefined) {
+        tipRef.current = tippyRef.current.default(urlBtnRef.current, {
+          content: tooltip,
+          hideOnClick: false,
+          onHidden: () => {
+            setTooltip("Click to copy");
+          },
+        });
+      }
+    }
+  }, [tooltip]);
+
   return (
     <div className={`card ${pad ? "mb-2" : ""}`}>
       <div className="card-body">
@@ -27,10 +70,24 @@ export function AwesomeArcadeExtension({
         {showImportURL == undefined || showImportURL ? (
           <>
             Import this extension with the URL:
-            <blockquote className="border-start border-secondary border-2 ps-2 mt-1 mb-2">
-              <a href={ext.url} target="_blank" rel="noopener noreferer">
+            <blockquote className="border-start border-secondary border-2 mt-1 mb-2">
+              <button
+                type="button"
+                className="btn btn-link"
+                ref={urlBtnRef}
+                onClick={() => {
+                  if (copyTextToClipboard(ext.url)) {
+                    setTooltip("Copied!");
+                  } else {
+                    setTooltip(
+                      "Failed to copy - did you give us clipboard permission?"
+                    );
+                  }
+                  tipRef.current.setContent(tooltip);
+                }}
+              >
                 {ext.url}
-              </a>
+              </button>
             </blockquote>
           </>
         ) : (
