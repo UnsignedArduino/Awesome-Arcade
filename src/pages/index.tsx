@@ -71,7 +71,7 @@ export async function getStaticProps(): Promise<{
   return {
     props: {
       appProps: await getAppProps(),
-      list: parseExtensionXML(
+      list: await parseExtensionXML(
         fs
           .readFileSync(path.resolve(process.cwd(), "src", "extensions.xml"))
           .toString()

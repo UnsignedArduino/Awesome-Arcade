@@ -7,10 +7,38 @@ import React from "react";
 
 function AwesomeArcadeExtension({ ext }: { ext: Extension }): JSX.Element {
   return (
-    <>
-      {ext.repo}
-      <br />
-    </>
+    <div className="card mb-2">
+      <div className="card-body">
+        <h5 className="card-title">{ext.title}</h5>
+        <h6 className="card-subtitle mb-2 text-body-secondary">
+          Made by{" "}
+          <a
+            href={`https://github.com/${ext.author}`}
+            target="_blank"
+            rel="noopener noreferer"
+          >
+            {ext.author}
+          </a>
+        </h6>
+        <div
+          className="card-text"
+          dangerouslySetInnerHTML={{ __html: ext.description }}
+        />
+        {ext.links.map((link) => {
+          return (
+            <a
+              href={link.url}
+              key={link.url}
+              className="card-link"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              {link.label != undefined ? link.label : link.url}
+            </a>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -36,10 +64,38 @@ function AwesomeArcadeExtensionGroup({
 
 function AwesomeArcadeTool({ tool }: { tool: Tool }): JSX.Element {
   return (
-    <>
-      {tool.repo}
-      <br />
-    </>
+    <div className="card mb-2">
+      <div className="card-body">
+        <h5 className="card-title">{tool.title}</h5>
+        <h6 className="card-subtitle mb-2 text-body-secondary">
+          Made by{" "}
+          <a
+            href={`https://github.com/${tool.author}`}
+            target="_blank"
+            rel="noopener noreferer"
+          >
+            {tool.author}
+          </a>
+        </h6>
+        <div
+          className="card-text"
+          dangerouslySetInnerHTML={{ __html: tool.description }}
+        />
+        {tool.links.map((link) => {
+          return (
+            <a
+              href={link.url}
+              key={link.url}
+              className="card-link"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              {link.label != undefined ? link.label : link.url}
+            </a>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

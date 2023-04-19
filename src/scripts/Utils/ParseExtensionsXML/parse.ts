@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import markdownToHTML from "@/scripts/Utils/MarkdownToHTML";
 
 export type ExtensionList = {
   builtIn: Extension[];
@@ -107,12 +108,13 @@ function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
   return newExtsRef;
 }
 
-function gatherExtensionList(exts: any[]): Extension[] {
+async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
   const newExts = [];
   for (const extension of exts) {
     const ext = findElementInElement(extension, "extension").extension;
-    const description: string = findElementInElement(ext, "description")
-      .description[0]["#text"];
+    const description = await markdownToHTML(
+      findElementInElement(ext, "description").description[0]["#text"]
+    );
     const links: Link[] = findElementInElement(ext, "links").links.map(
       (obj: any): Link => {
         return {
@@ -130,14 +132,14 @@ function gatherExtensionList(exts: any[]): Extension[] {
     const author = repo.split("/")[0];
     const forks = findElementInElement(ext, "forks");
     const depreciatedBy = findElementInElement(ext, "depreciatedBy");
-    newExts.push({
+    newExts.push(<Extension>{
       title,
       author,
       repo,
       url: url.url,
       description,
       links,
-      forks: forks != undefined ? gatherExtensionList(forks.forks) : null,
+      forks: forks != undefined ? await gatherExtensionList(forks.forks) : null,
       depreciatedBy:
         depreciatedBy != undefined
           ? gatherExtensionRefList(depreciatedBy.depreciatedBy)
@@ -164,12 +166,13 @@ function gatherToolRefList(tools: any[]): ToolRef[] {
   return newToolRefs;
 }
 
-function gatherToolList(tools: any[]): Tool[] {
+async function gatherToolList(tools: any[]): Promise<Tool[]> {
   const newTools = [];
   for (const tool of tools) {
     const t = findElementInElement(tool, "tool").tool;
-    const description: string = findElementInElement(t, "description")
-      .description[0]["#text"];
+    const description = await markdownToHTML(
+      findElementInElement(t, "description").description[0]["#text"]
+    );
     const links: Link[] = findElementInElement(t, "links").links.map(
       (obj: any): Link => {
         return {
@@ -187,14 +190,14 @@ function gatherToolList(tools: any[]): Tool[] {
     const author = repo.split("/")[0];
     const forks = findElementInElement(t, "forks");
     const depreciatedBy = findElementInElement(t, "depreciatedBy");
-    newTools.push({
+    newTools.push(<Tool>{
       title,
       author,
       url: url.url,
       repo,
       description,
       links,
-      forks: forks != undefined ? gatherToolList(forks.forks) : null,
+      forks: forks != undefined ? await gatherToolList(forks.forks) : null,
       depreciatedBy:
         depreciatedBy != undefined
           ? gatherToolRefList(depreciatedBy.depreciatedBy)
@@ -204,7 +207,9 @@ function gatherToolList(tools: any[]): Tool[] {
   return newTools;
 }
 
-export default function parseExtensionXML(xml: string): ExtensionList {
+export default async function parseExtensionXML(
+  xml: string
+): Promise<ExtensionList> {
   const parser = new XMLParser({
     preserveOrder: true,
     ignoreAttributes: false,
@@ -235,9 +240,9 @@ export default function parseExtensionXML(xml: string): ExtensionList {
   ).toolList;
 
   return {
-    builtIn: gatherExtensionList(builtIn),
-    notBuiltIn: gatherExtensionList(notBuiltIn),
-    experimental: gatherExtensionList(experimental),
-    tools: gatherToolList(tools),
+    builtIn: await gatherExtensionList(builtIn),
+    notBuiltIn: await gatherExtensionList(notBuiltIn),
+    experimental: await gatherExtensionList(experimental),
+    tools: await gatherToolList(tools),
   };
 }
