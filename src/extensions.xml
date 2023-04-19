@@ -114,7 +114,7 @@
     </extension>
   </extensionList>
   <extensionList label="Not built in">
-    <extension repo="https://github.com/jwunderl/arcade-tilemap-a-star">
+    <extension repo="jwunderl/arcade-tilemap-a-star">
       <description>Help your sprites find their way around your tilemaps with this extension! Just provide 2 locations on a tilemap, and it will automagically compute the fastest path between the 2 spots while also moving around walls using the [A* algorithm](https://en.wikipedia.org/wiki/A*_search_algorithm)! This will add another section in the `Scene` category called `Path Following` in the toolbox.</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/jwunderl/arcade-tilemap-a-star</url>
@@ -206,7 +206,7 @@
         <url label="Demo">https://arcade.makecode.com/34463-26373-00334-92361</url>
       </links>
     </extension>
-    <extension repo="">
+    <extension repo="riknoll/small-tilemaps">
       <description>Easy access to a 8x8 tilemap in blocks! Note: If you're switching from a 16x16 to a 8x8 tilemap, don't forget to switch tiles in your code! And delete the 16x16 tiles in the tilemap editor, otherwise you're going to get really confused. This will add a block under the `Tiles` section in the `Scene` category.</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/small-tilemaps</url>

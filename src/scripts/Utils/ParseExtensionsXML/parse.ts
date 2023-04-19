@@ -7,6 +7,12 @@ export type ExtensionList = {
   tools: Tool[];
 };
 
+export type ExtensionRef = {
+  title: string;
+  author: string;
+  url: string;
+};
+
 export type Extension = {
   title: string;
   author: string;
@@ -14,7 +20,7 @@ export type Extension = {
   description: string;
   links: Link[];
   forks?: Extension[] | null;
-  depreciatedBy?: Extension[] | null;
+  depreciatedBy?: ExtensionRef[] | null;
 };
 
 export type Tool = {
@@ -75,6 +81,22 @@ function findElementWithAttributeValue(
   return undefined;
 }
 
+function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
+  const newExtsRef = [];
+  for (const extension of exts) {
+    const repo: string = extension[":@"]["@_repo"];
+    const title = repo.split("/")[1];
+    const author = repo.split("/")[0];
+    const url = `https://github.com/${repo}`;
+    newExtsRef.push({
+      title,
+      author,
+      url,
+    });
+  }
+  return newExtsRef;
+}
+
 function gatherExtensionList(exts: any[]): Extension[] {
   const newExts = [];
   for (const extension of exts) {
@@ -97,6 +119,7 @@ function gatherExtensionList(exts: any[]): Extension[] {
     const title = repo.split("/")[1];
     const author = repo.split("/")[0];
     const forks = findElementInElement(ext, "forks");
+    const depreciatedBy = findElementInElement(ext, "depreciatedBy");
     newExts.push({
       title,
       author,
@@ -104,7 +127,10 @@ function gatherExtensionList(exts: any[]): Extension[] {
       description,
       links,
       forks: forks != undefined ? gatherExtensionList(forks.forks) : null,
-      // depreciatedBy: Extension[]
+      depreciatedBy:
+        depreciatedBy != undefined
+          ? gatherExtensionRefList(depreciatedBy.depreciatedBy)
+          : null,
     });
   }
   return newExts;
@@ -142,8 +168,8 @@ export default function parseExtensionXML(xml: string): ExtensionList {
 
   return {
     builtIn: gatherExtensionList(builtIn),
-    notBuiltIn: [],
-    experimental: [],
+    notBuiltIn: gatherExtensionList(notBuiltIn),
+    experimental: gatherExtensionList(experimental),
     tools: [],
   };
 }
