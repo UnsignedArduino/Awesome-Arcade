@@ -27,6 +27,7 @@ export default function AwesomeArcadeExtensionList({
           </p>
         }
         exts={list.builtIn}
+        showImportURL={false}
       />
       <AwesomeArcadeExtensionGroup
         title={<h2>Not built-in extensions</h2>}
