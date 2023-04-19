@@ -34,6 +34,10 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
     setTheme(theme as "dark" | "light");
   }, []);
 
+  React.useEffect(() => {
+    console.log(list);
+  }, []);
+
   return (
     <Layout
       title={pageName}
