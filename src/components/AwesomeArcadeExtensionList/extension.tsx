@@ -12,47 +12,47 @@ export function AwesomeArcadeExtension({
 }): JSX.Element {
   return (
     <div className={`card ${pad ? "mb-2" : ""}`}>
-      <h5 className="card-title">{ext.title}</h5>
-      <h6 className="card-subtitle mb-2 text-body-secondary">
-        Made by{" "}
-        <a
-          href={`https://github.com/${ext.author}`}
-          target="_blank"
-          rel="noopener noreferer"
-        >
-          {ext.author}
-        </a>
-      </h6>
-      {showImportURL == undefined || showImportURL ? (
-        <>
-          Import this extension with the URL:
-          <blockquote className="border-start border-secondary border-2 ps-2 mt-1 mb-2">
-            <a href={ext.url} target="_blank" rel="noopener noreferer">
-              {ext.url}
-            </a>
-          </blockquote>
-        </>
-      ) : (
-        <></>
-      )}
-      <div
-        className="card-text"
-        dangerouslySetInnerHTML={{ __html: ext.description }}
-      />
-      {ext.links.map((link: Link) => {
-        return (
+      <div className="card-body">
+        <h5 className="card-title">{ext.title}</h5>
+        <h6 className="card-subtitle mb-2 text-body-secondary">
+          Made by{" "}
           <a
-            href={link.url}
-            key={link.url}
-            className="card-link"
+            href={`https://github.com/${ext.author}`}
             target="_blank"
             rel="noopener noreferer"
           >
-            {link.label != undefined ? link.label : link.url}
+            {ext.author}
           </a>
-        );
-      })}
-      <div className="card-body">
+        </h6>
+        {showImportURL == undefined || showImportURL ? (
+          <>
+            Import this extension with the URL:
+            <blockquote className="border-start border-secondary border-2 ps-2 mt-1 mb-2">
+              <a href={ext.url} target="_blank" rel="noopener noreferer">
+                {ext.url}
+              </a>
+            </blockquote>
+          </>
+        ) : (
+          <></>
+        )}
+        <div
+          className="card-text"
+          dangerouslySetInnerHTML={{ __html: ext.description }}
+        />
+        {ext.links.map((link: Link) => {
+          return (
+            <a
+              href={link.url}
+              key={link.url}
+              className="card-link"
+              target="_blank"
+              rel="noopener noreferer"
+            >
+              {link.label != undefined ? link.label : link.url}
+            </a>
+          );
+        })}
         {ext.forks != undefined && ext.forks.length > 0 ? (
           <AwesomeArcadeExtensionGroup
             description={
