@@ -22,6 +22,14 @@ export function AwesomeArcadeTool({
             {tool.author}
           </a>
         </h6>
+        <>
+          Access this tool at:
+          <blockquote className="border-start border-secondary border-2 ps-3 mt-1 mb-2">
+            <a href={tool.url} target="_blank" rel="noopener noreferrer">
+              {tool.url}
+            </a>
+          </blockquote>
+        </>
         <div
           className="card-ttool"
           dangerouslySetInnerHTML={{ __html: tool.description }}
