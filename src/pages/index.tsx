@@ -4,8 +4,10 @@ import path from "path";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
-import { ExtensionList } from "@/scripts/Utils/ParseExtensionsXML";
-import parseExtensionXML from "@/scripts/Utils/ParseExtensionsXML/parse";
+import AwesomeArcadeExtensionList from "../components/AwesomeArcadeExtensionList";
+import parseExtensionXML, {
+  ExtensionList,
+} from "@/scripts/Utils/ParseExtensionsXML";
 
 const pageName = "Home";
 
@@ -34,10 +36,6 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
     setTheme(theme as "dark" | "light");
   }, []);
 
-  React.useEffect(() => {
-    console.log(list);
-  }, []);
-
   return (
     <Layout
       title={pageName}
@@ -46,17 +44,18 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
       description="This is a list of MakeCode Arcade extensions that I find super useful (or just plain cool) in my projects."
       keywords="Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions"
     >
-      <>
-        <h1>Welcome to Awesome Arcade Extensions</h1>
-        <p>
-          This is a list of MakeCode Arcade extensions that I find super useful
-          (or just plain cool) in my projects.
-        </p>
-        <p>
-          Please note that this website is not developed, affiliated, or
-          endorsed by Microsoft, the owner of MakeCode Arcade.
-        </p>
-      </>
+      <h1>Welcome to Awesome Arcade Extensions</h1>
+      <p>
+        This is a list of MakeCode Arcade extensions that I find super useful
+        (or just plain cool) in my projects.
+      </p>
+      <p>
+        Please note that this website is not developed, affiliated, or endorsed
+        by Microsoft, the owner of MakeCode Arcade.
+      </p>
+      <div>
+        <AwesomeArcadeExtensionList list={list} />
+      </div>
     </Layout>
   );
 }

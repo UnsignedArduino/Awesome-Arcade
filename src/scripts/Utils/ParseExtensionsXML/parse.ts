@@ -10,12 +10,14 @@ export type ExtensionList = {
 export type ExtensionRef = {
   title: string;
   author: string;
+  repo: string;
   url: string;
 };
 
 export type Extension = {
   title: string;
   author: string;
+  repo: string;
   url: string;
   description: string;
   links: Link[];
@@ -32,6 +34,7 @@ export type ToolRef = {
 export type Tool = {
   title: string;
   author: string;
+  repo: string;
   url: string;
   description: string;
   links: Link[];
@@ -97,6 +100,7 @@ function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
     newExtsRef.push({
       title,
       author,
+      repo,
       url,
     });
   }
@@ -129,6 +133,7 @@ function gatherExtensionList(exts: any[]): Extension[] {
     newExts.push({
       title,
       author,
+      repo,
       url: url.url,
       description,
       links,
@@ -152,6 +157,7 @@ function gatherToolRefList(tools: any[]): ToolRef[] {
     newToolRefs.push({
       title,
       author,
+      repo,
       url,
     });
   }
@@ -185,6 +191,7 @@ function gatherToolList(tools: any[]): Tool[] {
       title,
       author,
       url: url.url,
+      repo,
       description,
       links,
       forks: forks != undefined ? gatherToolList(forks.forks) : null,
