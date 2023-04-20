@@ -53,23 +53,18 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
       setSearch(q);
     }
     if (window.location.hash.length > 0) {
-      smoothScrollToID(window.location.hash);
+      smoothScrollToID(window.location.hash.replace("#", ""));
     }
   }, []);
 
   React.useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const url = new URL(window.location.toString());
     if (search === "") {
-      urlParams.delete(searchParam);
+      url.searchParams.delete(searchParam);
     } else {
-      urlParams.set(searchParam, search);
+      url.searchParams.set(searchParam, search);
     }
-    const params = urlParams.toString();
-    window.history.replaceState(
-      {},
-      "",
-      `${window.location.pathname}${params.length > 0 ? `?${params}` : ""}`
-    );
+    window.history.replaceState({}, "", url.toString());
   }, [search]);
 
   React.useEffect(() => {

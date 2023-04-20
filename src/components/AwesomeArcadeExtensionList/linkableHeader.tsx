@@ -10,12 +10,15 @@ export function smoothScrollHash(
 }
 
 export function smoothScrollToID(id: string) {
-  document.getElementById(id)?.scrollIntoView({
+  const e = document.getElementById(id);
+  e?.scrollIntoView({
     behavior: "smooth",
   });
   const u = new URL(window.location.toString());
   u.hash = id;
-  window.location.replace(u);
+  setTimeout(() => {
+    window.history.replaceState({}, "", u.toString());
+  });
 }
 
 export function LinkableH2({
