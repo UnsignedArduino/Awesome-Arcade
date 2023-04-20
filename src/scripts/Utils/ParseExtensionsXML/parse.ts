@@ -9,6 +9,7 @@ export type ExtensionList = {
 };
 
 export type ExtensionRef = {
+  type: string;
   title: string;
   author: string;
   repo: string;
@@ -16,6 +17,7 @@ export type ExtensionRef = {
 };
 
 export type Extension = {
+  type: string;
   title: string;
   author: string;
   repo: string;
@@ -27,6 +29,7 @@ export type Extension = {
 };
 
 export type ToolRef = {
+  type: string;
   title: string;
   author: string;
   repo: string;
@@ -34,6 +37,7 @@ export type ToolRef = {
 };
 
 export type Tool = {
+  type: string;
   title: string;
   author: string;
   repo: string;
@@ -45,6 +49,7 @@ export type Tool = {
 };
 
 export type URLLink = {
+  type: "URLLink";
   label?: string | null;
   url: string;
   isPrimary?: boolean | null;
@@ -100,6 +105,7 @@ function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
     const author = repo.split("/")[0];
     const url = `https://github.com/${repo}`;
     newExtsRef.push({
+      type: "ExtensionRef",
       title,
       author,
       repo,
@@ -119,6 +125,7 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
     const links: URLLink[] = findElementInElement(ext, "links").links.map(
       (obj: any): URLLink => {
         return {
+          type: "URLLink",
           label: obj[":@"]["@_label"],
           url: obj.url[0]["#text"],
           isPrimary: stringToBool(obj[":@"]["@_isPrimary"]),
@@ -133,7 +140,8 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
     const author = repo.split("/")[0];
     const forks = findElementInElement(ext, "forks");
     const depreciatedBy = findElementInElement(ext, "depreciatedBy");
-    newExts.push(<Extension>{
+    newExts.push({
+      type: "Extension",
       title,
       author,
       repo,
@@ -158,6 +166,7 @@ function gatherToolRefList(tools: any[]): ToolRef[] {
     const author = repo.split("/")[0];
     const url = `https://github.com/${repo}`;
     newToolRefs.push({
+      type: "ToolRef",
       title,
       author,
       repo,
@@ -177,6 +186,7 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
     const links: URLLink[] = findElementInElement(t, "links").links.map(
       (obj: any): URLLink => {
         return {
+          type: "URLLink",
           label: obj[":@"]["@_label"],
           url: obj.url[0]["#text"],
           isPrimary: stringToBool(obj[":@"]["@_isPrimary"]),
@@ -191,7 +201,8 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
     const author = repo.split("/")[0];
     const forks = findElementInElement(t, "forks");
     const depreciatedBy = findElementInElement(t, "depreciatedBy");
-    newTools.push(<Tool>{
+    newTools.push({
+      type: "Tool",
       title,
       author,
       url: url.url,

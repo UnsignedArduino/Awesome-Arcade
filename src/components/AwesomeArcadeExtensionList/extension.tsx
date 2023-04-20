@@ -203,19 +203,25 @@ export function AwesomeArcadeExtensionGroup({
     <div className={pad == undefined || pad ? "mb-3" : ""}>
       {title}
       {description}
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-        {exts.map((ext, i) => {
-          return (
-            <div className="col py-3" key={ext.repo}>
-              <AwesomeArcadeExtension
-                ext={ext}
-                showImportURL={showImportURL}
-                pad={i < exts.length - 1}
-              />
-            </div>
-          );
-        })}
-      </div>
+      {exts.length > 0 ? (
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+          {exts.map((ext, i) => {
+            return (
+              <div className="col py-3" key={ext.repo}>
+                <AwesomeArcadeExtension
+                  ext={ext}
+                  showImportURL={showImportURL}
+                  pad={i < exts.length - 1}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="alert alert-warning" role="alert">
+          Could not find any results with your search query!
+        </div>
+      )}
     </div>
   );
 }

@@ -6,7 +6,9 @@ import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
 import AwesomeArcadeExtensionList from "../components/AwesomeArcadeExtensionList";
 import parseExtensionXML, {
+  Extension,
   ExtensionList,
+  Tool,
 } from "@/scripts/Utils/ParseExtensionsXML";
 
 const pageName = "Home";
@@ -36,6 +38,53 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
     setTheme(theme as "dark" | "light");
   }, []);
 
+  const [search, setSearch] = React.useState("");
+  const [filteredList, setFilteredList] = React.useState(list);
+  const [resultCount, setResultCount] = React.useState<
+    { extensions: number; tools: number } | undefined
+  >(undefined);
+
+  React.useEffect(() => {
+    if (search.length > 0) {
+      const filtered = structuredClone(list);
+      let extCount = 0;
+      let toolCount = 0;
+      for (const group of Object.values(filtered)) {
+        for (let i = group.length - 1; i >= 0; i--) {
+          if (
+            !group[i].repo
+              .trim()
+              .toLowerCase()
+              .includes(search.trim().toLowerCase())
+          ) {
+            group.splice(i, 1);
+          }
+        }
+        if (group.length > 0) {
+          console.log(group[0].type);
+          switch (group[0].type) {
+            case "Extension": {
+              extCount += group.length;
+              break;
+            }
+            case "Tool": {
+              toolCount += group.length;
+              break;
+            }
+          }
+        }
+      }
+      setFilteredList(filtered);
+      setResultCount({
+        extensions: extCount,
+        tools: toolCount,
+      });
+    } else {
+      setFilteredList(list);
+      setResultCount(undefined);
+    }
+  }, [search, list]);
+
   return (
     <Layout
       title={pageName}
@@ -54,7 +103,30 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
         by Microsoft, the owner of MakeCode Arcade.
       </p>
       <div>
-        <AwesomeArcadeExtensionList list={list} />
+        <div className="input-group mb-3">
+          <span className="input-group-text" id="searchLabel">
+            Search:
+          </span>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by author or name!"
+            defaultValue={search}
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+            aria-label="Search query"
+            aria-describedby="searchLabel"
+          />
+        </div>
+        {resultCount != undefined ? (
+          <p>
+            Found {resultCount.extensions} extension
+            {resultCount.extensions !== 1 ? "s" : ""} and {resultCount.tools}{" "}
+            tool{resultCount.tools !== 1 ? "s" : ""}.
+          </p>
+        ) : undefined}
+        <AwesomeArcadeExtensionList list={filteredList} />
       </div>
     </Layout>
   );
