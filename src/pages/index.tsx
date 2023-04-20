@@ -1,5 +1,5 @@
 import React from "react";
-import fs from "fs";
+import { promises as fs } from "fs";
 import path from "path";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
@@ -63,19 +63,26 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: HomeProps;
 }> {
-  fs.writeFileSync(
+  await fs.writeFile(
     "./public/site.webmanifest",
     await generateSiteWebmanifest()
+  );
+
+  const list = await parseExtensionXML(
+    (
+      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
+    ).toString()
+  );
+
+  await fs.writeFile(
+    "./public/extensions.json",
+    JSON.stringify(list, undefined, 2)
   );
 
   return {
     props: {
       appProps: await getAppProps(),
-      list: await parseExtensionXML(
-        fs
-          .readFileSync(path.resolve(process.cwd(), "src", "extensions.xml"))
-          .toString()
-      ),
+      list,
     },
   };
 }
