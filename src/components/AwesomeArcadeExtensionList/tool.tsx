@@ -80,7 +80,7 @@ export function AwesomeArcadeToolGroup({
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
         {tools.map((tool, i) => {
           return (
-            <div className="col" key={tool.repo}>
+            <div className="col py-3" key={tool.repo}>
               <AwesomeArcadeTool tool={tool} pad={i < tools.length - 1} />
             </div>
           );

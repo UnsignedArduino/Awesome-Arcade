@@ -2,9 +2,9 @@ import { ExtensionList } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
-import { AwesomeArcadeExtensionGroup } from "@/components/AwesomeArcadeExtensionList/extension";
 import { AwesomeArcadeToolGroup } from "@/components/AwesomeArcadeExtensionList/tool";
 import { LinkableH2 } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
+import { AwesomeArcadeExtensionGroup } from "@/components/AwesomeArcadeExtensionList/extension";
 
 export default function AwesomeArcadeExtensionList({
   list,
@@ -17,7 +17,7 @@ export default function AwesomeArcadeExtensionList({
   }, []);
 
   return (
-    <div id="awesomeArcadeExtensions">
+    <div id="awesomeArcadeExtensions" style={{ overflowX: "hidden" }}>
       <AwesomeArcadeExtensionGroup
         title={
           <LinkableH2 id="built-in-extensions">Built-in extensions</LinkableH2>
