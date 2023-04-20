@@ -98,6 +98,23 @@ export function AwesomeArcadeTool({
             </ul>
           </div>
         ) : undefined}
+        {tool.depreciatedBy != undefined && tool.depreciatedBy.length > 0 ? (
+          <div className="mt-3">
+            This tool is depreciated by <b>{tool.depreciatedBy.length}</b> other
+            tool{tool.depreciatedBy.length !== 1 ? "s" : ""}:
+            <ul>
+              {tool.depreciatedBy.map((t: ToolRef) => {
+                return (
+                  <li key={t.repo}>
+                    <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
+                      {t.repo}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : undefined}
       </div>
     </div>
   );
