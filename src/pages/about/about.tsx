@@ -41,9 +41,8 @@ export function About({ appProps }: { appProps: AppProps }): JSX.Element {
         <a href="mailto:unsignedarduino@outlook.com">
           unsignedarduino@outlook.com
         </a>
-        . We are always accepting suggestions and constructive criticism!
+        . I am always accepting suggestions and constructive criticism!
       </p>
-      <p>Thank you so much for being a user of our site.</p>
     </Layout>
   );
 }
