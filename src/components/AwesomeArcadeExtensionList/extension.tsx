@@ -1,4 +1,8 @@
-import { Extension, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
+import {
+  Extension,
+  ExtensionRef,
+  URLLink,
+} from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
@@ -137,6 +141,24 @@ export function AwesomeArcadeExtension({
             );
           })}
         </ul>
+        {ext.forks != undefined && ext.forks.length > 0 ? (
+          <div className="mt-3">
+            There {ext.forks.length === 1 ? "is" : "are"}{" "}
+            <b>{ext.forks.length}</b> fork{ext.forks.length !== 1 ? "s" : ""}{" "}
+            available:
+            <ul>
+              {ext.forks.map((e: ExtensionRef) => {
+                return (
+                  <li key={e.repo}>
+                    <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
+                      {e.repo}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : undefined}
       </div>
     </div>
   );

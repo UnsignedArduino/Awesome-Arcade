@@ -1,4 +1,4 @@
-import { Tool, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
+import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
@@ -80,6 +80,24 @@ export function AwesomeArcadeTool({
             );
           })}
         </ul>
+        {tool.forks != undefined && tool.forks.length > 0 ? (
+          <div className="mt-3">
+            There {tool.forks.length === 1 ? "is" : "are"}{" "}
+            <b>{tool.forks.length}</b> fork{tool.forks.length !== 1 ? "s" : ""}{" "}
+            available:
+            <ul>
+              {tool.forks.map((t: ToolRef) => {
+                return (
+                  <li key={t.repo}>
+                    <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
+                      {t.repo}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : undefined}
       </div>
     </div>
   );

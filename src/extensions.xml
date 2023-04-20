@@ -122,7 +122,7 @@
         <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-custom-menu</url>
       </links>
       <forks>
-        <extensionRef repo="AqeeAqee/arcade-mini-menu" />
+        <extensionRef repo="AqeeAqee/arcade-custom-menu" />
       </forks>
       <depreciatedBy>
         <extensionRef repo="riknoll/arcade-mini-menu" />

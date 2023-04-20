@@ -29,6 +29,7 @@ export type Extension = {
 export type ToolRef = {
   title: string;
   author: string;
+  repo: string;
   url: string;
 };
 
