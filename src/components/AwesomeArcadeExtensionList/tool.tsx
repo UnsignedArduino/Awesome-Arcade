@@ -47,21 +47,6 @@ export function AwesomeArcadeTool({
             </a>
           );
         })}
-        {tool.forks != undefined && tool.forks.length > 0 ? (
-          <AwesomeArcadeToolGroup
-            description={
-              <p className="mt-3">
-                There {tool.forks.length === 1 ? "is" : "are"}{" "}
-                <b>{tool.forks.length}</b> fork
-                {tool.forks.length !== 1 ? "s" : undefined} available!
-              </p>
-            }
-            tools={tool.forks}
-            pad={false}
-          />
-        ) : (
-          <></>
-        )}
       </div>
     </div>
   );

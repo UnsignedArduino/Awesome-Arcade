@@ -110,21 +110,6 @@ export function AwesomeArcadeExtension({
             </a>
           );
         })}
-        {ext.forks != undefined && ext.forks.length > 0 ? (
-          <AwesomeArcadeExtensionGroup
-            description={
-              <p className="mt-3">
-                There {ext.forks.length === 1 ? "is" : "are"}{" "}
-                <b>{ext.forks.length}</b> fork
-                {ext.forks.length !== 1 ? "s" : undefined} available!
-              </p>
-            }
-            exts={ext.forks}
-            pad={false}
-          />
-        ) : (
-          <></>
-        )}
       </div>
     </div>
   );

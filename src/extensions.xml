@@ -96,15 +96,16 @@
         <url label="Demo">https://arcade.makecode.com/09733-61193-97488-18091</url>
       </links>
       <forks>
-        <extension repo="AqeeAqee/arcade-text">
-          <description>This fork of the extension adds multi-line support and fixes several bugs as well!</description>
-          <links>
-            <url label="GitHub repo" isPrimary="true">https://github.com/AqeeAqee/arcade-text</url>
-            <url label="Forum post">https://forum.makecode.com/t/multilines-for-arcade-text/12555?u=unsignedarduino</url>
-            <url label="Demo">https://arcade.makecode.com/73556-43866-67413-93047</url>
-          </links>
-        </extension>
+        <extensionRef repo="AqeeAqee/arcade-text" />
       </forks>
+    </extension>
+    <extension repo="AqeeAqee/arcade-text">
+      <description>This fork of the extension adds multi-line support and fixes several bugs as well!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/AqeeAqee/arcade-text</url>
+        <url label="Forum post">https://forum.makecode.com/t/multilines-for-arcade-text/12555?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/73556-43866-67413-93047</url>
+      </links>
     </extension>
     <extension repo="riknoll/character-animations">
       <description>A version of the `Animation` extension but much easier to handle if your sprites (Ex. main player) has a lot of different movements, like moving up, down, left, and right. The `character-animations` extension will automatically start and stop animations depending on what the player is doing. This will add another category in the toolbox called `Character`.</description>
@@ -129,18 +130,19 @@
         <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-custom-menu</url>
       </links>
       <forks>
-       <extension repo="AqeeAqee/arcade-custom-menu">
-          <description>This fork of the extension adds icons and multi-column support!</description>
-          <links>
-            <url label="GitHub repo" isPrimary="true">https://github.com/AqeeAqee/arcade-custom-menu</url>
-            <url label="Forum post">https://forum.makecode.com/t/block-menu-icons-multi-column-edition/13286?u=unsignedarduino</url>
-            <url label="Demo">https://arcade.makecode.com/11158-18248-69309-63621</url>
-          </links>
-        </extension>
+        <extensionRef repo="AqeeAqee/arcade-mini-menu" />
       </forks>
       <depreciatedBy>
         <extensionRef repo="riknoll/arcade-mini-menu" />
       </depreciatedBy>
+    </extension>
+    <extension repo="AqeeAqee/arcade-custom-menu">
+      <description>This fork of the extension adds icons and multi-column support!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/AqeeAqee/arcade-custom-menu</url>
+        <url label="Forum post">https://forum.makecode.com/t/block-menu-icons-multi-column-edition/13286?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/11158-18248-69309-63621</url>
+      </links>
     </extension>
     <extension repo="microsoft/arcade-block-objects">
       <description>[OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) is no doubt an important topic in programming. This extension will help you make objects in blocks! Attach all sorts of data to an object, like numbers, strings, images, sprites, locations, and more! This will add a category in the toolbox called `BlockObject` with 7 sub-categories.</description>

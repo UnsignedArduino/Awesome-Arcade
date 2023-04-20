@@ -22,7 +22,7 @@ export type Extension = {
   url: string;
   description: string;
   links: Link[];
-  forks?: Extension[] | null;
+  forks?: ExtensionRef[] | null;
   depreciatedBy?: ExtensionRef[] | null;
 };
 
@@ -39,7 +39,7 @@ export type Tool = {
   url: string;
   description: string;
   links: Link[];
-  forks?: Tool[] | null;
+  forks?: ToolRef[] | null;
   depreciatedBy?: ToolRef[] | null;
 };
 
@@ -139,7 +139,7 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
       url: url.url,
       description,
       links,
-      forks: forks != undefined ? await gatherExtensionList(forks.forks) : null,
+      forks: forks != undefined ? gatherExtensionRefList(forks.forks) : null,
       depreciatedBy:
         depreciatedBy != undefined
           ? gatherExtensionRefList(depreciatedBy.depreciatedBy)
@@ -197,7 +197,7 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
       repo,
       description,
       links,
-      forks: forks != undefined ? await gatherToolList(forks.forks) : null,
+      forks: forks != undefined ? gatherToolRefList(forks.forks) : null,
       depreciatedBy:
         depreciatedBy != undefined
           ? gatherToolRefList(depreciatedBy.depreciatedBy)
