@@ -115,19 +115,23 @@ export function AwesomeArcadeExtension({
           className="card-text"
           dangerouslySetInnerHTML={{ __html: ext.description }}
         />
-        {ext.links.map((link: URLLink) => {
-          return (
-            <a
-              href={link.url}
-              key={link.url}
-              className="card-link"
-              target="_blank"
-              rel="noopener noreferer"
-            >
-              {link.label != undefined ? link.label : link.url}
-            </a>
-          );
-        })}
+        <ul className="list-inline mb-0">
+          {ext.links.map((link: URLLink) => {
+            return (
+              <li key={link.url} className="list-inline-item">
+                <a
+                  href={link.url}
+                  className="card-link ms-0 me-3"
+                  // style={{ whiteSpace: "nowrap" }}
+                  target="_blank"
+                  rel="noopener noreferer"
+                >
+                  {link.label != undefined ? link.label : link.url}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
