@@ -82,37 +82,41 @@ export function AwesomeArcadeTool({
         </ul>
         {tool.forks != undefined && tool.forks.length > 0 ? (
           <div className="mt-3">
-            There {tool.forks.length === 1 ? "is" : "are"}{" "}
-            <b>{tool.forks.length}</b> fork{tool.forks.length !== 1 ? "s" : ""}{" "}
-            available:
-            <ul>
-              {tool.forks.map((t: ToolRef) => {
-                return (
-                  <li key={t.repo}>
-                    <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
-                      {t.repo}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="alert alert-primary mb-0" role="alert">
+              There {tool.forks.length === 1 ? "is" : "are"}{" "}
+              <b>{tool.forks.length}</b> fork
+              {tool.forks.length !== 1 ? "s" : ""} available:
+              <ul>
+                {tool.forks.map((t: ToolRef) => {
+                  return (
+                    <li key={t.repo}>
+                      <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
+                        {t.repo}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         ) : undefined}
         {tool.depreciatedBy != undefined && tool.depreciatedBy.length > 0 ? (
           <div className="mt-3">
-            This tool is depreciated by <b>{tool.depreciatedBy.length}</b> other
-            tool{tool.depreciatedBy.length !== 1 ? "s" : ""}:
-            <ul>
-              {tool.depreciatedBy.map((t: ToolRef) => {
-                return (
-                  <li key={t.repo}>
-                    <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
-                      {t.repo}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="alert alert-warning mb-0" role="alert">
+              This tool is depreciated by <b>{tool.depreciatedBy.length}</b>{" "}
+              other tool{tool.depreciatedBy.length !== 1 ? "s" : ""}:
+              <ul>
+                {tool.depreciatedBy.map((t: ToolRef) => {
+                  return (
+                    <li key={t.repo}>
+                      <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
+                        {t.repo}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         ) : undefined}
       </div>

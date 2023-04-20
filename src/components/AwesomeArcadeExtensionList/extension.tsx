@@ -143,37 +143,42 @@ export function AwesomeArcadeExtension({
         </ul>
         {ext.forks != undefined && ext.forks.length > 0 ? (
           <div className="mt-3">
-            There {ext.forks.length === 1 ? "is" : "are"}{" "}
-            <b>{ext.forks.length}</b> fork{ext.forks.length !== 1 ? "s" : ""}{" "}
-            available:
-            <ul>
-              {ext.forks.map((e: ExtensionRef) => {
-                return (
-                  <li key={e.repo}>
-                    <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
-                      {e.repo}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="alert alert-primary mb-0" role="alert">
+              There {ext.forks.length === 1 ? "is" : "are"}{" "}
+              <b>{ext.forks.length}</b> fork
+              {ext.forks.length !== 1 ? "s" : ""} available:
+              <ul>
+                {ext.forks.map((e: ExtensionRef) => {
+                  return (
+                    <li key={e.repo}>
+                      <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
+                        {e.repo}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         ) : undefined}
         {ext.depreciatedBy != undefined && ext.depreciatedBy.length > 0 ? (
           <div className="mt-3">
-            This extension is depreciated by <b>{ext.depreciatedBy.length}</b>{" "}
-            other extension{ext.depreciatedBy.length !== 1 ? "s" : ""}:
-            <ul>
-              {ext.depreciatedBy.map((e: ExtensionRef) => {
-                return (
-                  <li key={e.repo}>
-                    <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
-                      {e.repo}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="alert alert-warning mb-0" role="alert">
+              This extension is depreciated by <b>{ext.depreciatedBy.length}</b>{" "}
+              other extension
+              {ext.depreciatedBy.length !== 1 ? "s" : ""}:
+              <ul>
+                {ext.depreciatedBy.map((e: ExtensionRef) => {
+                  return (
+                    <li key={e.repo}>
+                      <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
+                        {e.repo}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         ) : undefined}
       </div>
