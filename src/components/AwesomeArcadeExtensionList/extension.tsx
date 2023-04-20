@@ -1,7 +1,8 @@
-import { Extension, Link } from "@/scripts/Utils/ParseExtensionsXML";
+import { Extension, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
+import Link from "next/link";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -12,6 +13,7 @@ export function AwesomeArcadeExtension({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): JSX.Element {
+  const [showCardLink, setShowCardLink] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
   const tippyRef = React.useRef<any>();
   const tipRef = React.useRef<any | undefined>();
@@ -54,9 +56,24 @@ export function AwesomeArcadeExtension({
   }, [tooltip]);
 
   return (
-    <div className={`card ${pad ? "mb-2" : ""}`}>
+    <div className={`card ${pad ? "mb-2" : ""}`} id={ext.repo}>
       <div className="card-body">
-        <h5 className="card-title">{ext.title}</h5>
+        <h5
+          className="card-title"
+          onMouseEnter={() => {
+            setShowCardLink(true);
+          }}
+          onMouseLeave={() => {
+            setShowCardLink(false);
+          }}
+        >
+          {ext.title}
+          {showCardLink ? (
+            <Link className="ms-1" href={`/#${ext.repo}`}>
+              <i className="bi-link-45deg" />
+            </Link>
+          ) : undefined}
+        </h5>
         <h6 className="card-subtitle mb-2 text-body-secondary">
           Made by{" "}
           <a
@@ -97,7 +114,7 @@ export function AwesomeArcadeExtension({
           className="card-text"
           dangerouslySetInnerHTML={{ __html: ext.description }}
         />
-        {ext.links.map((link: Link) => {
+        {ext.links.map((link: URLLink) => {
           return (
             <a
               href={link.url}

@@ -1,4 +1,4 @@
-import { Link, Tool } from "@/scripts/Utils/ParseExtensionsXML";
+import { Tool, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 
 export function AwesomeArcadeTool({
@@ -9,7 +9,7 @@ export function AwesomeArcadeTool({
   pad?: boolean | undefined;
 }): JSX.Element {
   return (
-    <div className={`card ${pad ? "mb-2" : ""}`}>
+    <div className={`card ${pad ? "mb-2" : ""}`} id={tool.repo}>
       <div className="card-body">
         <h5 className="card-title">{tool.title}</h5>
         <h6 className="card-subtitle mb-2 ttool-body-secondary">
@@ -34,7 +34,7 @@ export function AwesomeArcadeTool({
           className="card-ttool"
           dangerouslySetInnerHTML={{ __html: tool.description }}
         />
-        {tool.links.map((link: Link) => {
+        {tool.links.map((link: URLLink) => {
           return (
             <a
               href={link.url}

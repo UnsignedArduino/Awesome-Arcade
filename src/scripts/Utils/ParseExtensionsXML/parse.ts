@@ -21,7 +21,7 @@ export type Extension = {
   repo: string;
   url: string;
   description: string;
-  links: Link[];
+  links: URLLink[];
   forks?: ExtensionRef[] | null;
   depreciatedBy?: ExtensionRef[] | null;
 };
@@ -38,12 +38,12 @@ export type Tool = {
   repo: string;
   url: string;
   description: string;
-  links: Link[];
+  links: URLLink[];
   forks?: ToolRef[] | null;
   depreciatedBy?: ToolRef[] | null;
 };
 
-export type Link = {
+export type URLLink = {
   label?: string | null;
   url: string;
   isPrimary?: boolean | null;
@@ -115,8 +115,8 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
     const description = await markdownToHTML(
       findElementInElement(ext, "description").description[0]["#text"]
     );
-    const links: Link[] = findElementInElement(ext, "links").links.map(
-      (obj: any): Link => {
+    const links: URLLink[] = findElementInElement(ext, "links").links.map(
+      (obj: any): URLLink => {
         return {
           label: obj[":@"]["@_label"],
           url: obj.url[0]["#text"],
@@ -173,8 +173,8 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
     const description = await markdownToHTML(
       findElementInElement(t, "description").description[0]["#text"]
     );
-    const links: Link[] = findElementInElement(t, "links").links.map(
-      (obj: any): Link => {
+    const links: URLLink[] = findElementInElement(t, "links").links.map(
+      (obj: any): URLLink => {
         return {
           label: obj[":@"]["@_label"],
           url: obj.url[0]["#text"],

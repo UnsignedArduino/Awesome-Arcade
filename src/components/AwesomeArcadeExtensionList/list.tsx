@@ -4,6 +4,7 @@ import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
 import { AwesomeArcadeExtensionGroup } from "@/components/AwesomeArcadeExtensionList/extension";
 import { AwesomeArcadeToolGroup } from "@/components/AwesomeArcadeExtensionList/tool";
+import { LinkableH2 } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 
 export default function AwesomeArcadeExtensionList({
   list,
@@ -18,7 +19,9 @@ export default function AwesomeArcadeExtensionList({
   return (
     <div id="awesomeArcadeExtensions">
       <AwesomeArcadeExtensionGroup
-        title={<h2>Built-in extensions</h2>}
+        title={
+          <LinkableH2 id="built-in-extensions">Built-in extensions</LinkableH2>
+        }
         description={
           <p>
             These extensions are already built in to the editor, all you have to
@@ -30,7 +33,11 @@ export default function AwesomeArcadeExtensionList({
         showImportURL={false}
       />
       <AwesomeArcadeExtensionGroup
-        title={<h2>Not built-in extensions</h2>}
+        title={
+          <LinkableH2 id="not-built-in-extensions">
+            Not built-in extensions
+          </LinkableH2>
+        }
         description={
           <p>
             The following extensions, while just as good as the ones listed
@@ -45,7 +52,11 @@ export default function AwesomeArcadeExtensionList({
         exts={list.notBuiltIn}
       />
       <AwesomeArcadeExtensionGroup
-        title={<h2>Experimental extensions</h2>}
+        title={
+          <LinkableH2 id="experimental-extensions">
+            Experimental extensions
+          </LinkableH2>
+        }
         description={
           <p>
             Shouldn{"'"}t need an explanation.
@@ -57,7 +68,7 @@ export default function AwesomeArcadeExtensionList({
         exts={list.experimental}
       />
       <AwesomeArcadeToolGroup
-        title={<h2>Tools</h2>}
+        title={<LinkableH2 id="tools">Tools</LinkableH2>}
         description={
           <p>
             Yes, this is about useful MakeCode Arcade extensions but these tools
