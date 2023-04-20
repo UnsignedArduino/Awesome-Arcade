@@ -9,7 +9,7 @@ export function AwesomeArcadeTool({
   pad?: boolean | undefined;
 }): JSX.Element {
   return (
-    <div className={`card ${pad ? "mb-2" : ""}`} id={tool.repo}>
+    <div className={`card ${pad ? "mb-2" : ""} h-100`} id={tool.repo}>
       <div className="card-body">
         <h5 className="card-title">{tool.title}</h5>
         <h6 className="card-subtitle mb-2 ttool-body-secondary">
@@ -25,7 +25,13 @@ export function AwesomeArcadeTool({
         <>
           Access this tool at:
           <blockquote className="border-start border-secondary border-2 ps-3 mt-1 mb-2">
-            <a href={tool.url} target="_blank" rel="noopener noreferrer">
+            <a
+              className="text-start"
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ wordBreak: "break-all" }}
+            >
               {tool.url}
             </a>
           </blockquote>
@@ -67,15 +73,15 @@ export function AwesomeArcadeToolGroup({
     <div className={pad == undefined || pad ? "mb-3" : ""}>
       {title}
       {description}
-      {tools.map((tool, i) => {
-        return (
-          <AwesomeArcadeTool
-            key={tool.repo}
-            tool={tool}
-            pad={i < tools.length - 1}
-          />
-        );
-      })}
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        {tools.map((tool, i) => {
+          return (
+            <div className="col" key={tool.repo}>
+              <AwesomeArcadeTool tool={tool} pad={i < tools.length - 1} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

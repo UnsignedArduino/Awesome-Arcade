@@ -56,7 +56,7 @@ export function AwesomeArcadeExtension({
   }, [tooltip]);
 
   return (
-    <div className={`card ${pad ? "mb-2" : ""}`} id={ext.repo}>
+    <div className={`card ${pad ? "mb-2" : ""} h-100`} id={ext.repo}>
       <div className="card-body">
         <h5
           className="card-title"
@@ -90,8 +90,9 @@ export function AwesomeArcadeExtension({
             <blockquote className="border-start border-secondary border-2 mt-1 mb-2">
               <button
                 type="button"
-                className="btn btn-link"
+                className="btn btn-link text-start"
                 ref={urlBtnRef}
+                style={{ wordBreak: "break-all" }}
                 onClick={() => {
                   if (copyTextToClipboard(ext.url)) {
                     setTooltip("Copied!");
@@ -149,16 +150,19 @@ export function AwesomeArcadeExtensionGroup({
     <div className={pad == undefined || pad ? "mb-3" : ""}>
       {title}
       {description}
-      {exts.map((ext, i) => {
-        return (
-          <AwesomeArcadeExtension
-            key={ext.repo}
-            ext={ext}
-            showImportURL={showImportURL}
-            pad={i < exts.length - 1}
-          />
-        );
-      })}
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        {exts.map((ext, i) => {
+          return (
+            <div className="col mb-4" key={ext.repo}>
+              <AwesomeArcadeExtension
+                ext={ext}
+                showImportURL={showImportURL}
+                pad={i < exts.length - 1}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
