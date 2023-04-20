@@ -1,5 +1,7 @@
 import { Tool, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
+import Link from "next/link";
+import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 
 export function AwesomeArcadeTool({
   tool,
@@ -8,10 +10,31 @@ export function AwesomeArcadeTool({
   tool: Tool;
   pad?: boolean | undefined;
 }): JSX.Element {
+  const [showCardLink, setShowCardLink] = React.useState(false);
+
   return (
     <div className={`card ${pad ? "mb-2" : ""} h-100`} id={tool.repo}>
       <div className="card-body">
-        <h5 className="card-title">{tool.title}</h5>
+        <h5
+          className="card-title"
+          onMouseEnter={() => {
+            setShowCardLink(true);
+          }}
+          onMouseLeave={() => {
+            setShowCardLink(false);
+          }}
+        >
+          {tool.title}
+          {showCardLink ? (
+            <Link
+              className="ms-1"
+              href={`/#${tool.repo}`}
+              onClick={smoothScrollHash}
+            >
+              <i className="bi-link-45deg" />
+            </Link>
+          ) : undefined}
+        </h5>
         <h6 className="card-subtitle mb-2 ttool-body-secondary">
           Made by{" "}
           <a

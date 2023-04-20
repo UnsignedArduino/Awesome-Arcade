@@ -3,6 +3,7 @@ import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
+import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -69,7 +70,11 @@ export function AwesomeArcadeExtension({
         >
           {ext.title}
           {showCardLink ? (
-            <Link className="ms-1" href={`/#${ext.repo}`}>
+            <Link
+              className="ms-1"
+              href={`/#${ext.repo}`}
+              onClick={smoothScrollHash}
+            >
               <i className="bi-link-45deg" />
             </Link>
           ) : undefined}
