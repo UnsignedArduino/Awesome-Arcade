@@ -5,17 +5,17 @@ import Link from "next/link";
 export function smoothScrollHash(
   e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 ) {
-  // first prevent the default behavior
   e.preventDefault();
-  // get the href and remove everything before the hash (#)
-  const href = e.currentTarget.href;
-  const targetId = href.replace(/.*#/, "");
-  // get the element by id and use scrollIntoView
-  const elem = document.getElementById(targetId);
-  elem?.scrollIntoView({
+  smoothScrollToID(new URL(e.currentTarget.href).hash);
+}
+
+export function smoothScrollToID(id: string) {
+  document.getElementById(id)?.scrollIntoView({
     behavior: "smooth",
   });
-  window.location.replace(href);
+  const u = new URL(window.location.toString());
+  u.hash = id;
+  window.location.replace(u);
 }
 
 export function LinkableH2({

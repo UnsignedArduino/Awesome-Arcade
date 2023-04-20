@@ -10,6 +10,7 @@ import parseExtensionXML, {
   ExtensionList,
   Tool,
 } from "@/scripts/Utils/ParseExtensionsXML";
+import { smoothScrollToID } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 
 const pageName = "Home";
 
@@ -44,6 +45,33 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
     { extensions: number; tools: number } | undefined
   >(undefined);
 
+  const searchParam = "q";
+
+  React.useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get(searchParam);
+    if (q !== null) {
+      setSearch(q);
+    }
+    if (window.location.hash.length > 0) {
+      smoothScrollToID(window.location.hash);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (search === "") {
+      urlParams.delete(searchParam);
+    } else {
+      urlParams.set(searchParam, search);
+    }
+    const params = urlParams.toString();
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.pathname}${params.length > 0 ? `?${params}` : ""}`
+    );
+  }, [search]);
+
   React.useEffect(() => {
     if (search.length > 0) {
       const filtered = structuredClone(list);
@@ -61,7 +89,6 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
           }
         }
         if (group.length > 0) {
-          console.log(group[0].type);
           switch (group[0].type) {
             case "Extension": {
               extCount += group.length;
