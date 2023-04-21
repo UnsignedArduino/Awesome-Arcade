@@ -2,6 +2,7 @@ import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
+import { AnalyticEvents } from "@/components/Analytics";
 
 export function AwesomeArcadeTool({
   tool,
@@ -54,6 +55,9 @@ export function AwesomeArcadeTool({
               target="_blank"
               rel="noopener noreferrer"
               style={{ wordBreak: "break-all" }}
+              onClick={() => {
+                AnalyticEvents.sendAwesomeClick(tool.repo);
+              }}
             >
               {tool.url}
             </a>

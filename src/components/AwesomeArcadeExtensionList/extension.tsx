@@ -8,6 +8,7 @@ import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
+import { AnalyticEvents } from "@/components/Analytics";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -111,6 +112,7 @@ export function AwesomeArcadeExtension({
                     );
                   }
                   tipRef.current.setContent(tooltip);
+                  AnalyticEvents.sendAwesomeClick(ext.repo);
                 }}
               >
                 {ext.url}

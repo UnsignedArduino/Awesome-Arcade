@@ -8,3 +8,5 @@ export {
   getAnalyticsStorageConsent,
   setAnalyticsStorageConsent,
 } from "./analytics";
+
+export { AnalyticEvents } from "./specific";

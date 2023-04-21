@@ -1,7 +1,6 @@
 import type { NextWebVitalsMetric } from "next/app";
-import { GoogleAnalytics, event } from "nextjs-google-analytics";
+import { event, GoogleAnalytics } from "nextjs-google-analytics";
 import React from "react";
-import { getEnvironment } from "../WithAppProps";
 
 export function getAdStorageConsent(): string {
   return window.localStorage.getItem("adStorageConsent") || "denied";
@@ -27,20 +26,23 @@ export function setAnalyticsStorageConsent(consent: string): void {
   window.localStorage.setItem("analyticsStorage", consent);
 }
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
+
 export function Analytics(): JSX.Element {
   const [useGA, setUseGA] = React.useState<boolean>(false);
-  React.useEffect(() => {
-    if (getEnvironment() === "development") {
-      console.info("Google Analytics disabled during development");
-      return;
-    }
 
-    // @ts-ignore
+  React.useEffect(() => {
     window.dataLayer = window.dataLayer || [];
     function gtag() {
-      // @ts-ignore
-      dataLayer.push(arguments);
+      window.dataLayer.push(arguments);
     }
+
+    window.gtag = gtag;
 
     // @ts-ignore
     gtag("consent", "default", {
@@ -63,6 +65,11 @@ export function Analytics(): JSX.Element {
       ads_data_redaction: getAdsDataRedaction(),
       analytics_storage: getAnalyticsStorageConsent(),
     });
+
+    // if (getEnvironment() === "development") {
+    //   console.info("Google Analytics disabled during development");
+    //   return;
+    // }
 
     setUseGA(true);
   }, []);
