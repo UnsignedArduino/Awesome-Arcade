@@ -4,4 +4,10 @@ export namespace AnalyticEvents {
       repository: repo,
     });
   }
+
+  export function sendSearch(query: string) {
+    window.gtag("event", "search", {
+      query,
+    });
+  }
 }

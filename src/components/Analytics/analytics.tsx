@@ -66,10 +66,10 @@ export function Analytics(): JSX.Element {
       analytics_storage: getAnalyticsStorageConsent(),
     });
 
-    // if (getEnvironment() === "development") {
-    //   console.info("Google Analytics disabled during development");
-    //   return;
-    // }
+    if (getEnvironment() === "development") {
+      console.info("Google Analytics disabled during development");
+      return;
+    }
 
     setUseGA(true);
   }, []);

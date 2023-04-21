@@ -11,6 +11,8 @@ import parseExtensionXML, {
   Tool,
 } from "@/scripts/Utils/ParseExtensionsXML";
 import { smoothScrollToID } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
+import { debounce } from "@/scripts/Utils/Timers";
+import { AnalyticEvents } from "@/components/Analytics";
 
 const pageName = "Home";
 
@@ -135,7 +137,15 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
             placeholder="Search by author or name!"
             defaultValue={search}
             onChange={(event) => {
-              setSearch(event.target.value);
+              const v = event.target.value;
+              setSearch(v);
+              debounce(
+                "searchChange",
+                () => {
+                  AnalyticEvents.sendSearch(v);
+                },
+                1000
+              );
             }}
             aria-label="Search query"
             aria-describedby="searchLabel"
