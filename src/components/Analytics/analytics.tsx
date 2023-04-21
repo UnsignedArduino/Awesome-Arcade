@@ -1,6 +1,7 @@
 import type { NextWebVitalsMetric } from "next/app";
 import { event, GoogleAnalytics } from "nextjs-google-analytics";
 import React from "react";
+import { getEnvironment } from "@/components/WithAppProps";
 
 export function getAdStorageConsent(): string {
   return window.localStorage.getItem("adStorageConsent") || "denied";
