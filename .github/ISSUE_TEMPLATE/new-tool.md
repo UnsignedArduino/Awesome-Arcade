@@ -1,0 +1,13 @@
+---
+name: New tool
+about: Propose to add a new tool.
+title: Add tool [INSERT TOOL URL]
+labels: tool
+assignees: ''
+
+---
+
+Tool: [INSERT TOOL LINK - REQUIRED IF SEPARATE WEB PAGE]
+GitHub repo: [INSERT GITHUB REPO LINK - REQUIRED]
+Forum post: [INSERT MAKECODE FORUMS LINK - NOT REQUIRED]
+Description: [INSERT SHORT DESCRIPTION THAT IS SIMILAR TO CURRENT DESCRIPTIONS OF TOOLS - REQUIRED]
