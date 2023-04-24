@@ -442,6 +442,59 @@
         <url label="Demo">https://arcade.makecode.com/73556-43866-67413-93047</url>
       </links>
     </extension>
+    <extension repo="lucasmayhew/castletilesetvol1">
+      <description>A beautiful set of tiles and images by @lucasmayhew fit for a game based on a castle! This adds a set of images and tiles to the gallery.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/lucasmayhew/castletilesetvol1/</url>
+        <url label="Forum post">https://forum.makecode.com/t/i-made-a-sprite-pack/14963?u=unsignedarduino</url>
+        <url label="Demo">https://forum.makecode.com/t/coder-king-a-competition/14710/70?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="UnsignedArduino/ArcadeMIDI">
+      <description>A new and improved version of the Musical-Images extension, this extension can play MIDI files after conversion using the associated tool! ([Offline](https://github.com/UnsignedArduino/ArcadeMIDIGenerator) and [online](https://arcademidigeneratoronlinemain.gatsbyjs.io/) versions of the converter exist) This adds a new category `Arcade MIDI`.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/ArcadeMIDI</url>
+        <url label="Forum post">https://forum.makecode.com/t/arcademidi-extension/15079?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/08305-64887-13518-23118</url>
+        <url label="Offline MIDI converter">https://github.com/UnsignedArduino/ArcadeMIDIGenerator</url>
+        <url label="Online MIDI converter">https://arcademidigeneratoronlinemain.gatsbyjs.io/</url>
+      </links>
+    </extension>
+    <extension repo="meeeeeeeep1/custom-systemmenu-options">
+      <description>This simple extension adds a single block into a `Menu` category that allows you to add icons to the system menu!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/meeeeeeeep1/custom-systemmenu-options/</url>
+        <url label="Forum post">https://forum.makecode.com/t/custom-menu-showcase/18381?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="S0m3randomguy/enums">
+      <description>Another simple yet sweet extension providing access to enums to block users! This adds an `Enums` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/S0m3randomguy/enums</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-enums-in-blocks/19170?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="S0m3randomguy/bettersettings">
+      <description>A much-needed extension that adds more blocks to the block settings extension, allowing you to store even more data types, including arrays and images! This extension adds a category called `BetterSettings` to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/S0m3randomguy/bettersettings</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-bettersettings-save-booleans-images-and-string-arrays/19089?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="S0m3randomguy/declutter">
+      <description>This extension adds simple dictionary/object-like functions to access an object where you can store sprites with a label, eliminating the need for `tempSprite` and `tempTitleSprite` and `tempSelectorSprite` and `tempTempTempSprite` and more! This adds a category called `Declutter`.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/S0m3randomguy/declutter</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-declutter-your-variables/18813?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="Blobbey2000/pxt-clock">
+      <description>You didn't know you needed this extension that provides blocks to manipulate a _clock_! No more variables and threads and string concatenations to make a simple clock, this extension eliminates all of those problems! Adds a `Clock` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/Blobbey2000/pxt-clock</url>
+        <url label="Forum post">https://forum.makecode.com/t/clock-extension/19191?u=unsignedarduino</url>
+      </links>
+    </extension>
   </extensionList>
   <extensionList label="Experimental">
     <extension repo="livcheerful/arcade-soundtrack">
@@ -497,6 +550,21 @@
       <description>I have written a Python script that will turn images and multi-frame GIFs into MakeCode Arcade images and arrays! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Image-to-MakeCode-Arcade</url>
+        <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
+      </links>
+    </tool>
+    <tool repo="UnsignedArduino/ArcadeMIDIGenerator">
+      <description>I have written a Python script that will turn MIDI files into images compatible with the ArcadeMIDI extension! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/ArcadeMIDIGenerator</url>
+        <url label="Forum post">https://forum.makecode.com/t/arcademidi-extension/15079?u=unsignedarduino</url>
+      </links>
+    </tool>
+    <tool repo="UnsignedArduino/ArcadeMIDIGeneratorOnline">
+      <description>This is an online version of the ArcadeMIDI generator tool, removing the need for you to download/install the neccessary tools to convert MIDI files!</description>
+      <links>
+        <url label="Tool" isPrimary="true">https://arcademidigeneratoronlinemain.gatsbyjs.io/</url>
+        <url label="GitHub repo">https://github.com/UnsignedArduino/ArcadeMIDIGeneratorOnline</url>
         <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
       </links>
     </tool>
