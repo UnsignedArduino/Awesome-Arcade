@@ -38,18 +38,14 @@ export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
           rel="noopener noreferrer"
         >
           GitHub Discussions
-        </a>
-        , the{" "}
+        </a>{" "}
+        or the{" "}
         <a
           href="https://forum.makecode.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
           MakeCode forums
-        </a>
-        , or email me at{" "}
-        <a href="mailto:unsignedarduino@outlook.com">
-          unsignedarduino@outlook.com
         </a>
         .
       </p>
