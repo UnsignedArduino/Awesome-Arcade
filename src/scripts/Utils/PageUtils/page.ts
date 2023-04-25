@@ -1,5 +1,9 @@
 export function isExternalLink(url: string): boolean {
-  return new URL(url).host !== window.location.host;
+  try {
+    return new URL(url).host !== window.location.host;
+  } catch {
+    return false;
+  }
 }
 
 export function forceOutboundLinksToNewPage(parent: Element) {

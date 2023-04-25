@@ -61,6 +61,28 @@ export function AwesomeArcadeExtension({
     }
   }, [tooltip]);
 
+  const [clickCount, setClickCount] = React.useState("");
+
+  const updateClickCount = (event: CustomEvent) => {
+    if (event.detail.repo === ext.repo) {
+      const c = event.detail.count;
+      setClickCount(c != undefined ? c : "");
+    }
+  };
+
+  React.useEffect(() => {
+    window.document.documentElement.addEventListener(
+      "repoclickcountchange",
+      updateClickCount
+    );
+    return () => {
+      window.document.documentElement.removeEventListener(
+        "repoclickcountchange",
+        updateClickCount
+      );
+    };
+  }, []); // eslint-disable-line
+
   return (
     <div className={`card ${pad ? "mb-2" : ""} h-100`} id={ext.repo}>
       <div className="card-body">
@@ -98,25 +120,67 @@ export function AwesomeArcadeExtension({
           <>
             Import this extension with the URL:
             <blockquote className="border-start border-secondary border-2 mt-1 mb-2">
-              <button
-                type="button"
-                className="btn btn-link text-start"
-                ref={urlBtnRef}
-                style={{ wordBreak: "break-all" }}
-                onClick={() => {
-                  if (copyTextToClipboard(ext.url)) {
-                    setTooltip("Copied!");
-                  } else {
-                    setTooltip(
-                      "Failed to copy - did you give us clipboard permission?"
+              {/* This transform is applied so the stretched-link only applies up to this div */}
+              <div style={{ transform: "rotate(0)" }}>
+                <button
+                  type="button"
+                  className="btn text-start"
+                  ref={urlBtnRef}
+                  style={{ wordBreak: "break-all" }}
+                  onClick={() => {
+                    if (copyTextToClipboard(ext.url)) {
+                      setTooltip("Copied!");
+                    } else {
+                      setTooltip(
+                        "Failed to copy - did you give us clipboard permission?"
+                      );
+                    }
+                    tipRef.current.setContent(tooltip);
+                    window.document.documentElement.dispatchEvent(
+                      new CustomEvent<string>("clickrepo", {
+                        detail: ext.repo,
+                      })
                     );
-                  }
-                  tipRef.current.setContent(tooltip);
-                  AnalyticEvents.sendAwesomeClick(ext.repo);
-                }}
-              >
-                {ext.url}
-              </button>
+                    AnalyticEvents.sendAwesomeClick(ext.repo);
+                  }}
+                >
+                  <a className="stretched-link">{ext.url}</a>
+                  <span hidden={clickCount === "0"}>
+                    {" "}
+                    <small>
+                      <span className="badge text-bg-secondary">
+                        {clickCount != undefined && clickCount.length > 0 ? (
+                          <>
+                            {clickCount}
+                            <span className="visually-hidden"> clicks</span>
+                          </>
+                        ) : (
+                          <span
+                            className="placeholder-glow align-middle d-inline-block align-top"
+                            style={{
+                              position: "relative",
+                              top: "-0.2em",
+                              height: "0.8em",
+                            }}
+                          >
+                            <span
+                              className="placeholder align-top d-inline-block"
+                              style={{ width: "1.5em" }}
+                            />
+                          </span>
+                          // <div
+                          //   className="spinner-border"
+                          //   style={{ width: "0.5rem", height: "0.5rem" }}
+                          //   role="status"
+                          // >
+                          //   <span className="visually-hidden">Loading...</span>
+                          // </div>
+                        )}
+                      </span>
+                    </small>
+                  </span>
+                </button>
+              </div>
             </blockquote>
           </>
         ) : (

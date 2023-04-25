@@ -13,10 +13,23 @@ import parseExtensionXML, {
 import { smoothScrollToID } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
+import { formatNumber } from "@/scripts/Utils/Numbers";
 
 const pageName = "Home";
 
 type HomeProps = { appProps: AppProps; list: ExtensionList };
+
+type ClickCountListing = { [repo: string]: string };
+
+declare global {
+  interface HTMLElementEventMap {
+    clickrepo: CustomEvent<string>;
+    repoclickcountchange: CustomEvent<{
+      repo: string;
+      count: string | undefined;
+    }>;
+  }
+}
 
 export function Home({ appProps, list }: HomeProps): JSX.Element {
   const [_, setTheme] = React.useState<"dark" | "light">("light");
@@ -108,6 +121,108 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
       setResultCount(undefined);
     }
   }, [search, list]);
+
+  const allReposRef = React.useRef<string[]>([]);
+
+  const dispatchRepoClickCountChange = (
+    repo: string,
+    count: string | undefined
+  ) => {
+    window.document.documentElement.dispatchEvent(
+      new CustomEvent<{ repo: string; count: string | undefined }>(
+        "repoclickcountchange",
+        {
+          detail: {
+            repo,
+            count,
+          },
+        }
+      )
+    );
+  };
+
+  const dispatchRepoClickCountChanges = (
+    listing: ClickCountListing | undefined
+  ) => {
+    for (const key of allReposRef.current) {
+      dispatchRepoClickCountChange(
+        key,
+        listing != undefined ? listing[key] : undefined
+      );
+    }
+  };
+
+  const refreshAllClickCounts = () => {
+    console.log("Refreshing click counts");
+    fetch(`${window.location.origin}/api/all/`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        allReposRef.current = [];
+        for (const key of Object.keys(json)) {
+          json[key] = formatNumber(json[key]);
+          allReposRef.current.push(key);
+        }
+        dispatchRepoClickCountChanges(json);
+        console.log(
+          `Successfully refreshed ${allReposRef.current.length} click counts`
+        );
+      })
+      .catch((error) => {
+        allReposRef.current = [];
+        dispatchRepoClickCountChanges(undefined);
+        console.error(`Error fetching click counts: ${error}`);
+      });
+  };
+
+  const refreshCountsRef = React.useRef<number | undefined>(undefined);
+  const REFRESH_CLICK_COUNT_PERIOD = 1000 * 60 * 2;
+
+  React.useEffect(() => {
+    window.clearInterval(refreshCountsRef.current);
+
+    refreshAllClickCounts();
+
+    refreshCountsRef.current = window.setInterval(
+      refreshAllClickCounts,
+      REFRESH_CLICK_COUNT_PERIOD
+    );
+    return () => {
+      window.clearInterval(refreshCountsRef.current);
+    };
+  }, []); // eslint-disable-line
+
+  const logRepoClickFromEvent = (event: CustomEvent<string>) => {
+    const repo = event.detail;
+    fetch(`${window.location.origin}/api/click?repo=${repo}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        const repo = Object.keys(json)[0];
+        const count = formatNumber(json[repo]);
+        dispatchRepoClickCountChange(repo, count);
+      })
+      .catch((error) => {
+        console.error(
+          `Error refreshing individual click count for ${repo}: ${error}`
+        );
+      });
+  };
+
+  React.useEffect(() => {
+    window.document.documentElement.addEventListener(
+      "clickrepo",
+      logRepoClickFromEvent
+    );
+    return () => {
+      window.document.documentElement.removeEventListener(
+        "clickrepo",
+        logRepoClickFromEvent
+      );
+    };
+  }, []); // eslint-disable-line
 
   return (
     <Layout
