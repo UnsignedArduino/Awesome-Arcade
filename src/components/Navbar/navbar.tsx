@@ -16,11 +16,17 @@ type NavbarProps = {
   appName: string;
   appProps: AppProps;
   currentPage?: string;
+  extraNavbarHTML?: JSX.Element | undefined;
 };
 
-function Navbar({ appName, appProps, currentPage }: NavbarProps): JSX.Element {
+function Navbar({
+  appName,
+  appProps,
+  currentPage,
+  extraNavbarHTML,
+}: NavbarProps): JSX.Element {
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar sticky-top bg-body-tertiary navbar-expand-md">
       <div className="container-fluid">
         <div className="d-inline-flex align-items-center text-start">
           <Image
@@ -102,11 +108,21 @@ function Navbar({ appName, appProps, currentPage }: NavbarProps): JSX.Element {
               })}
             </ul>
           </div>
-          <div className="d-flex d-inline d-lg-none">
+          {extraNavbarHTML != undefined ? (
+            <div className="d-flex d-inline d-md-none mb-2">
+              {extraNavbarHTML}
+            </div>
+          ) : undefined}
+          <div className="d-flex d-inline d-md-none">
             <NavbarDropdownThemePicker />
           </div>
         </div>
-        <div className="d-flex d-none d-lg-inline">
+        {extraNavbarHTML != undefined ? (
+          <div className="d-flex d-none d-md-inline me-2">
+            {extraNavbarHTML}
+          </div>
+        ) : undefined}
+        <div className="d-flex d-none d-md-inline">
           <NavbarDropdownThemePicker alignEnd />
         </div>
       </div>

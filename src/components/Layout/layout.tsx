@@ -24,6 +24,7 @@ type LayoutProps = {
   showFooter?: boolean;
   dontShowServicesWarning?: boolean;
   dontShowAdblockerWarning?: boolean;
+  extraNavbarHTML?: JSX.Element | undefined;
 };
 
 function Layout({
@@ -37,6 +38,7 @@ function Layout({
   putInDIV,
   showFooter,
   dontShowServicesWarning,
+  extraNavbarHTML,
 }: // dontShowAdblockerWarning,
 LayoutProps): JSX.Element {
   const breadCrumbsHTML =
@@ -136,7 +138,12 @@ LayoutProps): JSX.Element {
         {/* <meta name="twitter:image" content="/opengraph.png" /> */}
       </Head>
 
-      <Navbar appName={appName} appProps={appProps} currentPage={currentPage} />
+      <Navbar
+        appName={appName}
+        appProps={appProps}
+        currentPage={currentPage}
+        extraNavbarHTML={extraNavbarHTML}
+      />
 
       {dontShowServicesWarning ? <></> : <TOSBanner />}
       {/* {dontShowAdblockerWarning ? <></> : <AdblockDetectionBanner />} */}

@@ -9,7 +9,7 @@ import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
-import { ClickCountContext } from "@/pages";
+import { ClickCountContext } from "@/pages/contexts";
 import { formatNumber } from "@/scripts/Utils/Numbers";
 
 export function AwesomeArcadeExtension({
@@ -25,17 +25,17 @@ export function AwesomeArcadeExtension({
   const [tooltip, setTooltip] = React.useState("Click to copy");
   const tippyRef = React.useRef<any>();
   const tipRef = React.useRef<any | undefined>();
-  const urlBtnRef = React.useRef<HTMLButtonElement | null>(null);
+  const urlRef = React.useRef<HTMLAnchorElement | null>(null);
 
   React.useEffect(() => {
     import("tippy.js").then((tippy) => {
       tippyRef.current = tippy;
       if (
-        urlBtnRef.current != undefined &&
+        urlRef.current != undefined &&
         tippyRef.current != undefined &&
         tipRef.current == undefined
       ) {
-        tipRef.current = tippyRef.current.default(urlBtnRef.current, {
+        tipRef.current = tippyRef.current.default(urlRef.current, {
           content: tooltip,
           hideOnClick: false,
           onHidden: () => {
@@ -51,8 +51,8 @@ export function AwesomeArcadeExtension({
       const t = tipRef.current;
       t.setContent(tooltip);
     } else {
-      if (urlBtnRef.current != undefined && tippyRef.current != undefined) {
-        tipRef.current = tippyRef.current.default(urlBtnRef.current, {
+      if (urlRef.current != undefined && tippyRef.current != undefined) {
+        tipRef.current = tippyRef.current.default(urlRef.current, {
           content: tooltip,
           hideOnClick: false,
           onHidden: () => {
@@ -116,7 +116,6 @@ export function AwesomeArcadeExtension({
                 <button
                   type="button"
                   className="btn text-start"
-                  ref={urlBtnRef}
                   style={{ wordBreak: "break-all" }}
                   onClick={() => {
                     if (copyTextToClipboard(ext.url)) {
@@ -135,7 +134,9 @@ export function AwesomeArcadeExtension({
                     AnalyticEvents.sendAwesomeClick(ext.repo);
                   }}
                 >
-                  <a className="stretched-link">{ext.url}</a>
+                  <a className="stretched-link" ref={urlRef}>
+                    {ext.url}
+                  </a>
                   <span hidden={clickCount === "0"}>
                     {" "}
                     <small>
