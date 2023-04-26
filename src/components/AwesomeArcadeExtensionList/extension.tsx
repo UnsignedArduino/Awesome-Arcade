@@ -9,6 +9,8 @@ import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
+import { ClickCountContext } from "@/pages";
+import { formatNumber } from "@/scripts/Utils/Numbers";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -61,27 +63,16 @@ export function AwesomeArcadeExtension({
     }
   }, [tooltip]);
 
+  const clickCounts = React.useContext(ClickCountContext);
   const [clickCount, setClickCount] = React.useState("");
 
-  const updateClickCount = (event: CustomEvent) => {
-    if (event.detail.repo === ext.repo) {
-      const c = event.detail.count;
-      setClickCount(c != undefined ? c : "");
-    }
-  };
-
   React.useEffect(() => {
-    window.document.documentElement.addEventListener(
-      "repoclickcountchange",
-      updateClickCount
-    );
-    return () => {
-      window.document.documentElement.removeEventListener(
-        "repoclickcountchange",
-        updateClickCount
-      );
-    };
-  }, []); // eslint-disable-line
+    if (clickCounts != undefined) {
+      setClickCount(formatNumber(clickCounts[ext.repo]));
+    } else {
+      setClickCount("");
+    }
+  }, [clickCounts, ext.repo]);
 
   return (
     <div className={`card ${pad ? "mb-2" : ""} h-100`} id={ext.repo}>

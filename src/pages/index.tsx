@@ -13,13 +13,12 @@ import parseExtensionXML, {
 import { smoothScrollToID } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
-import { formatNumber } from "@/scripts/Utils/Numbers";
 
 const pageName = "Home";
 
 type HomeProps = { appProps: AppProps; list: ExtensionList };
 
-type ClickCountListing = { [repo: string]: string };
+type ClickCountListing = { [repo: string]: number };
 
 declare global {
   interface HTMLElementEventMap {
@@ -30,6 +29,10 @@ declare global {
     }>;
   }
 }
+
+export const ClickCountContext = React.createContext<
+  ClickCountListing | undefined
+>(undefined);
 
 export function Home({ appProps, list }: HomeProps): JSX.Element {
   const [_, setTheme] = React.useState<"dark" | "light">("light");
@@ -122,35 +125,9 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
     }
   }, [search, list]);
 
-  const allReposRef = React.useRef<string[]>([]);
-
-  const dispatchRepoClickCountChange = (
-    repo: string,
-    count: string | undefined
-  ) => {
-    window.document.documentElement.dispatchEvent(
-      new CustomEvent<{ repo: string; count: string | undefined }>(
-        "repoclickcountchange",
-        {
-          detail: {
-            repo,
-            count,
-          },
-        }
-      )
-    );
-  };
-
-  const dispatchRepoClickCountChanges = (
-    listing: ClickCountListing | undefined
-  ) => {
-    for (const key of allReposRef.current) {
-      dispatchRepoClickCountChange(
-        key,
-        listing != undefined ? listing[key] : undefined
-      );
-    }
-  };
+  const [clickCounts, setClickCounts] = React.useState<
+    ClickCountListing | undefined
+  >(undefined);
 
   const refreshAllClickCounts = () => {
     console.log("Refreshing click counts");
@@ -159,19 +136,13 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
         return response.json();
       })
       .then((json) => {
-        allReposRef.current = [];
-        for (const key of Object.keys(json)) {
-          json[key] = formatNumber(json[key]);
-          allReposRef.current.push(key);
-        }
-        dispatchRepoClickCountChanges(json);
+        setClickCounts(json);
         console.log(
-          `Successfully refreshed ${allReposRef.current.length} click counts`
+          `Successfully refreshed ${Object.keys(json).length} click counts`
         );
       })
       .catch((error) => {
-        allReposRef.current = [];
-        dispatchRepoClickCountChanges(undefined);
+        setClickCounts(undefined);
         console.error(`Error fetching click counts: ${error}`);
       });
   };
@@ -180,8 +151,6 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
   const REFRESH_CLICK_COUNT_PERIOD = 1000 * 60 * 2;
 
   React.useEffect(() => {
-    window.clearInterval(refreshCountsRef.current);
-
     refreshAllClickCounts();
 
     refreshCountsRef.current = window.setInterval(
@@ -193,6 +162,13 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
     };
   }, []); // eslint-disable-line
 
+  // I hate closures
+  const clickCountRef = React.useRef<ClickCountListing | undefined>(undefined);
+
+  React.useEffect(() => {
+    clickCountRef.current = clickCounts;
+  }, [clickCounts]);
+
   const logRepoClickFromEvent = (event: CustomEvent<string>) => {
     const repo = event.detail;
     fetch(`${window.location.origin}/api/click?repo=${repo}`)
@@ -201,10 +177,16 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
       })
       .then((json) => {
         const repo = Object.keys(json)[0];
-        const count = formatNumber(json[repo]);
-        dispatchRepoClickCountChange(repo, count);
+        if (clickCountRef.current != undefined) {
+          const counts = structuredClone(clickCountRef.current);
+          counts[repo] = json[repo];
+          setClickCounts(counts);
+        } else {
+          throw new Error("Click count cache is undefined");
+        }
       })
       .catch((error) => {
+        setClickCounts(undefined);
         console.error(
           `Error refreshing individual click count for ${repo}: ${error}`
         );
@@ -273,7 +255,9 @@ export function Home({ appProps, list }: HomeProps): JSX.Element {
             tool{resultCount.tools !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
-        <AwesomeArcadeExtensionList list={filteredList} />
+        <ClickCountContext.Provider value={clickCounts}>
+          <AwesomeArcadeExtensionList list={filteredList} />
+        </ClickCountContext.Provider>
       </div>
     </Layout>
   );
