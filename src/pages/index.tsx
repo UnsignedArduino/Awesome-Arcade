@@ -13,7 +13,7 @@ import parseExtensionXML, {
 import { smoothScrollToID } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
-import { ClickCountContext } from "@/pages/contexts";
+import { ClickCountContext } from "@/components/contexts";
 import Tippy from "@tippyjs/react";
 
 const pageName = "Home";

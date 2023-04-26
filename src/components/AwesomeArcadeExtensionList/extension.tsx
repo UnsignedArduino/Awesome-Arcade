@@ -9,7 +9,7 @@ import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
-import { ClickCountContext } from "@/pages/contexts";
+import { ClickCountContext } from "@/components/contexts";
 import { formatNumber } from "@/scripts/Utils/Numbers";
 
 export function AwesomeArcadeExtension({
