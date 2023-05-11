@@ -222,7 +222,7 @@ export function AwesomeArcadeExtension({
         {ext.depreciatedBy != undefined && ext.depreciatedBy.length > 0 ? (
           <div className="mt-3">
             <div className="alert alert-warning mb-0" role="alert">
-              This extension is depreciated by <b>{ext.depreciatedBy.length}</b>{" "}
+              This extension is deprecated by <b>{ext.depreciatedBy.length}</b>{" "}
               other extension
               {ext.depreciatedBy.length !== 1 ? "s" : ""}:
               <ul>
