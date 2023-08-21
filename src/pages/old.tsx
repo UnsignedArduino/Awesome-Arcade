@@ -1,13 +1,13 @@
 import React from "react";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
-import AwesomeArcadeExtensionList from "../components/AwesomeArcadeExtensionList";
+import AwesomeArcadeExtensionList from "@/components/OldAwesomeArcadeExtensionList/list";
 import parseExtensionXML, {
   Extension,
   ExtensionList,
   Tool,
 } from "@/scripts/Utils/ParseExtensionsXML";
-import { smoothScrollToID } from "@/components/AwesomeArcadeExtensionList/linkableHeader";
+import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import { ClickCountContext } from "@/components/contexts";
