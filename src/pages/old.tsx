@@ -1,23 +1,23 @@
 import React from "react";
-import { promises as fs } from "fs";
 import Layout from "../components/Layout";
-import getAppProps, { AppProps } from "../components/WithAppProps";
-import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
-import Link from "next/link";
+import getAppProps, { AppProps } from "@/components/WithAppProps";
+import AwesomeArcadeExtensionList from "@/components/OldAwesomeArcadeExtensionList/list";
 import parseExtensionXML, {
+  Extension,
   ExtensionList,
+  Tool,
 } from "@/scripts/Utils/ParseExtensionsXML";
-import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
-import { ClickCountContext } from "@/components/contexts";
-import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeExtensionList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
+import { ClickCountContext } from "@/components/contexts";
 import Tippy from "@tippyjs/react";
+import { promises as fs } from "fs";
+import path from "path";
 
-const pageName = "Extensions";
+const pageName = "Old home";
 
-type ExtensionsProps = { appProps: AppProps; list: ExtensionList };
+type OldHomeProps = { appProps: AppProps; list: ExtensionList };
 
 export type ClickCountListing = { [repo: string]: number };
 
@@ -31,7 +31,7 @@ declare global {
   }
 }
 
-export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
+export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<
@@ -59,21 +59,6 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
     }
     window.history.replaceState({}, "", url.toString());
   }, [search]);
-
-  // React.useEffect(() => {
-  //   document.addEventListener("keydown", (e) => {
-  //     if (e.keyCode === 114 || ((e.ctrlKey || e.metaKey) && e.keyCode === 70)) {
-  //       e.preventDefault();
-  //     }
-  //     if ((e.ctrlKey || e.metaKey) && e.code == "KeyF") {
-  //       setTimeout(() => {
-  //         console.log("FOCUS FIND");
-  //         const searchBar = getElement("searchBar") as HTMLInputElement;
-  //         searchBar.focus();
-  //       }, 1000);
-  //     }
-  //   });
-  // }, []);
 
   React.useEffect(() => {
     if (search.length > 0) {
@@ -201,21 +186,20 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description=""
-      keywords=""
+      description="This is a list of MakeCode Arcade extensions that I find super useful (or just plain cool) in my projects."
+      keywords="Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions"
       extraNavbarHTML={
-        <Tippy content="Search extensions by author or name!">
+        <Tippy content="Search extensions and tools by author or name!">
           <input
             type="text"
             className="form-control"
-            placeholder="Search extensions by author or name!"
+            placeholder="Search extensions and tools by author or name!"
             defaultValue={search}
-            id="searchBar"
             onChange={(event) => {
               const v = event.target.value;
               setSearch(v);
               debounce(
-                "extensionSearchChange",
+                "searchChange",
                 () => {
                   AnalyticEvents.sendSearch(v);
                 },
@@ -236,25 +220,16 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
       </p>
-      <p>
-        To use these extensions, you will need to import them. First go to the
-        toolbox, click on <code>Extensions</code>, and you will see a text box
-        that says <code>Search or enter project URL...</code> This is where you
-        will paste in the URL to the extension. The URL will be posted along
-        with the extensions below.
-      </p>
-      <p>
-        You can find the old home page <Link href="/old">here</Link>.
-      </p>
       <div>
         {resultCount != undefined ? (
           <p>
             Found {resultCount.extensions} extension
-            {resultCount.extensions !== 1 ? "s" : ""}.
+            {resultCount.extensions !== 1 ? "s" : ""} and {resultCount.tools}{" "}
+            tool{resultCount.tools !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
         <ClickCountContext.Provider value={clickCounts}>
-          <AwesomeArcadeExtensionsList list={filteredList} />
+          <AwesomeArcadeExtensionList list={filteredList} />
         </ClickCountContext.Provider>
       </div>
     </Layout>
@@ -262,30 +237,20 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
 }
 
 export async function getStaticProps(): Promise<{
-  props: ExtensionsProps;
+  props: OldHomeProps;
 }> {
-  await fs.writeFile(
-    "./public/site.webmanifest",
-    await generateSiteWebmanifest()
-  );
-
   const list = await parseExtensionXML(
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
     ).toString()
   );
 
-  await fs.writeFile(
-    "./public/extensions.json",
-    JSON.stringify(list, undefined, 2)
-  );
-
   return {
     props: {
       appProps: await getAppProps(),
-      list: list,
+      list,
     },
   };
 }
 
-export default Extensions;
+export default OldHome;

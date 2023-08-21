@@ -183,6 +183,28 @@ export function ThemeProxy(): JSX.Element {
     window.localStorage.setItem("themeUsed", actualTheme);
   }, [actualTheme, loadedPreferredTheme]);
 
+  const [_, setTheme] = React.useState<"dark" | "light">("light");
+
+  function onThemeChange(event: CustomEvent<"Dark" | "Light">) {
+    setTheme(event.detail.toLowerCase() as "dark" | "light");
+  }
+
+  React.useEffect(() => {
+    let theme = window.localStorage.getItem("themeUsed");
+    if (theme === null) {
+      theme = "light";
+    } else {
+      theme = theme.toLowerCase();
+    }
+
+    window.document.documentElement.addEventListener(
+      "themeused",
+      onThemeChange
+    );
+
+    setTheme(theme as "dark" | "light");
+  }, []);
+
   return <></>;
 }
 
