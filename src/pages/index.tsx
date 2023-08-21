@@ -60,6 +60,21 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
     window.history.replaceState({}, "", url.toString());
   }, [search]);
 
+  // React.useEffect(() => {
+  //   document.addEventListener("keydown", (e) => {
+  //     if (e.keyCode === 114 || ((e.ctrlKey || e.metaKey) && e.keyCode === 70)) {
+  //       e.preventDefault();
+  //     }
+  //     if ((e.ctrlKey || e.metaKey) && e.code == "KeyF") {
+  //       setTimeout(() => {
+  //         console.log("FOCUS FIND");
+  //         const searchBar = getElement("searchBar") as HTMLInputElement;
+  //         searchBar.focus();
+  //       }, 1000);
+  //     }
+  //   });
+  // }, []);
+
   React.useEffect(() => {
     if (search.length > 0) {
       const filtered = structuredClone(list);
@@ -195,6 +210,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
             className="form-control"
             placeholder="Search extensions by author or name!"
             defaultValue={search}
+            id="searchBar"
             onChange={(event) => {
               const v = event.target.value;
               setSearch(v);
