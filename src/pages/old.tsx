@@ -245,11 +245,6 @@ export async function getStaticProps(): Promise<{
     ).toString()
   );
 
-  await fs.writeFile(
-    "./public/extensions.json",
-    JSON.stringify(list, undefined, 2)
-  );
-
   return {
     props: {
       appProps: await getAppProps(),

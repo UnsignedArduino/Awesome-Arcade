@@ -6,7 +6,8 @@ import icon from "../../../public/android-chrome-512x512.png";
 import { AppProps } from "../WithAppProps";
 
 const NavbarPages = {
-  Home: "/",
+  Extensions: "/",
+  Tools: "/tools",
   Help: "/help",
   GitHub:
     "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",

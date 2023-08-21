@@ -4,12 +4,14 @@ import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
 import Link from "next/link";
+import parseExtensionXML from "@/scripts/Utils/ParseExtensionsXML";
+import path from "path";
 
-const pageName = "Home";
+const pageName = "Extensions";
 
 type HomeProps = { appProps: AppProps };
 
-export function Home({ appProps }: HomeProps): JSX.Element {
+export function Extensions({ appProps }: HomeProps): JSX.Element {
   return (
     <Layout
       title={pageName}
@@ -42,6 +44,17 @@ export async function getStaticProps(): Promise<{
     await generateSiteWebmanifest()
   );
 
+  const list = await parseExtensionXML(
+    (
+      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
+    ).toString()
+  );
+
+  await fs.writeFile(
+    "./public/extensions.json",
+    JSON.stringify(list, undefined, 2)
+  );
+
   return {
     props: {
       appProps: await getAppProps(),
@@ -49,4 +62,4 @@ export async function getStaticProps(): Promise<{
   };
 }
 
-export default Home;
+export default Extensions;
