@@ -22,8 +22,8 @@ export type ClickCountListing = { [repo: string]: number };
 
 declare global {
   interface HTMLElementEventMap {
-    clickrepo: CustomEvent<string>;
-    repoclickcountchange: CustomEvent<{
+    clicktool: CustomEvent<string>;
+    toolclickcountchange: CustomEvent<{
       repo: string;
       count: string | undefined;
     }>;
@@ -104,8 +104,8 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   >(undefined);
 
   const refreshAllClickCounts = () => {
-    console.log("Refreshing click.ts counts");
-    fetch(`${window.location.origin}/api/all/`)
+    console.log("Refreshing click counts");
+    fetch(`${window.location.origin}/api/tools/`)
       .then((response) => {
         return response.json();
       })
@@ -143,9 +143,9 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
     clickCountRef.current = clickCounts;
   }, [clickCounts]);
 
-  const logRepoClickFromEvent = (event: CustomEvent<string>) => {
+  const logToolClickFromEvent = (event: CustomEvent<string>) => {
     const repo = event.detail;
-    fetch(`${window.location.origin}/api/click?repo=${repo}`)
+    fetch(`${window.location.origin}/api/tools/click?repo=${repo}`)
       .then((response) => {
         return response.json();
       })
@@ -169,13 +169,13 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
 
   React.useEffect(() => {
     window.document.documentElement.addEventListener(
-      "clickrepo",
-      logRepoClickFromEvent
+      "clicktool",
+      logToolClickFromEvent
     );
     return () => {
       window.document.documentElement.removeEventListener(
-        "clickrepo",
-        logRepoClickFromEvent
+        "clicktool",
+        logToolClickFromEvent
       );
     };
   }, []); // eslint-disable-line
