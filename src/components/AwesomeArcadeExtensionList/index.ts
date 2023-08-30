@@ -1,1 +1,1 @@
-export { default } from "./list";
+export { AwesomeArcadeExtensionsList, AwesomeArcadeToolsList } from "./list";
