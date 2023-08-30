@@ -3,7 +3,6 @@ import React from "react";
 import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
 import { AwesomeArcadeExtensionGroup } from "@/components/OldAwesomeArcadeExtensionList/extension";
-import { LinkableH2 } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AwesomeArcadeToolGroup } from "@/components/OldAwesomeArcadeExtensionList/tool";
 
 export function AwesomeArcadeExtensionsList({
@@ -19,22 +18,6 @@ export function AwesomeArcadeExtensionsList({
   return (
     <div id="awesomeArcadeExtensions" style={{ overflowX: "hidden" }}>
       <AwesomeArcadeExtensionGroup exts={list.notBuiltIn} />
-      <AwesomeArcadeExtensionGroup
-        title={
-          <LinkableH2 id="experimental-extensions">
-            Experimental extensions
-          </LinkableH2>
-        }
-        description={
-          <p>
-            Shouldn{"'"}t need an explanation.
-            <br />
-            <br />
-            {'"'}VERY UNSTABLE{'"'} - @livcheerful
-          </p>
-        }
-        exts={list.experimental}
-      />
     </div>
   );
 }

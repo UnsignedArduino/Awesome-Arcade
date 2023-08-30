@@ -51,22 +51,22 @@ export default function AwesomeArcadeExtensionList({
         }
         exts={list.notBuiltIn}
       />
-      <AwesomeArcadeExtensionGroup
-        title={
-          <LinkableH2 id="experimental-extensions">
-            Experimental extensions
-          </LinkableH2>
-        }
-        description={
-          <p>
-            Shouldn{"'"}t need an explanation.
-            <br />
-            <br />
-            {'"'}VERY UNSTABLE{'"'} - @livcheerful
-          </p>
-        }
-        exts={list.experimental}
-      />
+      {/*<AwesomeArcadeExtensionGroup*/}
+      {/*  title={*/}
+      {/*    <LinkableH2 id="experimental-extensions">*/}
+      {/*      Experimental extensions*/}
+      {/*    </LinkableH2>*/}
+      {/*  }*/}
+      {/*  description={*/}
+      {/*    <p>*/}
+      {/*      Shouldn{"'"}t need an explanation.*/}
+      {/*      <br />*/}
+      {/*      <br />*/}
+      {/*      {'"'}VERY UNSTABLE{'"'} - @livcheerful*/}
+      {/*    </p>*/}
+      {/*  }*/}
+      {/*  exts={list.experimental}*/}
+      {/*/>*/}
       <AwesomeArcadeToolGroup
         title={<LinkableH2 id="tools">Tools</LinkableH2>}
         description={
