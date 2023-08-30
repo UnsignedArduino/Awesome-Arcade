@@ -120,7 +120,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
   >(undefined);
 
   const refreshAllClickCounts = () => {
-    console.log("Refreshing click.ts counts");
+    console.log("Refreshing click counts");
     fetch(`${window.location.origin}/api/extensions/`)
       .then((response) => {
         return response.json();

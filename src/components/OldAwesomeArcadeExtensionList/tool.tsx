@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
+import { ClickCountContext } from "@/components/contexts";
+import { formatNumber } from "@/scripts/Utils/Numbers";
 
 export function AwesomeArcadeTool({
   tool,
@@ -12,6 +14,66 @@ export function AwesomeArcadeTool({
   pad?: boolean | undefined;
 }): JSX.Element {
   const [showCardLink, setShowCardLink] = React.useState(false);
+  const [tooltip, setTooltip] = React.useState("Click to open");
+  const tippyRef = React.useRef<any>();
+  const tipRef = React.useRef<any | undefined>();
+  const urlRef = React.useRef<HTMLAnchorElement | null>(null);
+
+  React.useEffect(() => {
+    import("tippy.js").then((tippy) => {
+      tippyRef.current = tippy;
+      if (
+        urlRef.current != undefined &&
+        tippyRef.current != undefined &&
+        tipRef.current == undefined
+      ) {
+        tipRef.current = tippyRef.current.default(urlRef.current, {
+          content: tooltip,
+          hideOnClick: false,
+          onHidden: () => {
+            setTooltip("Click to open");
+          },
+        });
+      }
+    });
+  });
+
+  React.useEffect(() => {
+    if (tipRef.current != undefined) {
+      const t = tipRef.current;
+      t.setContent(tooltip);
+    } else {
+      if (urlRef.current != undefined && tippyRef.current != undefined) {
+        tipRef.current = tippyRef.current.default(urlRef.current, {
+          content: tooltip,
+          hideOnClick: false,
+          onHidden: () => {
+            setTooltip("Click to open");
+          },
+        });
+      }
+    }
+  }, [tooltip]);
+
+  const clickCounts = React.useContext(ClickCountContext);
+  const [clickCount, setClickCount] = React.useState("");
+
+  React.useEffect(() => {
+    if (clickCounts != undefined) {
+      setClickCount(formatNumber(clickCounts[tool.repo]));
+    } else {
+      setClickCount("");
+    }
+  }, [clickCounts, tool.repo]);
+
+  const onURLClick = () => {
+    window.document.documentElement.dispatchEvent(
+      new CustomEvent<string>("clicktool", {
+        detail: tool.repo,
+      })
+    );
+    AnalyticEvents.sendAwesomeClick(tool.repo);
+  };
 
   return (
     <div className={`card ${pad ? "mb-2" : ""} h-100`} id={tool.repo}>
@@ -55,12 +117,52 @@ export function AwesomeArcadeTool({
               target="_blank"
               rel="noopener noreferrer"
               style={{ wordBreak: "break-all" }}
+              ref={urlRef}
               onClick={() => {
-                AnalyticEvents.sendAwesomeClick(tool.repo);
+                onURLClick();
+              }}
+              onAuxClick={(e) => {
+                if (e.button == 1) {
+                  onURLClick();
+                }
               }}
             >
               {tool.url}
             </a>
+            <span hidden={clickCount === "0"}>
+              {" "}
+              <small>
+                <span className="badge text-bg-secondary">
+                  {clickCount != undefined && clickCount.length > 0 ? (
+                    <>
+                      {clickCount}
+                      <span className="visually-hidden"> clicks</span>
+                    </>
+                  ) : (
+                    <span
+                      className="placeholder-glow align-middle d-inline-block align-top"
+                      style={{
+                        position: "relative",
+                        top: "-0.2em",
+                        height: "0.8em",
+                      }}
+                    >
+                      <span
+                        className="placeholder align-top d-inline-block"
+                        style={{ width: "1.5em" }}
+                      />
+                    </span>
+                    // <div
+                    //   className="spinner-border"
+                    //   style={{ width: "0.5rem", height: "0.5rem" }}
+                    //   role="status"
+                    // >
+                    //   <span className="visually-hidden">Loading...</span>
+                    // </div>
+                  )}
+                </span>
+              </small>
+            </span>
           </blockquote>
         </>
         <div
