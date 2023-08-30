@@ -10,14 +10,14 @@
 
 This is the source code for the Awesome Arcade Extensions website!
 
-You can find the repository for the click count API [here](https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website-Clicks-API-Replit).
-
 ## Install
 
 1. Have `nodejs` installed.
 2. Clone this repo.
 3. `yarn` to install dependencies.
 4. Copy `.env.sample` to `.env.local` and fill out environment variables.
+5. Create a new Vercel Postgres database and pull the environment variables in.
+6. Insert click counts using the Vercel Storage dashbaord manually. 💀💀💀
 
 ## Development
 
