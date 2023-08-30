@@ -495,8 +495,6 @@
         <url label="Forum post">https://forum.makecode.com/t/clock-extension/19191?u=unsignedarduino</url>
       </links>
     </extension>
-  </extensionList>
-  <extensionList label="Experimental">
     <extension repo="livcheerful/arcade-soundtrack">
       <description>In this extension you can make soundtracks within images! But it is pretty confusing and "might break your game." This extension was made by @livcheerful in a hackathon.</description>
       <links>

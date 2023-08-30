@@ -4,7 +4,6 @@ import markdownToHTML from "@/scripts/Utils/MarkdownToHTML";
 export type ExtensionList = {
   builtIn: Extension[];
   notBuiltIn: Extension[];
-  experimental: Extension[];
   tools: Tool[];
 };
 
@@ -240,11 +239,6 @@ export default async function parseExtensionXML(
     "label",
     "Not built in"
   ).extensionList;
-  const experimental = findElementWithAttributeValue(
-    allExtensions,
-    "label",
-    "Experimental"
-  ).extensionList;
   const tools = findElementWithAttributeValue(
     allExtensions,
     "label",
@@ -254,7 +248,6 @@ export default async function parseExtensionXML(
   return {
     builtIn: await gatherExtensionList(builtIn),
     notBuiltIn: await gatherExtensionList(notBuiltIn),
-    experimental: await gatherExtensionList(experimental),
     tools: await gatherToolList(tools),
   };
 }
