@@ -5,6 +5,10 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
+  response.setHeader(
+    "Cache-Control",
+    "max-age=0, s-maxage=600, stale-while-revalidate"
+  );
   try {
     const result = await sql`SELECT Repository, Clicks FROM ExtensionClicks`;
     const rows = result.rows;
