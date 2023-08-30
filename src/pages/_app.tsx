@@ -7,10 +7,11 @@ import "katex/dist/katex.min.css";
 import Adsense from "../components/Adsense";
 import Analytics from "../components/Analytics";
 import ErrorBoundary from "../components/ErrorBoundary";
+import { SessionProvider } from "next-auth/react";
 
 export default function AwesomeArcadeExtensions({
   Component,
-  pageProps,
+  pageProps: { session, ...pageProps },
 }: AppProps): JSX.Element {
   React.useEffect(() => {
     import("bootstrap");
@@ -21,7 +22,9 @@ export default function AwesomeArcadeExtensions({
       <NextNProgress color="#FFF603" options={{ showSpinner: false }} />
       <Analytics />
       <Adsense />
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </ErrorBoundary>
   );
 }

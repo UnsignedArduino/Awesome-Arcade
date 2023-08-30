@@ -4,6 +4,7 @@ import React from "react";
 import { NavbarDropdownThemePicker } from "./ThemePicker";
 import icon from "../../../public/android-chrome-512x512.png";
 import { AppProps } from "../WithAppProps";
+import Profile from "@/components/Authentication/Profile";
 
 const NavbarPages = {
   Extensions: "/",
@@ -35,8 +36,8 @@ function Navbar({
             alt="Logo"
             className="d-inline-block me-1"
             style={{
-              width: "1em",
-              height: "1em",
+              width: "1.5em",
+              height: "1.5em",
               objectFit: "contain",
             }}
           />
@@ -115,6 +116,8 @@ function Navbar({
             </div>
           ) : undefined}
           <div className="d-flex d-inline d-md-none">
+            <Profile />
+            <div className="vr mx-2" />
             <NavbarDropdownThemePicker />
           </div>
         </div>
@@ -123,6 +126,11 @@ function Navbar({
             {extraNavbarHTML}
           </div>
         ) : undefined}
+        <div className="d-flex d-none d-md-inline vr me-2" />
+        <div className="d-flex d-none d-md-inline">
+          <Profile />
+        </div>
+        <div className="d-flex d-none d-md-inline vr mx-2" />
         <div className="d-flex d-none d-md-inline">
           <NavbarDropdownThemePicker alignEnd />
         </div>

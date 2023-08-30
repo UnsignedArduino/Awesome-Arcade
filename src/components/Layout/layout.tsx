@@ -9,6 +9,7 @@ import ThemeProxy from "../Navbar/ThemePicker";
 import Notifications from "../Notifications";
 import TOSBanner from "../TOSBanner";
 import { AppProps } from "../WithAppProps";
+import ProfileOffcanvas from "@/components/Authentication/Offcanvas";
 
 const appName = "Awesome Arcade Extensions";
 
@@ -144,6 +145,7 @@ LayoutProps): JSX.Element {
         currentPage={currentPage}
         extraNavbarHTML={extraNavbarHTML}
       />
+      <ProfileOffcanvas />
 
       {dontShowServicesWarning ? <></> : <TOSBanner />}
       {/* {dontShowAdblockerWarning ? <></> : <AdblockDetectionBanner />} */}
