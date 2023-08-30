@@ -104,7 +104,7 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   >(undefined);
 
   const refreshAllClickCounts = () => {
-    console.log("Refreshing click counts");
+    console.log("Refreshing click.ts counts");
     fetch(`${window.location.origin}/api/all/`)
       .then((response) => {
         return response.json();

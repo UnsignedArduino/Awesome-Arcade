@@ -120,8 +120,8 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
   >(undefined);
 
   const refreshAllClickCounts = () => {
-    console.log("Refreshing click counts");
-    fetch(`${window.location.origin}/api/all/`)
+    console.log("Refreshing click.ts counts");
+    fetch(`${window.location.origin}/api/extensions/`)
       .then((response) => {
         return response.json();
       })
@@ -161,7 +161,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
 
   const logRepoClickFromEvent = (event: CustomEvent<string>) => {
     const repo = event.detail;
-    fetch(`${window.location.origin}/api/click?repo=${repo}`)
+    fetch(`${window.location.origin}/api/extensions/click?repo=${repo}`)
       .then((response) => {
         return response.json();
       })
