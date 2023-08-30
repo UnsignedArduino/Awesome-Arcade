@@ -14,6 +14,7 @@ import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeExtension
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
+import { useSession } from "next-auth/react";
 
 const pageName = "Extensions";
 
@@ -32,6 +33,8 @@ declare global {
 }
 
 export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
+  const { data: session } = useSession();
+
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<
@@ -227,7 +230,10 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         </Tippy>
       }
     >
-      <h1>Welcome to Awesome Arcade Extensions</h1>
+      <h1>
+        Welcome to Awesome Arcade Extensions
+        {session?.user?.name != null ? `, ${session.user.name}!` : ""}
+      </h1>
       <p>
         This is a list of MakeCode Arcade extensions that I find super useful
         (or just plain cool) in my projects.
