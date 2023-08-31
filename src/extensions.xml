@@ -636,5 +636,15 @@
         <url label="Forum post">https://forum.makecode.com/t/something-cool-i-found/19411?u=unsignedarduino</url>
       </links>
     </tool>
+    <tool repo="riknoll/font-editor">
+      <description>This online tool is a font editor designed to export fonts to the Fancy Text extension!</description>
+      <links>
+        <url label="Tool" isPrimary="true">https://riknoll.github.io/font-editor/</url>
+        <url label="GitHub repo">https://github.com/riknoll/font-editor</url>
+      </links>
+      <inBeta asOf="July 17, 2022">
+        Currently no way to use these exported fonts.
+      </inBeta>
+    </tool>
   </toolList>
 </allExtensions>
