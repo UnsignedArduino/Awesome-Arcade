@@ -566,6 +566,12 @@
         Not finished.
       </inBeta>
     </extension>
+    <extension repo="microsoft/arcade-platformer">
+      <description>This extension will add a `Platformer` category, which contains numerous blocks extremely useful for making...platformer games! It includes common platformer features, allowing you to reduce your game's block count. Also includes blocks for character animations.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/microsoft/arcade-platformer</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
