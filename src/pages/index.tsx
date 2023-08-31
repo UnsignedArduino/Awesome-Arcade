@@ -252,6 +252,26 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
       <p>
         You can find the old home page <Link href="/old">here</Link>.
       </p>
+      <p>
+        Want to suggest a new extension or modification? Head over to our GitHub
+        repository and file an{" "}
+        <a
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues/new?assignees=&labels=extension&projects=&template=new-extension.md&title=Add+extension+%5BINSERT+GITHUB+URL%5D"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          issue
+        </a>{" "}
+        or submit a pull request to{" "}
+        <a
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/extensions.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          edit the <code>extensions.xml</code>
+        </a>{" "}
+        file! (A GitHub account is required.)
+      </p>
       <div>
         {resultCount != undefined ? (
           <p>
