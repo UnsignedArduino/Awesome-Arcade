@@ -145,11 +145,13 @@
       </depreciatedBy>
     </extension>
     <extension repo="riknoll/arcade-split-screen">
-      <description>Playing MakeCode Arcade games with friends can be hard to do without a second device, without the split-screen extension! This extension allows the user to split the screen into two cameras, each following a different sprite. The extension adds a `Split screen` category to the toolbox.</description>
+      <description>Playing MakeCode Arcade games with friends can be hard to do without a second device, without the split-screen extension! This extension allows the user to split the screen into ~~two~~ now four cameras, each following a different sprite! The cameras can be reassigned to different regions of the screen, and the scene camera blocks have been replicated in this extension! The extension adds a `Split screen` category to the toolbox.</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-split-screen</url>
         <url label="Forum post">https://forum.makecode.com/t/extension-arcade-split-screen/14970?u=unsignedarduino</url>
         <url label="Demo">https://arcade.makecode.com/66629-31960-05105-39180</url>
+        <url label="Forum post about extension overhaul">https://forum.makecode.com/t/extension-arcade-split-screen/14970/51?u=unsignedarduino</url>
+        <url label="Three player demo (see forum post about overhaul)">https://arcade.makecode.com/S72891-64935-05958-94413</url>
       </links>
     </extension>
     <extension repo="jwunderl/arcade-sprite-util">
@@ -506,6 +508,85 @@
         "...might break your game." -@livcheerful
       </inBeta>
     </extension>
+    <extension repo="jwunderl/arcade-particle-effects">
+      <description>A small extension that adds more effects! This will add another effect to the `[sprite] start [effect] effect` block in the `Sprites` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/jwunderl/arcade-particle-effects</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-ideas/4668/13?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/21274-88592-10263-45016</url>
+      </links>
+      <inBeta asOf="September 22, 2021">
+        Not finished.
+      </inBeta>
+    </extension>
+    <extension repo="riknoll/arcade-mp">
+      <description>This extension provides a `Multiplayer` category full of useful blocks for making multiplayer games!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-mp</url>
+      </links>
+      <inBeta asOf="November 14, 2022">
+        Not finished.
+      </inBeta>
+    </extension>
+    <extension repo="projectsbyunique/modes">
+      <description>A small extension that simplifies level and mode development! It allows you to create modes, which can trigger event handlers once the current mode changes. Adds a `Modes` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/projectsbyunique/modes</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-modes-levels-made-easy/19565?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="meeeeeeeep1/Console-Overlay">
+      <description>Using a built-in but hidden feature, this extension displays the system console directly on the screen! It’s extremely helpful when you want to directly get values but don’t want to have to manually click on the console button. Adds blocks to the `Console` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/meeeeeeeep1/Console-Overlay</url>
+        <url label="Forum post">https://forum.makecode.com/t/makecode-arcade-mini-extentions-functions/19968?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="meeeeeeeep1/Info-plus">
+      <description>This extension expands the `INFO` category, giving you the ability to show/hide the stats, change the life image and customize the stat colors. Adds blocks to the `Info` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/meeeeeeeep1/Info-plus</url>
+        <url label="Forum post">https://forum.makecode.com/t/makecode-arcade-mini-extentions-functions/19968?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="robo-technical-group/pxt-arcade-bigint" javascriptOnly="true">
+      <description>A (currently) **JavaScript-only** extension that ports [Google's "BigInt" implementation "JSBI"](https://github.com/GoogleChromeLabs/jsbi) to MakeCode Arcade!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/robo-technical-group/pxt-arcade-bigint</url>
+        <url label="Forum post">https://forum.makecode.com/t/fun-with-bigints/19975?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/08826-78382-70909-84675</url>
+      </links>
+    </extension>
+    <extension repo="riknoll/arcade-fancy-text">
+      <description>This text-sprite extension replacement is _so much_ better than the built-in text sprite extension! It comes with many more configuration options and supports more features, like specifiers to make the text wavy, support newlines, or animate text like in the story extension! This extension adds a `Fancy Text` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-fancy-text</url>
+      </links>
+      <inBeta asOf="July 17, 2023">
+        Not finished.
+      </inBeta>
+    </extension>
+    <extension repo="microsoft/arcade-platformer">
+      <description>This extension will add a `Platformer` category, which contains numerous blocks extremely useful for making...platformer games! It includes common platformer features, allowing you to reduce your game's block count. Also includes blocks for character animations.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/microsoft/arcade-platformer</url>
+      </links>
+    </extension>
+    <extension repo="S0m3randomguy/control">
+      <description>@SOm3randomguy ported the `control` namespace from JavaScript over to blocks, enabling you to access APIs such as asserts, events, buffers, garbage collection, benchmarks, profiling, and other device/session information! This extension adds a `Control` cateogyr.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/S0m3randomguy/control</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-device-control-control-namespace-ported-to-blocks/19190?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="alexszeto/extra-effects">
+      <description>@sylvancircle on the MakeCode Forums made an extension that provides "customizable splashy particle effects", adding an `Effects` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/alexszeto/extra-effects</url>
+        <url label="Forum post">https://forum.makecode.com/t/extra-effects-extension/22002?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/S25961-93672-24496-79526</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
@@ -568,6 +649,23 @@
         <url label="GitHub repo">https://github.com/UnsignedArduino/ArcadeMIDIGeneratorOnline</url>
         <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
       </links>
+    </tool>
+    <tool repo="edermunizz/pixel-art-rpg-character-creator">
+      <description>This _beautiful_ character art generator is perfect for RPGs! Use another tool to convert the exported `.png` file to a MakeCode image.</description>
+      <links>
+        <url label="Tool" isPrimary="true">https://edermunizz.itch.io/pixel-art-rpg-character-creator</url>
+        <url label="Forum post">https://forum.makecode.com/t/something-cool-i-found/19411?u=unsignedarduino</url>
+      </links>
+    </tool>
+    <tool repo="riknoll/font-editor">
+      <description>This online tool is a font editor designed to export fonts to the Fancy Text extension!</description>
+      <links>
+        <url label="Tool" isPrimary="true">https://riknoll.github.io/font-editor/</url>
+        <url label="GitHub repo">https://github.com/riknoll/font-editor</url>
+      </links>
+      <inBeta asOf="July 17, 2022">
+        Currently no way to use these exported fonts.
+      </inBeta>
     </tool>
   </toolList>
 </allExtensions>
