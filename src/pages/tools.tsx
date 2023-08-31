@@ -188,8 +188,8 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description=""
-      keywords=""
+      description="This is a list of MakeCode Arcade tools that I find super useful (or just plain cool) in my projects."
+      keywords="Game development, Awesome, Tools, Curated, Arcade, Useful, Curated list, MakeCode, Awesome tools, Useful tools, MakeCode Arcade, MakeCode Arcade tools, Arcade tools"
       extraNavbarHTML={
         <Tippy content="Search tools by author or name!">
           <input
@@ -242,6 +242,11 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
           <AwesomeArcadeToolsList list={filteredList} />
         </ClickCountContext.Provider>
       </div>
+      <p>
+        Looking for Awesome Arcade Extensions? They have been split up into the{" "}
+        <Link href="/">Extensions</Link> page! (Which you can also find in the
+        navigation bar!)
+      </p>
     </Layout>
   );
 }
