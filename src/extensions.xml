@@ -557,6 +557,15 @@
         <url label="Demo">https://arcade.makecode.com/08826-78382-70909-84675</url>
       </links>
     </extension>
+    <extension repo="riknoll/arcade-fancy-text">
+      <description>This text-sprite extension replacement is _so much_ better than the built-in text sprite extension! It comes with many more configuration options and supports more features, like specifiers to make the text wavy, support newlines, or animate text like in the story extension! This extension adds a `Fancy Text` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-fancy-text</url>
+      </links>
+      <inBeta asOf="July 17, 2023">
+        Not finished.
+      </inBeta>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
