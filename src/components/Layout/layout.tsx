@@ -19,6 +19,8 @@ type LayoutProps = {
   breadCrumbs?: { [title: string]: string }[] | undefined;
   appProps: AppProps;
   description?: string;
+  imageURL?: string;
+  canonicalURL?: string;
   keywords?: string;
   currentPage?: string;
   putInDIV?: boolean;
@@ -35,6 +37,8 @@ function Layout({
   breadCrumbs,
   appProps,
   description,
+  imageURL,
+  canonicalURL,
   keywords,
   currentPage,
   putInDIV,
@@ -90,6 +94,26 @@ LayoutProps): JSX.Element {
     }
   })()}`;
 
+  const baseURL = (() => {
+    switch (appProps.environment) {
+      case "production": {
+        return "https://awesome-arcade-extensions.vercel.app";
+      }
+      case "preview": {
+        return "https://awesome-arcade-extensions-beta.vercel.app";
+      }
+      case "development": {
+        return "http://localhost:3000";
+      }
+    }
+  })();
+
+  const actualImageURL =
+    baseURL +
+    (imageURL != undefined ? imageURL : "/android-chrome-512x512.png");
+  const actualCanonicalURL =
+    canonicalURL != undefined ? baseURL + canonicalURL : undefined;
+
   return (
     <ErrorBoundary>
       <Head>
@@ -122,6 +146,9 @@ LayoutProps): JSX.Element {
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:title" content={titleContent} />
         <meta name="twitter:title" content={titleContent} />
+        <meta name="og:image" content={actualImageURL} />
+        <meta name="twitter:image" content={actualImageURL} />
+        <meta name="og:url" content={actualCanonicalURL} />
 
         {description != undefined && description != "" ? (
           <>
