@@ -572,6 +572,13 @@
         <url label="GitHub repo" isPrimary="true">https://github.com/microsoft/arcade-platformer</url>
       </links>
     </extension>
+    <extension repo="S0m3randomguy/control">
+      <description>@SOm3randomguy ported the `control` namespace from JavaScript over to blocks, enabling you to access APIs such as asserts, events, buffers, garbage collection, benchmarks, profiling, and other device/session information! This extension adds a `Control` cateogyr.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/S0m3randomguy/control</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-device-control-control-namespace-ported-to-blocks/19190?u=unsignedarduino</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
