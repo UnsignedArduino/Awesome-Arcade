@@ -526,6 +526,13 @@
         Not finished.
       </inBeta>
     </extension>
+    <extension repo="projectsbyunique/modes">
+      <description>A small extension that simplifies level and mode development! It allows you to create modes, which can trigger event handlers once the current mode changes. Adds a `Modes` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/projectsbyunique/modes</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-modes-levels-made-easy/19565?u=unsignedarduino</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
