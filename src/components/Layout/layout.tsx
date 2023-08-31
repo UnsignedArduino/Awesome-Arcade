@@ -9,6 +9,7 @@ import ThemeProxy from "../Navbar/ThemePicker";
 import Notifications from "../Notifications";
 import TOSBanner from "../TOSBanner";
 import { AppProps } from "../WithAppProps";
+import ProfileOffcanvas from "@/components/Authentication/Offcanvas";
 
 const appName = "Awesome Arcade Extensions";
 
@@ -25,6 +26,7 @@ type LayoutProps = {
   dontShowServicesWarning?: boolean;
   dontShowAdblockerWarning?: boolean;
   extraNavbarHTML?: JSX.Element | undefined;
+  dontShowSignIn?: boolean;
 };
 
 function Layout({
@@ -39,6 +41,7 @@ function Layout({
   showFooter,
   dontShowServicesWarning,
   extraNavbarHTML,
+  dontShowSignIn,
 }: // dontShowAdblockerWarning,
 LayoutProps): JSX.Element {
   const breadCrumbsHTML =
@@ -143,7 +146,9 @@ LayoutProps): JSX.Element {
         appProps={appProps}
         currentPage={currentPage}
         extraNavbarHTML={extraNavbarHTML}
+        dontShowSignIn={dontShowSignIn}
       />
+      <ProfileOffcanvas />
 
       {dontShowServicesWarning ? <></> : <TOSBanner />}
       {/* {dontShowAdblockerWarning ? <></> : <AdblockDetectionBanner />} */}

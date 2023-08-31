@@ -4,6 +4,7 @@ import React from "react";
 import { NavbarDropdownThemePicker } from "./ThemePicker";
 import icon from "../../../public/android-chrome-512x512.png";
 import { AppProps } from "../WithAppProps";
+import Profile from "@/components/Authentication/Profile";
 
 const NavbarPages = {
   Extensions: "/",
@@ -18,6 +19,7 @@ type NavbarProps = {
   appProps: AppProps;
   currentPage?: string;
   extraNavbarHTML?: JSX.Element | undefined;
+  dontShowSignIn?: boolean;
 };
 
 function Navbar({
@@ -25,6 +27,7 @@ function Navbar({
   appProps,
   currentPage,
   extraNavbarHTML,
+  dontShowSignIn,
 }: NavbarProps): JSX.Element {
   return (
     <nav className="navbar sticky-top bg-body-tertiary navbar-expand-md">
@@ -35,8 +38,8 @@ function Navbar({
             alt="Logo"
             className="d-inline-block me-1"
             style={{
-              width: "1em",
-              height: "1em",
+              width: "1.5em",
+              height: "1.5em",
               objectFit: "contain",
             }}
           />
@@ -115,17 +118,36 @@ function Navbar({
             </div>
           ) : undefined}
           <div className="d-flex d-inline d-md-none">
+            {dontShowSignIn ? undefined : (
+              <>
+                <Profile />
+                <div className="vr mx-2" />
+              </>
+            )}
             <NavbarDropdownThemePicker />
           </div>
         </div>
-        {extraNavbarHTML != undefined ? (
-          <div className="d-flex d-none d-md-inline me-2">
-            {extraNavbarHTML}
-          </div>
-        ) : undefined}
-        <div className="d-flex d-none d-md-inline">
-          <NavbarDropdownThemePicker alignEnd />
-        </div>
+        {(() => {
+          const elements = [];
+          if (extraNavbarHTML) {
+            elements.push(extraNavbarHTML);
+          }
+          if (!dontShowSignIn) {
+            elements.push(<Profile />);
+          }
+          elements.push(<NavbarDropdownThemePicker alignEnd />);
+
+          return elements.map((ele: JSX.Element, index: number) => {
+            return (
+              <>
+                <div className="d-flex d-none d-md-inline me-2">{ele}</div>
+                {index < elements.length - 1 ? (
+                  <div className="d-flex d-none d-md-inline vr me-2" />
+                ) : undefined}
+              </>
+            );
+          });
+        })()}
       </div>
     </nav>
   );

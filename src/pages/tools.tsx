@@ -13,6 +13,7 @@ import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeExtensionList"
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
+import { useSession } from "next-auth/react";
 
 const pageName = "Tools";
 
@@ -31,6 +32,8 @@ declare global {
 }
 
 export function Tools({ appProps, list }: ToolsProps): JSX.Element {
+  const { data: session } = useSession();
+
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<
@@ -210,7 +213,10 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         </Tippy>
       }
     >
-      <h1>Welcome to Awesome Arcade Tools</h1>
+      <h1>
+        Welcome to Awesome Arcade Tools
+        {session?.user?.name != null ? `, ${session.user.name}!` : ""}
+      </h1>
       <p>
         This is a list of MakeCode Arcade tools that I find super useful (or
         just plain cool) in my projects.
