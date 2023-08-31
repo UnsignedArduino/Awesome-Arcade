@@ -25,6 +25,7 @@ export type Extension = {
   links: URLLink[];
   forks?: ExtensionRef[] | null;
   depreciatedBy?: ExtensionRef[] | null;
+  inBeta?: { text: string; since: string } | null;
 };
 
 export type ToolRef = {
@@ -45,6 +46,7 @@ export type Tool = {
   links: URLLink[];
   forks?: ToolRef[] | null;
   depreciatedBy?: ToolRef[] | null;
+  inBeta?: { text: string; since: string } | null;
 };
 
 export type URLLink = {
@@ -139,6 +141,7 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
     const author = repo.split("/")[0];
     const forks = findElementInElement(ext, "forks");
     const depreciatedBy = findElementInElement(ext, "depreciatedBy");
+    const inBeta = findElementInElement(ext, "inBeta");
     newExts.push({
       type: "Extension",
       title,
@@ -151,6 +154,13 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
       depreciatedBy:
         depreciatedBy != undefined
           ? gatherExtensionRefList(depreciatedBy.depreciatedBy)
+          : null,
+      inBeta:
+        inBeta != undefined
+          ? {
+              text: inBeta["inBeta"][0]["#text"],
+              since: inBeta[":@"]["@_asOf"],
+            }
           : null,
     });
   }
@@ -200,6 +210,7 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
     const author = repo.split("/")[0];
     const forks = findElementInElement(t, "forks");
     const depreciatedBy = findElementInElement(t, "depreciatedBy");
+    const inBeta = findElementInElement(t, "inBeta");
     newTools.push({
       type: "Tool",
       title,
@@ -212,6 +223,13 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
       depreciatedBy:
         depreciatedBy != undefined
           ? gatherToolRefList(depreciatedBy.depreciatedBy)
+          : null,
+      inBeta:
+        inBeta != undefined
+          ? {
+              text: inBeta["inBeta"][0]["#text"],
+              since: inBeta[":@"]["@_asOf"],
+            }
           : null,
     });
   }

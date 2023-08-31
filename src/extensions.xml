@@ -502,6 +502,9 @@
         <url label="Forum post">https://forum.makecode.com/t/hackathon-link-request/9751/2?u=unsignedarduino</url>
         <url label="Demo">https://arcade.makecode.com/10829-55411-68884-03658</url>
       </links>
+      <inBeta asOf="November 17, 2021">
+        "...might break your game." -@livcheerful
+      </inBeta>
     </extension>
   </extensionList>
   <toolList label="Tools">

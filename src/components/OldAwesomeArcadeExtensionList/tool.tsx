@@ -225,6 +225,15 @@ export function AwesomeArcadeTool({
             </div>
           </div>
         ) : undefined}
+        {tool.inBeta != undefined ? (
+          <div className="mt-3">
+            <div className="alert alert-warning mb-0" role="alert">
+              This tool is in beta since <b>{tool.inBeta.since}</b> because:
+              <br />
+              {tool.inBeta.text}
+            </div>
+          </div>
+        ) : undefined}
       </div>
     </div>
   );
