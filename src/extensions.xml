@@ -547,6 +547,14 @@
         <url label="Forum post">https://forum.makecode.com/t/makecode-arcade-mini-extentions-functions/19968?u=unsignedarduino</url>
       </links>
     </extension>
+    <extension repo="robo-technical-group/pxt-arcade-bigint" javascriptOnly="true">
+      <description>A (currently) **JavaScript-only** extension that ports [Google's "BigInt" implementation "JSBI"](https://github.com/GoogleChromeLabs/jsbi) to MakeCode Arcade!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/robo-technical-group/pxt-arcade-bigint</url>
+        <url label="Forum post">https://forum.makecode.com/t/fun-with-bigints/19975?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/08826-78382-70909-84675</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
