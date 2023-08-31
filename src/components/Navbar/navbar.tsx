@@ -19,6 +19,7 @@ type NavbarProps = {
   appProps: AppProps;
   currentPage?: string;
   extraNavbarHTML?: JSX.Element | undefined;
+  dontShowSignIn?: boolean;
 };
 
 function Navbar({
@@ -26,6 +27,7 @@ function Navbar({
   appProps,
   currentPage,
   extraNavbarHTML,
+  dontShowSignIn,
 }: NavbarProps): JSX.Element {
   return (
     <nav className="navbar sticky-top bg-body-tertiary navbar-expand-md">
@@ -116,24 +118,36 @@ function Navbar({
             </div>
           ) : undefined}
           <div className="d-flex d-inline d-md-none">
-            <Profile />
-            <div className="vr mx-2" />
+            {dontShowSignIn ? undefined : (
+              <>
+                <Profile />
+                <div className="vr mx-2" />
+              </>
+            )}
             <NavbarDropdownThemePicker />
           </div>
         </div>
-        {extraNavbarHTML != undefined ? (
-          <div className="d-flex d-none d-md-inline me-2">
-            {extraNavbarHTML}
-          </div>
-        ) : undefined}
-        <div className="d-flex d-none d-md-inline vr me-2" />
-        <div className="d-flex d-none d-md-inline">
-          <Profile />
-        </div>
-        <div className="d-flex d-none d-md-inline vr mx-2" />
-        <div className="d-flex d-none d-md-inline">
-          <NavbarDropdownThemePicker alignEnd />
-        </div>
+        {(() => {
+          const elements = [];
+          if (extraNavbarHTML) {
+            elements.push(extraNavbarHTML);
+          }
+          if (!dontShowSignIn) {
+            elements.push(<Profile />);
+          }
+          elements.push(<NavbarDropdownThemePicker alignEnd />);
+
+          return elements.map((ele: JSX.Element, index: number) => {
+            return (
+              <>
+                <div className="d-flex d-none d-md-inline me-2">{ele}</div>
+                {index < elements.length - 1 ? (
+                  <div className="d-flex d-none d-md-inline vr me-2" />
+                ) : undefined}
+              </>
+            );
+          });
+        })()}
       </div>
     </nav>
   );

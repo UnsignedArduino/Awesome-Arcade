@@ -26,6 +26,7 @@ type LayoutProps = {
   dontShowServicesWarning?: boolean;
   dontShowAdblockerWarning?: boolean;
   extraNavbarHTML?: JSX.Element | undefined;
+  dontShowSignIn?: boolean;
 };
 
 function Layout({
@@ -40,6 +41,7 @@ function Layout({
   showFooter,
   dontShowServicesWarning,
   extraNavbarHTML,
+  dontShowSignIn,
 }: // dontShowAdblockerWarning,
 LayoutProps): JSX.Element {
   const breadCrumbsHTML =
@@ -144,6 +146,7 @@ LayoutProps): JSX.Element {
         appProps={appProps}
         currentPage={currentPage}
         extraNavbarHTML={extraNavbarHTML}
+        dontShowSignIn={dontShowSignIn}
       />
       <ProfileOffcanvas />
 

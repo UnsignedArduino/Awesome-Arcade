@@ -8,6 +8,9 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
+  pages: {
+    error: "/auth/error", // Error code passed in query string as ?error=
+  },
 };
 
 export default NextAuth(authOptions);
