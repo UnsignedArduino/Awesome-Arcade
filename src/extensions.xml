@@ -533,6 +533,20 @@
         <url label="Forum post">https://forum.makecode.com/t/extension-modes-levels-made-easy/19565?u=unsignedarduino</url>
       </links>
     </extension>
+    <extension repo="meeeeeeeep1/Console-Overlay">
+      <description>Using a built-in but hidden feature, this extension displays the system console directly on the screen! It’s extremely helpful when you want to directly get values but don’t want to have to manually click on the console button. Adds blocks to the `Console` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/meeeeeeeep1/Console-Overlay</url>
+        <url label="Forum post">https://forum.makecode.com/t/makecode-arcade-mini-extentions-functions/19968?u=unsignedarduino</url>
+      </links>
+    </extension>
+    <extension repo="meeeeeeeep1/Info-plus">
+      <description>This extension expands the `INFO` category, giving you the ability to show/hide the stats, change the life image and customize the stat colors. Adds blocks to the `Info` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/meeeeeeeep1/Info-plus</url>
+        <url label="Forum post">https://forum.makecode.com/t/makecode-arcade-mini-extentions-functions/19968?u=unsignedarduino</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
