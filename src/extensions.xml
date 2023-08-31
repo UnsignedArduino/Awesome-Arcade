@@ -506,6 +506,17 @@
         "...might break your game." -@livcheerful
       </inBeta>
     </extension>
+    <extension repo="jwunderl/arcade-particle-effects">
+      <description>A small extension that adds more effects! This will add another effect to the `[sprite] start [effect] effect` block in the Sprites category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/jwunderl/arcade-particle-effects</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-ideas/4668/13?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/21274-88592-10263-45016</url>
+      </links>
+      <inBeta asOf="September 22, 2021">
+        Not finished.
+      </inBeta>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
