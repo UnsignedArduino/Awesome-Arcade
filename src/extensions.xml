@@ -579,6 +579,14 @@
         <url label="Forum post">https://forum.makecode.com/t/extension-device-control-control-namespace-ported-to-blocks/19190?u=unsignedarduino</url>
       </links>
     </extension>
+    <extension repo="alexszeto/extra-effects">
+      <description>@sylvancircle on the MakeCode Forums made an extension that provides "customizable splashy particle effects", adding an `Effects` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/alexszeto/extra-effects</url>
+        <url label="Forum post">https://forum.makecode.com/t/extra-effects-extension/22002?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/S25961-93672-24496-79526</url>
+      </links>
+    </extension>
   </extensionList>
   <toolList label="Tools">
     <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
