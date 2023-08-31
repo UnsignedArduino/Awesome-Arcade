@@ -596,5 +596,12 @@
         <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
       </links>
     </tool>
+    <tool repo="edermunizz/pixel-art-rpg-character-creator">
+      <description>This _beautiful_ character art generator is perfect for RPGs! Use another tool to convert the exported `.png` file to a MakeCode image.</description>
+      <links>
+        <url label="Tool" isPrimary="true">https://edermunizz.itch.io/pixel-art-rpg-character-creator</url>
+        <url label="Forum post">https://forum.makecode.com/t/something-cool-i-found/19411?u=unsignedarduino</url>
+      </links>
+    </tool>
   </toolList>
 </allExtensions>
