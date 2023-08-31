@@ -239,6 +239,15 @@ export function AwesomeArcadeExtension({
             </div>
           </div>
         ) : undefined}
+        {ext.inBeta != undefined ? (
+          <div className="mt-3">
+            <div className="alert alert-warning mb-0" role="alert">
+              This extension is in beta since <b>{ext.inBeta.since}</b> because:
+              <br />
+              {ext.inBeta.text}
+            </div>
+          </div>
+        ) : undefined}
       </div>
     </div>
   );
