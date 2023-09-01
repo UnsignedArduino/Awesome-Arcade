@@ -1,6 +1,10 @@
 import React from "react";
 import Layout from "../../../../../components/Layout";
 import getAppProps, { AppProps } from "../../../../../components/WithAppProps";
+import { read } from "midifile-ts";
+import { generateSong } from "@/scripts/embeddedTools/UnsignedArduino/Arcade-MIDI-to-Song-Online";
+import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
+import { NotificationType, notify } from "@/components/Notifications";
 
 const pageName = "Arcade MIDI to Song";
 
@@ -36,6 +40,30 @@ export function ArcadeMIDItoSongOnline({
             className="form-control"
             id="midiFileInput"
             aria-label="Upload"
+            onChange={(e) => {
+              if (e.target.files === null || e.target.files.length === 0) {
+                return;
+              }
+
+              const file = e.target.files[0];
+              const reader = new FileReader();
+
+              reader.onload = (e) => {
+                if (e.target == null) {
+                  notify("Failed to read file!", NotificationType.Error);
+                  return;
+                }
+                const buf = e.target.result as ArrayBuffer;
+                const midi = read(buf);
+                setSong(generateSong(midi));
+                notify(
+                  "Successfully converted MIDI to song!",
+                  NotificationType.Success
+                );
+              };
+
+              reader.readAsArrayBuffer(file);
+            }}
           />
         </div>
         <div className="mt-2">
@@ -54,6 +82,19 @@ export function ArcadeMIDItoSongOnline({
             type="button"
             className="btn btn-primary mt-2"
             disabled={song.length === 0}
+            onClick={() => {
+              if (copyTextToClipboard(song)) {
+                notify(
+                  "Successfully copied text to clipboard!",
+                  NotificationType.Success
+                );
+              } else {
+                notify(
+                  "Failed to copy text to clipboard!",
+                  NotificationType.Error
+                );
+              }
+            }}
           >
             Copy to clipboard
           </button>
