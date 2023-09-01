@@ -643,7 +643,7 @@
       </links>
     </tool>
     <tool repo="UnsignedArduino/ArcadeMIDIGeneratorOnline">
-      <description>This is an online version of the ArcadeMIDI generator tool, removing the need for you to download/install the neccessary tools to convert MIDI files!</description>
+      <description>This is an online version of the ArcadeMIDI generator tool, removing the need for you to download/install the necessary tools to convert MIDI files!</description>
       <links>
         <url label="Tool" isPrimary="true">https://arcademidigeneratoronlinemain.gatsbyjs.io/</url>
         <url label="GitHub repo">https://github.com/UnsignedArduino/ArcadeMIDIGeneratorOnline</url>
@@ -667,12 +667,20 @@
         Currently no way to use these exported fonts.
       </inBeta>
     </tool>
-    <tool repo="UnsignedArduino/ArcadeMIDIGenerator">
+    <tool repo="UnsignedArduino/Arcade-MIDI-to-Song">
       <description>I have written a Python script that will turn MIDI files into MakeCode Arcade songs! Note that this tools requires at least Python 3.11 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Arcade-MIDI-to-Song</url>
         <url label="Forum post">https://forum.makecode.com/t/new-song-format/17763/11?u=unsignedarduino</url>
         <url label="Demos">https://forum.makecode.com/t/piano-synthesia/22138?u=unsignedarduino</url>
+      </links>
+    </tool>
+    <tool repo="UnsignedArduino/Arcade-MIDI-to-Song-Online">
+      <description>This is an online version of the Arcade-MIDI-to-Song tool, removing the need for you to download/install the necessary tools to convert MIDI files!</description>
+      <links>
+        <url label="Tool" isPrimary="true">/tools/embedded/UnsignedArduino/Arcade-MIDI-to-Song-Online</url>
+        <url label="GitHub repo">https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/tree/main/src/pages/tools/embedded/UnsignedArduino/Arcade-MIDI-to-Song-Online</url>
+<!--        <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>-->
       </links>
     </tool>
   </toolList>
