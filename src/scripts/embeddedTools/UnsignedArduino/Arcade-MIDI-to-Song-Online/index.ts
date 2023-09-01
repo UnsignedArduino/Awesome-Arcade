@@ -5,7 +5,11 @@ import {
   mergeTracks,
 } from "@/scripts/embeddedTools/UnsignedArduino/Arcade-MIDI-to-Song-Online/midi";
 
-export function generateSong(midi: MidiFile): string {
+export function generateSong(
+  midi: MidiFile,
+  instrumentID: string | number,
+  divisor: number
+): string {
   console.log("Generating song");
 
   const msgs = mergeTracks(midi.tracks);
@@ -13,5 +17,5 @@ export function generateSong(midi: MidiFile): string {
   convertNoteOffToNoteOn(msgs);
   fixTempo(msgs);
 
-  return "SONG";
+  return `SONG USING INSTRUMENT ${instrumentID} AND DIVISOR ${divisor}`;
 }
