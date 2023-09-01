@@ -9,11 +9,13 @@ export function ArcadeMIDItoSongOnline({
 }: {
   appProps: AppProps;
 }): JSX.Element {
+  const [song, setSong] = React.useState("");
+
   return (
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <h1>Arcade-MIDI-to-Song-Online</h1>
       <p>
-        Made by{" "}
+        A tool made by{" "}
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -25,6 +27,37 @@ export function ArcadeMIDItoSongOnline({
       </p>
       <div className="alert alert-warning" role="alert">
         This tool is still a work in progress!
+      </div>
+      <p>Choose a MIDI file to convert to a MakeCode Arcade song!</p>
+      <div>
+        <div className="input-group">
+          <input
+            type="file"
+            className="form-control"
+            id="midiFileInput"
+            aria-label="Upload"
+          />
+        </div>
+        <div className="mt-2">
+          <label htmlFor="outputSongTextarea" className="form-label">
+            Output song:
+          </label>
+          <textarea
+            className="form-control"
+            id="outputSongTextarea"
+            rows={3}
+            readOnly
+            defaultValue={song}
+            disabled={song.length === 0}
+          />
+          <button
+            type="button"
+            className="btn btn-primary mt-2"
+            disabled={song.length === 0}
+          >
+            Copy to clipboard
+          </button>
+        </div>
       </div>
     </Layout>
   );
