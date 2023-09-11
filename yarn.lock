@@ -2623,6 +2623,11 @@ micromatch@4.0.5, micromatch@^4.0.4:
     braces "^3.0.2"
     picomatch "^2.3.1"
 
+midifile-ts@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/midifile-ts/-/midifile-ts-1.5.1.tgz#7a68d952960e1dcc84b3adee20d5f9994d942c09"
+  integrity sha512-233Yd15Q++LdI+EbQRwxyW1QeuxTiy6ApxVXh2F1K3OruqH7uGBXiRdxiOjZjk8Y//oa3JMQ4mGVQ0Gsd/VkaQ==
+
 mime-db@1.52.0:
   version "1.52.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"

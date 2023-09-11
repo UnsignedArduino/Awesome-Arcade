@@ -164,7 +164,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
 
   const logRepoClickFromEvent = (event: CustomEvent<string>) => {
     const repo = event.detail;
-    fetch(`${window.location.origin}/api/extensions/click?repo=${repo}`)
+    fetch(`${window.location.origin}/api/tools/click?repo=${repo}`)
       .then((response) => {
         return response.json();
       })
