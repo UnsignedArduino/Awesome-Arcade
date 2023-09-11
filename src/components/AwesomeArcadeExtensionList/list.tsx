@@ -2,8 +2,8 @@ import { ExtensionList } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
-import { AwesomeArcadeExtensionGroup } from "@/components/AwesomeArcadeExtensionList/extension";
-import { AwesomeArcadeToolGroup } from "@/components/AwesomeArcadeExtensionList/tool";
+import { AwesomeArcadeExtensionGroup } from "@/components/OldAwesomeArcadeExtensionList/extension";
+import { AwesomeArcadeToolGroup } from "@/components/OldAwesomeArcadeExtensionList/tool";
 
 export function AwesomeArcadeExtensionsList({
   list,
