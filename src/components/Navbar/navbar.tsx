@@ -9,7 +9,6 @@ import Profile from "@/components/Authentication/Profile";
 const NavbarPages = {
   Extensions: "/",
   Tools: "/tools",
-  "Multiplayer browser": "/multiplayer-browser",
   Help: "/help",
   GitHub:
     "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
