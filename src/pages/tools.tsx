@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../../components/Layout";
-import getAppProps, { AppProps } from "../../components/WithAppProps";
+import Layout from "../components/Layout";
+import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import parseExtensionXML, {
   ExtensionList,
@@ -230,12 +230,11 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         repository.
       </p>
       <p>
-        You can find the old home page <Link href="/src/pages/old">here</Link>.
+        You can find the old home page <Link href="/old">here</Link>.
       </p>
       <p>
-        Want to suggest a new tool or modification? Or want to embed your
-        website-based tool within Awesome Arcade Extensions? Head over to our
-        GitHub repository and file an{" "}
+        Want to suggest a new tool or modification? Head over to our GitHub
+        repository and file an{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues/new?assignees=&labels=tool&projects=&template=new-tool.md&title=Add+tool+%5BINSERT+TOOL+URL%5D"
           target="_blank"

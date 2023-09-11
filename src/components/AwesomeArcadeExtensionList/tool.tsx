@@ -12,13 +12,6 @@ export function AwesomeArcadeTool({
   pad?: boolean | undefined;
 }): JSX.Element {
   const [showCardLink, setShowCardLink] = React.useState(false);
-  const [prefixingOrigin, setPrefixingOrigin] = React.useState("");
-
-  React.useEffect(() => {
-    if (tool.url.startsWith("/")) {
-      setPrefixingOrigin(window.location.origin);
-    }
-  }, [tool.url]);
 
   return (
     <div className={`card ${pad ? "mb-2" : ""} h-100`} id={tool.repo}>
@@ -66,7 +59,6 @@ export function AwesomeArcadeTool({
                 AnalyticEvents.sendAwesomeClick(tool.repo);
               }}
             >
-              {prefixingOrigin}
               {tool.url}
             </a>
           </blockquote>
