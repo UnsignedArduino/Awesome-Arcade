@@ -26,7 +26,6 @@ export type Extension = {
   forks?: ExtensionRef[] | null;
   depreciatedBy?: ExtensionRef[] | null;
   inBeta?: { text: string; since: string } | null;
-  javascriptOnly?: boolean;
 };
 
 export type ToolRef = {
@@ -138,7 +137,6 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
       return link.isPrimary;
     })[0];
     const repo: string = extension[":@"]["@_repo"];
-    const javascriptOnly = stringToBool(extension[":@"]["@_javascriptOnly"]);
     const title = repo.split("/")[1];
     const author = repo.split("/")[0];
     const forks = findElementInElement(ext, "forks");
@@ -164,7 +162,6 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
               since: inBeta[":@"]["@_asOf"],
             }
           : null,
-      javascriptOnly,
     });
   }
   return newExts;
