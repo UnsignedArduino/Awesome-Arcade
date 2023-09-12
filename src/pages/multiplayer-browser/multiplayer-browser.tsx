@@ -12,7 +12,25 @@ export function MultiplayerBrowser({
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <>
         <h1>Multiplayer browser</h1>
-        <p>Nothing here just yet!</p>
+        <p>
+          You can browse active multiplayer games posted by other people to find
+          someone to play with! You can also view dedicated server hosted games,
+          where games that are compatible with the dedicated server model are
+          hosted for an extended period of time, allowing three players to join
+          and leave at will!
+        </p>
+        <h2>Active games</h2>
+        <div>
+          <div className="alert alert-info" role="alert">
+            Nothing here just yet!
+          </div>
+        </div>
+        <h2>Dedicated server hosted games</h2>
+        <div>
+          <div className="alert alert-info" role="alert">
+            Nothing here just yet!
+          </div>
+        </div>
       </>
     </Layout>
   );
