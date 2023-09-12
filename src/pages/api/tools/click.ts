@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sql } from "@vercel/postgres";
+import queryDb from "@/scripts/Database";
 
 export default async function handler(
   request: NextApiRequest,
@@ -10,12 +10,17 @@ export default async function handler(
     if (!repo) {
       return response.status(404).json({ error: "Repository is required!" });
     }
-    const result =
-      await sql`SELECT Repository, Clicks FROM ToolClicks WHERE Repository=${repo}`;
+    const result = await queryDb(
+      "SELECT Repository, Clicks FROM ToolClicks WHERE Repository=$1",
+      [repo]
+    );
     if (result.rows.length === 1) {
       const row = result.rows[0];
       const newClickCount = row["clicks"] + 1;
-      await sql`UPDATE ToolClicks SET Clicks=${newClickCount} WHERE Repository=${repo}`;
+      await queryDb("UPDATE ToolClicks SET Clicks=$1 WHERE Repository=$2", [
+        newClickCount,
+        repo,
+      ]);
       const responseJson: { [repo: string]: number } = {};
       responseJson[repo] = newClickCount;
       return response.status(200).json(responseJson);
