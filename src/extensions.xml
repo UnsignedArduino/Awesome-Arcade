@@ -667,7 +667,7 @@
         Currently no way to use these exported fonts.
       </inBeta>
     </tool>
-    <tool repo="UnsignedArduino/ArcadeMIDIGenerator">
+    <tool repo="UnsignedArduino/Arcade-MIDI-to-Song">
       <description>I have written a Python script that will turn MIDI files into MakeCode Arcade songs! Note that this tools requires at least Python 3.11 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Arcade-MIDI-to-Song</url>

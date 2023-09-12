@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sql } from "@vercel/postgres";
+import queryDb from "@/scripts/Database";
 
 export default async function handler(
   request: NextApiRequest,
@@ -10,7 +10,9 @@ export default async function handler(
     "max-age=0, s-maxage=600, stale-while-revalidate"
   );
   try {
-    const result = await sql`SELECT Repository, Clicks FROM ExtensionClicks`;
+    const result = await queryDb(
+      "SELECT Repository, Clicks FROM ExtensionClicks"
+    );
     const rows = result.rows;
     const clickCounts: { [repo: string]: number } = {};
     for (const obj of rows) {
