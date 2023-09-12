@@ -67,6 +67,7 @@
     "nextjs-google-adsense": "^1.0.0",
     "nextjs-google-analytics": "^2.3.3",
     "nextjs-progressbar": "^0.0.16",
+    "pg": "^8.11.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-toastify": "^9.1.2",
