@@ -53,10 +53,6 @@ export default function ProfileOffcanvas() {
               >
                 Sign out
               </button>
-              <div className="alert alert-info mt-3" role="alert">
-                Signing in currently grants no additional features, but will be
-                used in the future!
-              </div>
             </div>
           </>
         ) : (
@@ -100,10 +96,6 @@ export default function ProfileOffcanvas() {
                   sign in with!
                 </p>
               )}
-              <div className="alert alert-info mt-3" role="alert">
-                Signing in currently grants no additional features, but will be
-                used in the future!
-              </div>
             </div>
           </>
         )}

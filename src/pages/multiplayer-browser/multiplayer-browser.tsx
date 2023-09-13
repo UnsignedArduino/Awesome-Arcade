@@ -1,5 +1,7 @@
 import Layout from "../../components/Layout";
 import getAppProps, { AppProps } from "../../components/WithAppProps";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const pageName = "Multiplayer browser";
 
@@ -8,6 +10,8 @@ export function MultiplayerBrowser({
 }: {
   appProps: AppProps;
 }): JSX.Element {
+  const { data: session } = useSession();
+
   return (
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <>
@@ -20,6 +24,16 @@ export function MultiplayerBrowser({
           and leave at will!
         </p>
         <h2>Active games</h2>
+        <div>
+          {session != null ? (
+            <p>
+              Click <Link href="/multiplayer-browser/post">here</Link> to post a
+              new multiplayer game.
+            </p>
+          ) : (
+            <p>You are not signed in, so you cannot post a multiplayer game!</p>
+          )}
+        </div>
         <div>
           <div className="alert alert-info" role="alert">
             Nothing here just yet!
