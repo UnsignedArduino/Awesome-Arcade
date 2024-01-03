@@ -30,6 +30,8 @@ function Navbar({
   extraNavbarHTML,
   dontShowSignIn,
 }: NavbarProps): JSX.Element {
+  dontShowSignIn = true;
+
   return (
     <nav className="navbar sticky-top bg-body-tertiary navbar-expand-md">
       <div className="container-fluid">
@@ -133,9 +135,9 @@ function Navbar({
           if (extraNavbarHTML) {
             elements.push(extraNavbarHTML);
           }
-          // if (!dontShowSignIn) {
-          //   elements.push(<Profile />);
-          // }
+          if (!dontShowSignIn) {
+            elements.push(<Profile />);
+          }
           elements.push(<NavbarDropdownThemePicker alignEnd />);
 
           return elements.map((ele: JSX.Element, index: number) => {
