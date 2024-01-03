@@ -1,4 +1,4 @@
-import { ExtensionList } from "@/scripts/Utils/ParseExtensionsXML";
+import { ExtensionList } from "../../scripts/Utils/ParseOldExtensionsXML";
 import React from "react";
 import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";

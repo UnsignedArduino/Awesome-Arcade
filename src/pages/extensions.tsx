@@ -3,9 +3,9 @@ import { promises as fs } from "fs";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
-import parseExtensionXML, {
+import parseOldExtensionXML, {
   ExtensionList,
-} from "@/scripts/Utils/ParseExtensionsXML";
+} from "../scripts/Utils/ParseOldExtensionsXML";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeList";
@@ -199,7 +199,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: ExtensionsProps;
 }> {
-  const list = await parseExtensionXML(
+  const list = await parseOldExtensionXML(
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
     ).toString()

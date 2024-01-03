@@ -236,7 +236,7 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
   return newTools;
 }
 
-export default async function parseExtensionXML(
+export default async function parseOldExtensionXML(
   xml: string
 ): Promise<ExtensionList> {
   const parser = new XMLParser({
