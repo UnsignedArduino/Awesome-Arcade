@@ -8,7 +8,7 @@ import parseExtensionXML, {
 } from "@/scripts/Utils/ParseExtensionsXML";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
-import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeExtensionList";
+import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
@@ -170,11 +170,11 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         </a>{" "}
         or submit a pull request to{" "}
         <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/extensions.xml"
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/oldExtensions.xml"
           target="_blank"
           rel="noopener noreferrer"
         >
-          edit the <code>extensions.xml</code>
+          edit the <code>oldExtensions.xml</code>
         </a>{" "}
         file! (A GitHub account is required.)
       </p>
@@ -201,13 +201,8 @@ export async function getStaticProps(): Promise<{
 }> {
   const list = await parseExtensionXML(
     (
-      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
+      await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
     ).toString()
-  );
-
-  await fs.writeFile(
-    "./public/extensions.json",
-    JSON.stringify(list, undefined, 2)
   );
 
   return {

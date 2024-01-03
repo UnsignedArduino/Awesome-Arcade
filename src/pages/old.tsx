@@ -123,7 +123,8 @@ export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
         (or just plain cool) in my projects.
       </p>
       <div className="alert alert-warning" role="alert">
-        Please note that this page will be removed soon in favor of the new home, extension, and tool pages.
+        Please note that this page will be removed soon in favor of the new
+        home, extension, and tool pages.
       </div>
       <p>
         Please note that this website is not developed, affiliated, or endorsed
@@ -148,8 +149,13 @@ export async function getStaticProps(): Promise<{
 }> {
   const list = await parseExtensionXML(
     (
-      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
+      await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
     ).toString()
+  );
+
+  await fs.writeFile(
+    "./public/oldExtensions.json",
+    JSON.stringify(list, undefined, 2)
   );
 
   return {
