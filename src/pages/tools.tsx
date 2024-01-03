@@ -8,7 +8,6 @@ import parseExtensionXML, {
 import { promises as fs } from "fs";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
-import { ClickCountContext } from "@/components/contexts";
 import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeExtensionList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
@@ -18,18 +17,6 @@ import { useSession } from "next-auth/react";
 const pageName = "Tools";
 
 type ToolsProps = { appProps: AppProps; list: ExtensionList };
-
-export type ClickCountListing = { [repo: string]: number };
-
-declare global {
-  interface HTMLElementEventMap {
-    clicktool: CustomEvent<string>;
-    toolclickcountchange: CustomEvent<{
-      repo: string;
-      count: string | undefined;
-    }>;
-  }
-}
 
 export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   const { data: session } = useSession();
@@ -101,87 +88,6 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       setResultCount(undefined);
     }
   }, [search, list]);
-
-  const [clickCounts, setClickCounts] = React.useState<
-    ClickCountListing | undefined
-  >(undefined);
-
-  const refreshAllClickCounts = () => {
-    console.log("Refreshing click counts");
-    fetch(`${window.location.origin}/api/tools`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        setClickCounts(json);
-        console.log(
-          `Successfully refreshed ${Object.keys(json).length} click counts`
-        );
-      })
-      .catch((error) => {
-        setClickCounts(undefined);
-        console.error(`Error fetching click counts: ${error}`);
-      });
-  };
-
-  const refreshCountsRef = React.useRef<number | undefined>(undefined);
-  const REFRESH_CLICK_COUNT_PERIOD = 1000 * 60 * 2;
-
-  React.useEffect(() => {
-    refreshAllClickCounts();
-
-    refreshCountsRef.current = window.setInterval(
-      refreshAllClickCounts,
-      REFRESH_CLICK_COUNT_PERIOD
-    );
-    return () => {
-      window.clearInterval(refreshCountsRef.current);
-    };
-  }, []); // eslint-disable-line
-
-  // I hate closures
-  const clickCountRef = React.useRef<ClickCountListing | undefined>(undefined);
-
-  React.useEffect(() => {
-    clickCountRef.current = clickCounts;
-  }, [clickCounts]);
-
-  const logToolClickFromEvent = (event: CustomEvent<string>) => {
-    const repo = event.detail;
-    fetch(`${window.location.origin}/api/tools/click?repo=${repo}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        const repo = Object.keys(json)[0];
-        if (clickCountRef.current != undefined) {
-          const counts = structuredClone(clickCountRef.current);
-          counts[repo] = json[repo];
-          setClickCounts(counts);
-        } else {
-          throw new Error("Click count cache is undefined");
-        }
-      })
-      .catch((error) => {
-        setClickCounts(undefined);
-        console.error(
-          `Error refreshing individual click count for ${repo}: ${error}`
-        );
-      });
-  };
-
-  React.useEffect(() => {
-    window.document.documentElement.addEventListener(
-      "clicktool",
-      logToolClickFromEvent
-    );
-    return () => {
-      window.document.documentElement.removeEventListener(
-        "clicktool",
-        logToolClickFromEvent
-      );
-    };
-  }, []); // eslint-disable-line
 
   return (
     <Layout
@@ -258,9 +164,7 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
             Found {resultCount.tools} tool{resultCount.tools !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
-        <ClickCountContext.Provider value={clickCounts}>
-          <AwesomeArcadeToolsList list={filteredList} />
-        </ClickCountContext.Provider>
+        <AwesomeArcadeToolsList list={filteredList} />
       </div>
       <p>
         Looking for Awesome Arcade Extensions? They have been split up into the{" "}

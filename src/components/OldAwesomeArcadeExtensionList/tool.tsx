@@ -3,8 +3,6 @@ import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
-import { ClickCountContext } from "@/components/contexts";
-import { formatNumber } from "@/scripts/Utils/Numbers";
 
 export function AwesomeArcadeTool({
   tool,
@@ -54,17 +52,6 @@ export function AwesomeArcadeTool({
       }
     }
   }, [tooltip]);
-
-  const clickCounts = React.useContext(ClickCountContext);
-  const [clickCount, setClickCount] = React.useState("");
-
-  React.useEffect(() => {
-    if (clickCounts != undefined) {
-      setClickCount(formatNumber(clickCounts[tool.repo]));
-    } else {
-      setClickCount("");
-    }
-  }, [clickCounts, tool.repo]);
 
   const onURLClick = () => {
     window.document.documentElement.dispatchEvent(
@@ -129,40 +116,6 @@ export function AwesomeArcadeTool({
             >
               {tool.url}
             </a>
-            <span hidden={clickCount === "0"}>
-              {" "}
-              <small>
-                <span className="badge text-bg-secondary">
-                  {clickCount != undefined && clickCount.length > 0 ? (
-                    <>
-                      {clickCount}
-                      <span className="visually-hidden"> clicks</span>
-                    </>
-                  ) : (
-                    <span
-                      className="placeholder-glow align-middle d-inline-block align-top"
-                      style={{
-                        position: "relative",
-                        top: "-0.2em",
-                        height: "0.8em",
-                      }}
-                    >
-                      <span
-                        className="placeholder align-top d-inline-block"
-                        style={{ width: "1.5em" }}
-                      />
-                    </span>
-                    // <div
-                    //   className="spinner-border"
-                    //   style={{ width: "0.5rem", height: "0.5rem" }}
-                    //   role="status"
-                    // >
-                    //   <span className="visually-hidden">Loading...</span>
-                    // </div>
-                  )}
-                </span>
-              </small>
-            </span>
           </blockquote>
         </>
         <div

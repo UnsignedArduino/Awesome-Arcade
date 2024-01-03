@@ -15,16 +15,6 @@ This is the source code for the Awesome Arcade Extensions website!
 1. Have `nodejs`.
 2. Clone this repo.
 3. `yarn` to install dependencies.
-4. Deploy to Vercel and link the project.
-5. Copy `.env.sample` to `.env.local` and fill out environment variables.
-   Push them to Vercel.
-6. Create a new Postgres database on your computer for development.
-7. Insert click counts into your local Postgres database using any tool manually for development. 💀💀💀
-
-When hosting on Vercel:
-
-9. Create a new Vercel Postgres database and pull the environment variables in for production.
-10. Insert click counts using the Vercel Storage dashboard manually for production. 💀💀💀
 
 ## Development
 

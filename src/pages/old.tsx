@@ -10,7 +10,6 @@ import parseExtensionXML, {
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
-import { ClickCountContext } from "@/components/contexts";
 import Tippy from "@tippyjs/react";
 import { promises as fs } from "fs";
 import path from "path";
@@ -18,18 +17,6 @@ import path from "path";
 const pageName = "Old home";
 
 type OldHomeProps = { appProps: AppProps; list: ExtensionList };
-
-export type ClickCountListing = { [repo: string]: number };
-
-declare global {
-  interface HTMLElementEventMap {
-    clickrepo: CustomEvent<string>;
-    repoclickcountchange: CustomEvent<{
-      repo: string;
-      count: string | undefined;
-    }>;
-  }
-}
 
 export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
   const [search, setSearch] = React.useState("");
@@ -100,87 +87,6 @@ export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
     }
   }, [search, list]);
 
-  const [clickCounts, setClickCounts] = React.useState<
-    ClickCountListing | undefined
-  >(undefined);
-
-  const refreshAllClickCounts = () => {
-    console.log("Refreshing click.ts counts");
-    fetch(`${window.location.origin}/api/all/`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        setClickCounts(json);
-        console.log(
-          `Successfully refreshed ${Object.keys(json).length} click counts`
-        );
-      })
-      .catch((error) => {
-        setClickCounts(undefined);
-        console.error(`Error fetching click counts: ${error}`);
-      });
-  };
-
-  const refreshCountsRef = React.useRef<number | undefined>(undefined);
-  const REFRESH_CLICK_COUNT_PERIOD = 1000 * 60 * 2;
-
-  React.useEffect(() => {
-    refreshAllClickCounts();
-
-    refreshCountsRef.current = window.setInterval(
-      refreshAllClickCounts,
-      REFRESH_CLICK_COUNT_PERIOD
-    );
-    return () => {
-      window.clearInterval(refreshCountsRef.current);
-    };
-  }, []); // eslint-disable-line
-
-  // I hate closures
-  const clickCountRef = React.useRef<ClickCountListing | undefined>(undefined);
-
-  React.useEffect(() => {
-    clickCountRef.current = clickCounts;
-  }, [clickCounts]);
-
-  const logRepoClickFromEvent = (event: CustomEvent<string>) => {
-    const repo = event.detail;
-    fetch(`${window.location.origin}/api/click?repo=${repo}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        const repo = Object.keys(json)[0];
-        if (clickCountRef.current != undefined) {
-          const counts = structuredClone(clickCountRef.current);
-          counts[repo] = json[repo];
-          setClickCounts(counts);
-        } else {
-          throw new Error("Click count cache is undefined");
-        }
-      })
-      .catch((error) => {
-        setClickCounts(undefined);
-        console.error(
-          `Error refreshing individual click count for ${repo}: ${error}`
-        );
-      });
-  };
-
-  React.useEffect(() => {
-    window.document.documentElement.addEventListener(
-      "clickrepo",
-      logRepoClickFromEvent
-    );
-    return () => {
-      window.document.documentElement.removeEventListener(
-        "clickrepo",
-        logRepoClickFromEvent
-      );
-    };
-  }, []); // eslint-disable-line
-
   return (
     <Layout
       title={pageName}
@@ -228,9 +134,7 @@ export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
             tool{resultCount.tools !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
-        <ClickCountContext.Provider value={clickCounts}>
-          <AwesomeArcadeExtensionList list={filteredList} />
-        </ClickCountContext.Provider>
+        <AwesomeArcadeExtensionList list={filteredList} />
       </div>
     </Layout>
   );

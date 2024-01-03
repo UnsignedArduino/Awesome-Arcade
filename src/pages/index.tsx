@@ -9,7 +9,6 @@ import parseExtensionXML, {
 } from "@/scripts/Utils/ParseExtensionsXML";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
-import { ClickCountContext } from "@/components/contexts";
 import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeExtensionList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
@@ -19,18 +18,6 @@ import { useSession } from "next-auth/react";
 const pageName = "Extensions";
 
 type ExtensionsProps = { appProps: AppProps; list: ExtensionList };
-
-export type ClickCountListing = { [repo: string]: number };
-
-declare global {
-  interface HTMLElementEventMap {
-    clickrepo: CustomEvent<string>;
-    repoclickcountchange: CustomEvent<{
-      repo: string;
-      count: string | undefined;
-    }>;
-  }
-}
 
 export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
   const { data: session } = useSession();
@@ -118,87 +105,6 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
     }
   }, [search, list]);
 
-  const [clickCounts, setClickCounts] = React.useState<
-    ClickCountListing | undefined
-  >(undefined);
-
-  const refreshAllClickCounts = () => {
-    console.log("Refreshing click counts");
-    fetch(`${window.location.origin}/api/extensions`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        setClickCounts(json);
-        console.log(
-          `Successfully refreshed ${Object.keys(json).length} click counts`
-        );
-      })
-      .catch((error) => {
-        setClickCounts(undefined);
-        console.error(`Error fetching click counts: ${error}`);
-      });
-  };
-
-  const refreshCountsRef = React.useRef<number | undefined>(undefined);
-  const REFRESH_CLICK_COUNT_PERIOD = 1000 * 60 * 2;
-
-  React.useEffect(() => {
-    refreshAllClickCounts();
-
-    refreshCountsRef.current = window.setInterval(
-      refreshAllClickCounts,
-      REFRESH_CLICK_COUNT_PERIOD
-    );
-    return () => {
-      window.clearInterval(refreshCountsRef.current);
-    };
-  }, []); // eslint-disable-line
-
-  // I hate closures
-  const clickCountRef = React.useRef<ClickCountListing | undefined>(undefined);
-
-  React.useEffect(() => {
-    clickCountRef.current = clickCounts;
-  }, [clickCounts]);
-
-  const logRepoClickFromEvent = (event: CustomEvent<string>) => {
-    const repo = event.detail;
-    fetch(`${window.location.origin}/api/extensions/click?repo=${repo}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        const repo = Object.keys(json)[0];
-        if (clickCountRef.current != undefined) {
-          const counts = structuredClone(clickCountRef.current);
-          counts[repo] = json[repo];
-          setClickCounts(counts);
-        } else {
-          throw new Error("Click count cache is undefined");
-        }
-      })
-      .catch((error) => {
-        setClickCounts(undefined);
-        console.error(
-          `Error refreshing individual click count for ${repo}: ${error}`
-        );
-      });
-  };
-
-  React.useEffect(() => {
-    window.document.documentElement.addEventListener(
-      "clickrepo",
-      logRepoClickFromEvent
-    );
-    return () => {
-      window.document.documentElement.removeEventListener(
-        "clickrepo",
-        logRepoClickFromEvent
-      );
-    };
-  }, []); // eslint-disable-line
-
   return (
     <Layout
       title={pageName}
@@ -250,7 +156,8 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         with the extensions below.
       </p>
       <p>
-        You can find the old home page <Link href="/old">here</Link>.
+        You can find the old home page <Link href="/old">here</Link>. (please
+        note that this page will be removed soon)
       </p>
       <p>
         Want to suggest a new extension or modification? Head over to our GitHub
@@ -279,9 +186,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
             {resultCount.extensions !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
-        <ClickCountContext.Provider value={clickCounts}>
-          <AwesomeArcadeExtensionsList list={filteredList} />
-        </ClickCountContext.Provider>
+        <AwesomeArcadeExtensionsList list={filteredList} />
       </div>
       <p>
         Looking for Awesome Arcade Tools? They have been moved to the{" "}
