@@ -1,6 +1,7 @@
 import React from "react";
 import ErrorBoundary from "../ErrorBoundary";
 import Link from "next/link";
+import { appName } from "@/components/Layout/layout";
 
 export const DEVELOPERS = ["UnsignedArduino"];
 
@@ -17,15 +18,23 @@ function Footer(): JSX.Element {
         link: "/",
       },
       {
+        title: "Extensions",
+        link: "/extensions",
+      },
+      {
+        title: "Tools",
+        link: "/tools",
+      },
+      {
         title: "Help",
         link: "/help",
       },
+    ],
+    [
       {
         title: "About",
         link: "/about",
       },
-    ],
-    [
       {
         title: "GitHub",
         link: "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
@@ -45,7 +54,7 @@ function Footer(): JSX.Element {
 
   const footerText = (
     <>
-      Awesome Arcade Extensions is developed and maintained by{" "}
+      {appName} is developed and maintained by{" "}
       {DEVELOPERS.map((dev, index) => {
         return (
           <span key={dev}>
@@ -74,6 +83,8 @@ function Footer(): JSX.Element {
       </a>
       .
       <br />
+      This website is not developed, affiliated, or endorsed by Microsoft, the
+      owner of MakeCode Arcade. <br />
       Microsoft and MakeCode Arcade are trademarks of the Microsoft group of
       companies.
     </>

@@ -1,24 +1,24 @@
 import React from "react";
+import { promises as fs } from "fs";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import parseExtensionXML, {
   ExtensionList,
 } from "@/scripts/Utils/ParseExtensionsXML";
-import { promises as fs } from "fs";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
-import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeExtensionList";
+import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeExtensionList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
 
-const pageName = "Tools";
+const pageName = "Extensions";
 
-type ToolsProps = { appProps: AppProps; list: ExtensionList };
+type ExtensionsProps = { appProps: AppProps; list: ExtensionList };
 
-export function Tools({ appProps, list }: ToolsProps): JSX.Element {
+export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
@@ -48,6 +48,21 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
     }
     window.history.replaceState({}, "", url.toString());
   }, [search]);
+
+  // React.useEffect(() => {
+  //   document.addEventListener("keydown", (e) => {
+  //     if (e.keyCode === 114 || ((e.ctrlKey || e.metaKey) && e.keyCode === 70)) {
+  //       e.preventDefault();
+  //     }
+  //     if ((e.ctrlKey || e.metaKey) && e.code == "KeyF") {
+  //       setTimeout(() => {
+  //         console.log("FOCUS FIND");
+  //         const searchBar = getElement("searchBar") as HTMLInputElement;
+  //         searchBar.focus();
+  //       }, 1000);
+  //     }
+  //   });
+  // }, []);
 
   React.useEffect(() => {
     if (search.length > 0) {
@@ -94,20 +109,21 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description="This is a list of MakeCode Arcade tools that I find super useful (or just plain cool) to use in my projects."
-      keywords="Game development, Awesome, Tools, Curated, Arcade, Useful, Curated list, MakeCode, Awesome tools, Useful tools, MakeCode Arcade, MakeCode Arcade tools, Arcade tools"
+      description="This is a list of MakeCode Arcade extensions that I find super useful (or just plain cool) in my projects."
+      keywords="Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions"
       extraNavbarHTML={
-        <Tippy content="Search tools by author or name!">
+        <Tippy content="Search extensions by author or name!">
           <input
             type="text"
             className="form-control"
-            placeholder="Search tools by author or name!"
+            placeholder="Search extensions by author or name!"
             defaultValue={search}
+            id="searchBar"
             onChange={(event) => {
               const v = event.target.value;
               setSearch(v);
               debounce(
-                "toolSearchChange",
+                "extensionSearchChange",
                 () => {
                   AnalyticEvents.sendSearch(v);
                 },
@@ -120,30 +136,33 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       }
     >
       <h1>
-        Welcome to Awesome Arcade Tools
+        Welcome to Awesome Arcade Extensions
         {session?.user?.name != null ? `, ${session.user.name}` : ""}!
       </h1>
       <p>
-        This is a list of MakeCode Arcade tools that I find super useful (or
-        just plain cool) to use in my projects.
+        On this page, you can find my list of MakeCode Arcade extensions that I
+        find super useful (or just plain cool) in my projects.
       </p>
       <p>
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
       </p>
       <p>
-        To use these tools, follow the links to their website or GitHub
-        repository.
+        To use these extensions, you will need to import them. First go to the
+        toolbox, click on <code>Extensions</code>, and you will see a text box
+        that says <code>Search or enter project URL...</code> This is where you
+        will paste in the URL to the extension. The URL will be posted along
+        with the extensions below.
       </p>
       <p>
         You can find the old home page <Link href="/old">here</Link>. (please
         note that this page will be removed soon.)
       </p>
       <p>
-        Want to suggest a new tool or modification? Head over to our GitHub
+        Want to suggest a new extension or modification? Head over to our GitHub
         repository and file an{" "}
         <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues/new?assignees=&labels=tool&projects=&template=new-tool.md&title=Add+tool+%5BINSERT+TOOL+URL%5D"
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues/new?assignees=&labels=extension&projects=&template=new-extension.md&title=Add+extension+%5BINSERT+GITHUB+URL%5D"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -162,14 +181,15 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       <div>
         {resultCount != undefined ? (
           <p>
-            Found {resultCount.tools} tool{resultCount.tools !== 1 ? "s" : ""}.
+            Found {resultCount.extensions} extension
+            {resultCount.extensions !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
-        <AwesomeArcadeToolsList list={filteredList} />
+        <AwesomeArcadeExtensionsList list={filteredList} />
       </div>
       <p>
-        Looking for Awesome Arcade Extensions? They have been split up into the{" "}
-        <Link href="/">Extensions</Link> page! (Which you can also find in the
+        Looking for Awesome Arcade Tools? They have been moved to the{" "}
+        <Link href="/tools">Tools</Link> page! (Which you can also find in the
         navigation bar!)
       </p>
     </Layout>
@@ -177,12 +197,17 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
 }
 
 export async function getStaticProps(): Promise<{
-  props: ToolsProps;
+  props: ExtensionsProps;
 }> {
   const list = await parseExtensionXML(
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
     ).toString()
+  );
+
+  await fs.writeFile(
+    "./public/extensions.json",
+    JSON.stringify(list, undefined, 2)
   );
 
   return {
@@ -193,4 +218,4 @@ export async function getStaticProps(): Promise<{
   };
 }
 
-export default Tools;
+export default Extensions;

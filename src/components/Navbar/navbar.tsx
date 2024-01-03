@@ -7,7 +7,8 @@ import { AppProps } from "../WithAppProps";
 import Profile from "@/components/Authentication/Profile";
 
 const NavbarPages = {
-  Extensions: "/",
+  Home: "/",
+  Extensions: "/extensions",
   Tools: "/tools",
   Help: "/help",
   GitHub:
