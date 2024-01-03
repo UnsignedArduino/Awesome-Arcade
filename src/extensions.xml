@@ -481,5 +481,13 @@
         <url label="Demo">https://arcade.makecode.com/S25961-93672-24496-79526</url>
       </links>
     </extension>
+    <extension repo="riknoll/arcade-screen-transitions">
+      <description>Using some clever z-indexing, you're able to perform beautiful screen transitions between scenes! This adds a `Screen Transitions` category.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-screen-transitions</url>
+        <url label="Forum post">https://forum.makecode.com/t/extension-arcade-screen-transitions/23834?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/S04393-06456-09228-87946</url>
+      </links>
+    </extension>
   </extensionList>
 </allExtensions>
