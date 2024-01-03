@@ -1,8 +1,4 @@
-import {
-  Tool,
-  ToolRef,
-  URLLink,
-} from "../../scripts/Utils/ParseOldExtensionsXML";
+import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseOldExtensionsXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
