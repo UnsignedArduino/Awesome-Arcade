@@ -2,10 +2,8 @@ import React from "react";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import AwesomeArcadeExtensionList from "@/components/OldAwesomeArcadeExtensionList/list";
-import parseOldExtensionXML, {
-  Extension,
+import parseListXML, {
   ExtensionList,
-  Tool,
 } from "../scripts/Utils/ParseOldExtensionsXML";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
@@ -147,7 +145,7 @@ export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: OldHomeProps;
 }> {
-  const list = await parseOldExtensionXML(
+  const list = await parseListXML(
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
     ).toString()

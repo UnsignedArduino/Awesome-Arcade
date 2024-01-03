@@ -3,9 +3,6 @@ import { promises as fs } from "fs";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
-import parseOldExtensionXML, {
-  ExtensionList,
-} from "../scripts/Utils/ParseOldExtensionsXML";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeList";
@@ -13,19 +10,23 @@ import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
+import { Extension, parseExtensionXML } from "@/scripts/Utils/ParseListXML";
 
 const pageName = "Extensions";
 
-type ExtensionsProps = { appProps: AppProps; list: ExtensionList };
+type ExtensionsProps = {
+  appProps: AppProps;
+  list: Extension[];
+};
 
 export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
-  const [resultCount, setResultCount] = React.useState<
-    { extensions: number; tools: number } | undefined
-  >(undefined);
+  const [resultCount, setResultCount] = React.useState<number | undefined>(
+    undefined
+  );
 
   const searchParam = "q";
 
@@ -68,36 +69,20 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
     if (search.length > 0) {
       const filtered = structuredClone(list);
       let extCount = 0;
-      let toolCount = 0;
-      for (const group of Object.values(filtered)) {
-        for (let i = group.length - 1; i >= 0; i--) {
-          if (
-            !group[i].repo
-              .trim()
-              .toLowerCase()
-              .includes(search.trim().toLowerCase())
-          ) {
-            group.splice(i, 1);
-          }
-        }
-        if (group.length > 0) {
-          switch (group[0].type) {
-            case "Extension": {
-              extCount += group.length;
-              break;
-            }
-            case "Tool": {
-              toolCount += group.length;
-              break;
-            }
-          }
+      const group = filtered;
+      for (let i = group.length - 1; i >= 0; i--) {
+        if (
+          !group[i].repo
+            .trim()
+            .toLowerCase()
+            .includes(search.trim().toLowerCase())
+        ) {
+          group.splice(i, 1);
         }
       }
+      extCount += group.length;
       setFilteredList(filtered);
-      setResultCount({
-        extensions: extCount,
-        tools: toolCount,
-      });
+      setResultCount(extCount);
     } else {
       setFilteredList(list);
       setResultCount(undefined);
@@ -170,19 +155,19 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         </a>{" "}
         or submit a pull request to{" "}
         <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/oldExtensions.xml"
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/extensions.xml"
           target="_blank"
           rel="noopener noreferrer"
         >
-          edit the <code>oldExtensions.xml</code>
+          edit the <code>extensions.xml</code>
         </a>{" "}
         file! (A GitHub account is required.)
       </p>
       <div>
         {resultCount != undefined ? (
           <p>
-            Found {resultCount.extensions} extension
-            {resultCount.extensions !== 1 ? "s" : ""}.
+            Found {resultCount} extension
+            {resultCount !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
         <AwesomeArcadeExtensionsList list={filteredList} />
@@ -199,9 +184,9 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: ExtensionsProps;
 }> {
-  const list = await parseOldExtensionXML(
+  const list = await parseExtensionXML(
     (
-      await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
+      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
     ).toString()
   );
 

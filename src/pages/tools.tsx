@@ -2,9 +2,6 @@ import React from "react";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
-import parseOldExtensionXML, {
-  ExtensionList,
-} from "../scripts/Utils/ParseOldExtensionsXML";
 import { promises as fs } from "fs";
 import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
@@ -13,19 +10,23 @@ import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
+import { parseToolXML, Tool } from "@/scripts/Utils/ParseListXML";
 
 const pageName = "Tools";
 
-type ToolsProps = { appProps: AppProps; list: ExtensionList };
+type ToolsProps = {
+  appProps: AppProps;
+  list: Tool[];
+};
 
 export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
-  const [resultCount, setResultCount] = React.useState<
-    { extensions: number; tools: number } | undefined
-  >(undefined);
+  const [resultCount, setResultCount] = React.useState<number | undefined>(
+    undefined
+  );
 
   const searchParam = "q";
 
@@ -52,37 +53,21 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   React.useEffect(() => {
     if (search.length > 0) {
       const filtered = structuredClone(list);
-      let extCount = 0;
       let toolCount = 0;
-      for (const group of Object.values(filtered)) {
-        for (let i = group.length - 1; i >= 0; i--) {
-          if (
-            !group[i].repo
-              .trim()
-              .toLowerCase()
-              .includes(search.trim().toLowerCase())
-          ) {
-            group.splice(i, 1);
-          }
-        }
-        if (group.length > 0) {
-          switch (group[0].type) {
-            case "Extension": {
-              extCount += group.length;
-              break;
-            }
-            case "Tool": {
-              toolCount += group.length;
-              break;
-            }
-          }
+      const group = filtered;
+      for (let i = group.length - 1; i >= 0; i--) {
+        if (
+          !group[i].repo
+            .trim()
+            .toLowerCase()
+            .includes(search.trim().toLowerCase())
+        ) {
+          group.splice(i, 1);
         }
       }
+      toolCount += group.length;
       setFilteredList(filtered);
-      setResultCount({
-        extensions: extCount,
-        tools: toolCount,
-      });
+      setResultCount(toolCount);
     } else {
       setFilteredList(list);
       setResultCount(undefined);
@@ -151,18 +136,18 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         </a>{" "}
         or submit a pull request to{" "}
         <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/oldExtensions.xml"
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/tools.xml"
           target="_blank"
           rel="noopener noreferrer"
         >
-          edit the <code>oldExtensions.xml</code>
+          edit the <code>tools.xml</code>
         </a>{" "}
         file! (A GitHub account is required.)
       </p>
       <div>
         {resultCount != undefined ? (
           <p>
-            Found {resultCount.tools} tool{resultCount.tools !== 1 ? "s" : ""}.
+            Found {resultCount} tool{resultCount !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
         <AwesomeArcadeToolsList list={filteredList} />
@@ -179,9 +164,9 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: ToolsProps;
 }> {
-  const list = await parseOldExtensionXML(
+  const list = await parseToolXML(
     (
-      await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
+      await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
     ).toString()
   );
 
