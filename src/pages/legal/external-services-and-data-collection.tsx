@@ -16,9 +16,9 @@ export function ExternalServicesAndDataCollection({
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description="Awesome Arcade Extensions's page on external services and data collection."
+      description="Awesome Arcade's page on external services and data collection."
       keywords={
-        "Awesome Arcade Extensions, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, External services, Data collection, External services and data collection, Cookies, Disable cookies, Disable Awesome Arcade Extensions cookies"
+        "Awesome Arcade, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, External services, Data collection, External services and data collection, Cookies, Disable cookies, Disable Awesome Arcade Extensions cookies"
       }
       breadCrumbs={[
         { Legal: "/legal" },

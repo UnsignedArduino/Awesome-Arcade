@@ -73,7 +73,7 @@ export default function ProfileOffcanvas() {
               ></button>
             </div>
             <div className="offcanvas-body">
-              <p>Sign into Awesome Arcade Extensions with a provider below!</p>
+              <p>Sign into Awesome Arcade with a provider below!</p>
               {providers ? (
                 Object.values(providers).map((provider) => {
                   const icon = {

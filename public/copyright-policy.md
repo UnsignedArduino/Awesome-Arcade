@@ -1,14 +1,14 @@
-# AWESOME ARCADE EXTENSIONS' COPYRIGHT POLICY
+# AWESOME ARCADE'S COPYRIGHT POLICY
 
 Last Updated: **April 14, 2023**
 
-Awesome Arcade Extensions respects the intellectual property rights of others and expects its users to do the same.
+Awesome Arcade respects the intellectual property rights of others and expects its users to do the same.
 
-In accordance with the Digital Millennium Copyright Act of 1998 ("DMCA"), the text of which may be found on the U.S. Copyright Office website at [http://www.copyright.gov/legislation/pl105-304.pdf](http://www.copyright.gov/legislation/pl105-304.pdf), and other applicable laws, Awesome Arcade Extensions has adopted a policy of terminating, in appropriate circumstances and at our sole discretion, the accounts of users who are deemed to be repeat infringers. Awesome Arcade Extensions may also, at its sole discretion, limit access to Awesome Arcade Extensions' website and services (collectively, "Service") and/or terminate the accounts of any users who infringe any intellectual property rights of others, whether or not there is any repeat infringement. Awesome Arcade Extensions will respond to claims of copyright infringement committed on the Awesome Arcade Extensions website that are reported to Awesome Arcade Extensions's Designated Copyright Agent, identified in the sample notice below.
+In accordance with the Digital Millennium Copyright Act of 1998 ("DMCA"), the text of which may be found on the U.S. Copyright Office website at [http://www.copyright.gov/legislation/pl105-304.pdf](http://www.copyright.gov/legislation/pl105-304.pdf), and other applicable laws, Awesome Arcade has adopted a policy of terminating, in appropriate circumstances and at our sole discretion, the accounts of users who are deemed to be repeat infringers. Awesome Arcade may also, at its sole discretion, limit access to Awesome Arcade's website and services (collectively, "Service") and/or terminate the accounts of any users who infringe any intellectual property rights of others, whether or not there is any repeat infringement. Awesome Arcade will respond to claims of copyright infringement committed on the Awesome Arcade website that are reported to Awesome Arcade'ss Designated Copyright Agent, identified in the sample notice below.
 
 If you knowingly misrepresent in your notification that the material or activity is infringing, you will be liable for any damages, including costs and attorneys' fees, incurred by us or the alleged infringer as the result of our relying upon such misrepresentation in removing or disabling access to the material or activity claimed to be infringing.
 
-If you are a copyright owner, or are authorized to act on behalf of one, or authorized to act under any exclusive right under copyright, please report alleged copyright infringements taking place on or through the Services by completing the following DMCA Notice of Alleged Infringement and delivering it to Awesome Arcade Extensions' Designated Copyright Agent. Upon receipt of the Notice as described below, Awesome Arcade Extensions will take whatever action, in its sole discretion, it deems appropriate, including removal of the challenged material from the Services.
+If you are a copyright owner, or are authorized to act on behalf of one, or authorized to act under any exclusive right under copyright, please report alleged copyright infringements taking place on or through the Services by completing the following DMCA Notice of Alleged Infringement and delivering it to Awesome Arcade's Designated Copyright Agent. Upon receipt of the Notice as described below, Awesome Arcade will take whatever action, in its sole discretion, it deems appropriate, including removal of the challenged material from the Services.
 
 ## DMCA Notice of Alleged Infringement ("Notice"):
 
@@ -22,7 +22,7 @@ If you are a copyright owner, or are authorized to act on behalf of one, or auth
 
 1. Provide your full legal name and your electronic or physical signature.
 
-1. Deliver this Notice, with all items completed, to Awesome Arcade Extensions' Designated Copyright Agent:
+1. Deliver this Notice, with all items completed, to Awesome Arcade's Designated Copyright Agent:
 
 Contact us at [unsignedarduino@outlook.com](mailto:unsignedarduino@outlook.com).
 

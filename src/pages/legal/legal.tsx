@@ -19,8 +19,8 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description="Awesome Arcade Extensions's legal stuff page."
-      keywords="Awesome Arcade Extensions, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, legal stuff pages"
+      description="Awesome Arcade's legal stuff page."
+      keywords="Awesome Arcade, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, legal stuff pages"
     >
       <h1>{pageName}</h1>
       <p>
@@ -30,9 +30,9 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
         Arcade are trademarks of the Microsoft group of companies.
       </p>
       <p>
-        The source code for Awesome Arcade Extensions is licensed under the{" "}
+        The source code for Awesome Arcade is licensed under the{" "}
         <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/blob/main/LICENSE.md"
+          href="https://github.com/UnsignedArduino/Awesome-Arcade/blob/main/LICENSE.md"
           target="_blank"
           rel="noopener noreferrer"
         >

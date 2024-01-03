@@ -25,8 +25,8 @@ export function TermsOfService({
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description="Awesome Arcade Extensions's terms of service."
-      keywords="Awesome Arcade Extensions, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, Terms of service"
+      description="Awesome Arcade's terms of service."
+      keywords="Awesome Arcade, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, Terms of service"
       breadCrumbs={[
         { Legal: "/legal" },
         { "Terms of service": "/legal/terms-of-service" },

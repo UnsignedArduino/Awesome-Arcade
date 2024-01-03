@@ -2,9 +2,9 @@ import { getEnvironment } from "../../../components/WithAppProps";
 
 export default async function generateSiteWebmanifest(): Promise<string> {
   const json = JSON.parse(`{
-  "name": "Awesome Arcade Extensions",
-  "short_name": "Awesome Arcade Extensions",
-  "description": "This is a list of MakeCode Arcade extensions that I find super useful (or just plain cool) in my projects.",
+  "name": "Awesome Arcade",
+  "short_name": "Awesome Arcade",
+  "description": "This is a list of MakeCode Arcade extensions and tools that I find super useful (or just plain cool) in my projects.",
   "start_url": "/",
   "icons": [
     {
@@ -22,7 +22,7 @@ export default async function generateSiteWebmanifest(): Promise<string> {
   "background_color": "#FFF603",
   "display": "standalone"
 }`);
-  json.name = json.short_name = `Awesome Arcade Extensions${(() => {
+  json.name = json.short_name = `Awesome Arcade{(() => {
     switch (getEnvironment()) {
       case "development": {
         return " Development";

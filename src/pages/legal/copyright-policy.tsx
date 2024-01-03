@@ -25,8 +25,8 @@ export function CopyrightPolicy({
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description="Awesome Arcade Extensions's copyright policy."
-      keywords="Awesome Arcade Extensions, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, Copyright policy"
+      description="Awesome Arcade's copyright policy."
+      keywords="Awesome Arcade, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, Copyright policy"
       breadCrumbs={[
         { Legal: "/legal" },
         { "Copyright policy": "/legal/copyright-policy" },

@@ -9,7 +9,7 @@ export function About({ appProps }: { appProps: AppProps }): JSX.Element {
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <h1>About</h1>
       <p>
-        Awesome Arcade Extensions is developed and run by a high school student
+        Awesome Arcade is developed and run by a high school student
         learning to program. Having a passion for MakeCode Arcade, I decided to{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions"
@@ -23,7 +23,7 @@ export function About({ appProps }: { appProps: AppProps }): JSX.Element {
       <p>
         I would love it if you joined me on{" "}
         <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/discussions"
+          href="https://github.com/UnsignedArduino/Awesome-Arcade/discussions"
           target="_blank"
           rel="noopener noreferrer"
         >

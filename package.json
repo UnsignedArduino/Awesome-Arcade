@@ -1,7 +1,7 @@
 {
-  "name": "awesome-arcade-extensions-website",
+  "name": "awesome-arcade",
   "version": "0.1.0",
-  "description": "This is the source code for the Awesome Arcade Extensions website!",
+  "description": "This is the source code for the Awesome Arcade website!",
   "private": true,
   "keywords": [
     "react",
@@ -24,8 +24,8 @@
     "makecode-arcade-extensions",
     "arcade-extensions"
   ],
-  "homepage": "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
-  "bugs": "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues",
+  "homepage": "https://github.com/UnsignedArduino/Awesome-Arcade",
+  "bugs": "https://github.com/UnsignedArduino/Awesome-Arcade/issues",
   "license": "GPL-2.1-or-later",
   "author": {
     "name": "UnsignedArduino",
@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website.git"
+    "url": "https://github.com/UnsignedArduino/Awesome-Arcade.git"
   },
   "scripts": {
     "dev": "next dev",

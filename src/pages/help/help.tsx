@@ -28,8 +28,8 @@ export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
       title={pageName}
       currentPage={pageName}
       appProps={appProps}
-      description="Awesome Arcade Extensions's help page."
-      keywords="Awesome Arcade Extensions, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Help, Help page, Main help page"
+      description="Awesome Arcade's help page."
+      keywords="Awesome Arcade, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Help, Help page, Main help page"
     >
       <h1>{pageName}</h1>
       <div style={{ overflowX: "hidden" }}>
