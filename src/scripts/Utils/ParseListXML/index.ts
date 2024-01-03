@@ -1,4 +1,4 @@
-export { default } from "./parse";
+export { parseExtensionXML, parseToolXML } from "./parse";
 export type {
   ExtensionList,
   Extension,
@@ -6,4 +6,4 @@ export type {
   ExtensionRef,
   ToolRef,
   URLLink,
-} from "./parse";
+} from "./types";

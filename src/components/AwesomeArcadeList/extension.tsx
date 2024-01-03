@@ -2,7 +2,7 @@ import {
   Extension,
   ExtensionRef,
   URLLink,
-} from "@/scripts/Utils/ParseExtensionsXML";
+} from "@/scripts/Utils/ParseOldExtensionsXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";

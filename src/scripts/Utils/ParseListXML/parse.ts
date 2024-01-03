@@ -1,104 +1,19 @@
 import { XMLParser } from "fast-xml-parser";
 import markdownToHTML from "@/scripts/Utils/MarkdownToHTML";
+import {
+  Extension,
+  ExtensionRef,
+  Tool,
+  ToolRef,
+  URLLink,
+} from "@/scripts/Utils/ParseListXML/types";
+import {
+  findElementInElement,
+  findElementWithAttributeValue,
+  stringToBool,
+} from "@/scripts/Utils/ParseListXML/helpers";
 
-export type ExtensionList = {
-  builtIn: Extension[];
-  notBuiltIn: Extension[];
-  tools: Tool[];
-};
-
-export type ExtensionRef = {
-  type: string;
-  title: string;
-  author: string;
-  repo: string;
-  url: string;
-};
-
-export type Extension = {
-  type: string;
-  title: string;
-  author: string;
-  repo: string;
-  url: string;
-  description: string;
-  links: URLLink[];
-  forks?: ExtensionRef[] | null;
-  depreciatedBy?: ExtensionRef[] | null;
-  inBeta?: { text: string; since: string } | null;
-};
-
-export type ToolRef = {
-  type: string;
-  title: string;
-  author: string;
-  repo: string;
-  url: string;
-};
-
-export type Tool = {
-  type: string;
-  title: string;
-  author: string;
-  repo: string;
-  url: string;
-  description: string;
-  links: URLLink[];
-  forks?: ToolRef[] | null;
-  depreciatedBy?: ToolRef[] | null;
-  inBeta?: { text: string; since: string } | null;
-};
-
-export type URLLink = {
-  type: "URLLink";
-  label?: string | null;
-  url: string;
-  isPrimary?: boolean | null;
-};
-
-function stringToBool(str: string): boolean {
-  return (
-    str != undefined &&
-    ["true", "t", "1"].indexOf(str.toLowerCase().trim()) !== -1
-  );
-}
-
-function findElementInElement(element: any, elementName: string): any {
-  if (element instanceof Array) {
-    for (const e of element) {
-      const result = findElementInElement(e, elementName);
-      if (result != undefined) {
-        return result;
-      }
-    }
-    return undefined;
-  } else {
-    for (const key of Object.keys(element)) {
-      if (key === elementName) {
-        return element;
-      }
-    }
-    return undefined;
-  }
-}
-
-function findElementWithAttributeValue(
-  elements: any[],
-  attributeName: string,
-  attributeValue: string
-): any {
-  for (const element of elements) {
-    const attributes = element[":@"];
-    if (attributes != undefined) {
-      if (attributes[`@_${attributeName}`] === attributeValue) {
-        return element;
-      }
-    }
-  }
-  return undefined;
-}
-
-function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
+export function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
   const newExtsRef = [];
   for (const extension of exts) {
     const repo: string = extension[":@"]["@_repo"];
@@ -116,8 +31,8 @@ function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
   return newExtsRef;
 }
 
-async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
-  const newExts = [];
+export async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
+  const newExts: Extension[] = [];
   for (const extension of exts) {
     const ext = findElementInElement(extension, "extension").extension;
     const description = await markdownToHTML(
@@ -142,7 +57,7 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
     const forks = findElementInElement(ext, "forks");
     const depreciatedBy = findElementInElement(ext, "depreciatedBy");
     const inBeta = findElementInElement(ext, "inBeta");
-    newExts.push({
+    newExts.push(<Extension>{
       type: "Extension",
       title,
       author,
@@ -167,7 +82,7 @@ async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
   return newExts;
 }
 
-function gatherToolRefList(tools: any[]): ToolRef[] {
+export function gatherToolRefList(tools: any[]): ToolRef[] {
   const newToolRefs = [];
   for (const tool of tools) {
     const repo: string = tool[":@"]["@_repo"];
@@ -185,7 +100,7 @@ function gatherToolRefList(tools: any[]): ToolRef[] {
   return newToolRefs;
 }
 
-async function gatherToolList(tools: any[]): Promise<Tool[]> {
+export async function gatherToolList(tools: any[]): Promise<Tool[]> {
   const newTools = [];
   for (const tool of tools) {
     const t = findElementInElement(tool, "tool").tool;
@@ -236,9 +151,7 @@ async function gatherToolList(tools: any[]): Promise<Tool[]> {
   return newTools;
 }
 
-export default async function parseExtensionXML(
-  xml: string
-): Promise<ExtensionList> {
+export async function parseExtensionXML(xml: string): Promise<Extension[]> {
   const parser = new XMLParser({
     preserveOrder: true,
     ignoreAttributes: false,
@@ -247,25 +160,29 @@ export default async function parseExtensionXML(
   const obj = parser.parse(xml);
 
   const allExtensions = obj[1].allExtensions;
-  const builtIn = findElementWithAttributeValue(
-    allExtensions,
-    "label",
-    "Built in"
-  ).extensionList;
   const notBuiltIn = findElementWithAttributeValue(
     allExtensions,
     "label",
     "Not built in"
   ).extensionList;
+
+  return await gatherExtensionList(notBuiltIn);
+}
+
+export async function parseToolXML(xml: string): Promise<Tool[]> {
+  const parser = new XMLParser({
+    preserveOrder: true,
+    ignoreAttributes: false,
+  });
+
+  const obj = parser.parse(xml);
+
+  const allExtensions = obj[1].allTools;
   const tools = findElementWithAttributeValue(
     allExtensions,
     "label",
     "Tools"
   ).toolList;
 
-  return {
-    builtIn: await gatherExtensionList(builtIn),
-    notBuiltIn: await gatherExtensionList(notBuiltIn),
-    tools: await gatherToolList(tools),
-  };
+  return await gatherToolList(tools);
 }

@@ -1,14 +1,14 @@
-import { ExtensionList } from "@/scripts/Utils/ParseExtensionsXML";
 import React from "react";
 import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
-import { AwesomeArcadeExtensionGroup } from "@/components/OldAwesomeArcadeExtensionList/extension";
-import { AwesomeArcadeToolGroup } from "@/components/OldAwesomeArcadeExtensionList/tool";
+import { AwesomeArcadeExtensionGroup } from "@/components/AwesomeArcadeList/extension";
+import { AwesomeArcadeToolGroup } from "@/components/AwesomeArcadeList/tool";
+import { Extension, Tool } from "@/scripts/Utils/ParseListXML";
 
 export function AwesomeArcadeExtensionsList({
   list,
 }: {
-  list: ExtensionList;
+  list: Extension[];
 }): JSX.Element {
   React.useEffect(() => {
     const div = getElement("awesomeArcadeExtensions") as HTMLDivElement;
@@ -17,7 +17,7 @@ export function AwesomeArcadeExtensionsList({
 
   return (
     <div id="awesomeArcadeExtensions" style={{ overflowX: "hidden" }}>
-      <AwesomeArcadeExtensionGroup exts={list.notBuiltIn} />
+      <AwesomeArcadeExtensionGroup exts={list} />
     </div>
   );
 }
@@ -25,7 +25,7 @@ export function AwesomeArcadeExtensionsList({
 export function AwesomeArcadeToolsList({
   list,
 }: {
-  list: ExtensionList;
+  list: Tool[];
 }): JSX.Element {
   React.useEffect(() => {
     const div = getElement("awesomeArcadeTools") as HTMLDivElement;
@@ -34,7 +34,7 @@ export function AwesomeArcadeToolsList({
 
   return (
     <div id="awesomeArcadeTools" style={{ overflowX: "hidden" }}>
-      <AwesomeArcadeToolGroup tools={list.tools} />
+      <AwesomeArcadeToolGroup tools={list} />
     </div>
   );
 }

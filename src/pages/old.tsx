@@ -2,11 +2,9 @@ import React from "react";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import AwesomeArcadeExtensionList from "@/components/OldAwesomeArcadeExtensionList/list";
-import parseExtensionXML, {
-  Extension,
+import parseListXML, {
   ExtensionList,
-  Tool,
-} from "@/scripts/Utils/ParseExtensionsXML";
+} from "../scripts/Utils/ParseOldExtensionsXML";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
@@ -123,7 +121,8 @@ export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
         (or just plain cool) in my projects.
       </p>
       <div className="alert alert-warning" role="alert">
-        Please note that this page will be removed soon in favor of the new home, extension, and tool pages.
+        Please note that this page will be removed soon in favor of the new
+        home, extension, and tool pages.
       </div>
       <p>
         Please note that this website is not developed, affiliated, or endorsed
@@ -146,10 +145,15 @@ export function OldHome({ appProps, list }: OldHomeProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: OldHomeProps;
 }> {
-  const list = await parseExtensionXML(
+  const list = await parseListXML(
     (
-      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
+      await fs.readFile(path.resolve(process.cwd(), "src", "oldExtensions.xml"))
     ).toString()
+  );
+
+  await fs.writeFile(
+    "./public/oldExtensions.json",
+    JSON.stringify(list, undefined, 2)
   );
 
   return {
