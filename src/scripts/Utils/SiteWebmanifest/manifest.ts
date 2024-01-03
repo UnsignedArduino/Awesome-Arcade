@@ -22,7 +22,7 @@ export default async function generateSiteWebmanifest(): Promise<string> {
   "background_color": "#FFF603",
   "display": "standalone"
 }`);
-  json.name = json.short_name = `Awesome Arcade{(() => {
+  json.name = json.short_name = `Awesome Arcade${(() => {
     switch (getEnvironment()) {
       case "development": {
         return " Development";
