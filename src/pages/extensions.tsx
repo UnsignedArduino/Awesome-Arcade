@@ -156,7 +156,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
       </p>
       <p>
         You can find the old home page <Link href="/old">here</Link>. (please
-        note that this page will be removed soon)
+        note that this page will be removed soon.)
       </p>
       <p>
         Want to suggest a new extension or modification? Head over to our GitHub
