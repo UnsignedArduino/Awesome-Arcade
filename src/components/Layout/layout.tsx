@@ -11,7 +11,7 @@ import TOSBanner from "../TOSBanner";
 import { AppProps } from "../WithAppProps";
 import ProfileOffcanvas from "@/components/Authentication/Offcanvas";
 
-const appName = "Awesome Arcade Extensions";
+export const appName = "Awesome Arcade";
 
 type LayoutProps = {
   children: JSX.Element | JSX.Element[];
