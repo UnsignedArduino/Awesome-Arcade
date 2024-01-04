@@ -70,12 +70,18 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
       const filtered = structuredClone(list);
       let extCount = 0;
       const group = filtered;
+      const normalizeString = (s: string): string => {
+        return s.trim().toLowerCase();
+      };
+      const normalizedSearch = normalizeString(search);
       for (let i = group.length - 1; i >= 0; i--) {
+        const ext = group[i];
         if (
-          !group[i].repo
-            .trim()
-            .toLowerCase()
-            .includes(search.trim().toLowerCase())
+          !(
+            normalizeString(ext.repo).includes(normalizedSearch) ||
+            normalizeString(ext.url).includes(normalizedSearch) ||
+            normalizeString(ext.description).includes(normalizedSearch)
+          )
         ) {
           group.splice(i, 1);
         }
@@ -97,11 +103,11 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
       description="This is a list of MakeCode Arcade extensions that I find super useful (or just plain cool) in my projects."
       keywords="Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions"
       extraNavbarHTML={
-        <Tippy content="Search extensions by author or name!">
+        <Tippy content="Search extensions by author, name, description, or URL!">
           <input
             type="text"
             className="form-control"
-            placeholder="Search extensions by author or name!"
+            placeholder="Search extensions by author, name, description, or URL!"
             defaultValue={search}
             id="searchBar"
             onChange={(event) => {
@@ -188,6 +194,11 @@ export async function getStaticProps(): Promise<{
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
     ).toString()
+  );
+
+  await fs.writeFile(
+    "./public/extensions.json",
+    JSON.stringify(list, undefined, 2)
   );
 
   return {
