@@ -16,7 +16,11 @@ export const appName = "Awesome Arcade";
 type LayoutProps = {
   children: JSX.Element | JSX.Element[];
   title: string;
-  breadCrumbs?: { [title: string]: string }[] | undefined;
+  breadCrumbs?:
+    | {
+        [title: string]: string;
+      }[]
+    | undefined;
   appProps: AppProps;
   description?: string;
   imageURL?: string;

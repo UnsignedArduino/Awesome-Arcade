@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Layout from "../../components/Layout";
 import getAppProps, { AppProps } from "../../components/WithAppProps";
+import { appName } from "@/components/Layout/layout";
 
 const pageName = "Legal";
 
@@ -23,11 +24,12 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
       keywords="Awesome Arcade, Game development, Awesome, Modules, Libraries, Extensions, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Legal, Legal stuff, legal stuff pages"
     >
       <h1>{pageName}</h1>
+      <p>{appName} is © 2024 UnsignedArduino. All rights reserved.</p>
       <p>
-        Please note that this website is not developed, affiliated, or endorsed
-        by Microsoft, the owner of MakeCode Arcade. All trademarks mentioned on
-        this website belong to their respective owners. Microsoft and MakeCode
-        Arcade are trademarks of the Microsoft group of companies.
+        This website is not developed, affiliated, or endorsed by Microsoft, the
+        owner of MakeCode Arcade. All trademarks mentioned on this website
+        belong to their respective owners. Microsoft and MakeCode Arcade are
+        trademarks of the Microsoft group of companies.
       </p>
       <p>
         The source code for Awesome Arcade is licensed under the{" "}
@@ -73,7 +75,9 @@ export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
 }
 
 export async function getStaticProps(): Promise<{
-  props: { appProps: AppProps };
+  props: {
+    appProps: AppProps;
+  };
 }> {
   return {
     props: {
