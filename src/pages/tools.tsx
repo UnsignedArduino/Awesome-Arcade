@@ -55,12 +55,18 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       const filtered = structuredClone(list);
       let toolCount = 0;
       const group = filtered;
+      const normalizeString = (s: string): string => {
+        return s.trim().toLowerCase();
+      };
+      const normalizedSearch = normalizeString(search);
       for (let i = group.length - 1; i >= 0; i--) {
+        const tool = group[i];
         if (
-          !group[i].repo
-            .trim()
-            .toLowerCase()
-            .includes(search.trim().toLowerCase())
+          !(
+            normalizeString(tool.repo).includes(normalizedSearch) ||
+            normalizeString(tool.url).includes(normalizedSearch) ||
+            normalizeString(tool.description).includes(normalizedSearch)
+          )
         ) {
           group.splice(i, 1);
         }
@@ -82,11 +88,11 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       description="This is a list of MakeCode Arcade tools that I find super useful (or just plain cool) to use in my projects."
       keywords="Game development, Awesome, Tools, Curated, Arcade, Useful, Curated list, MakeCode, Awesome tools, Useful tools, MakeCode Arcade, MakeCode Arcade tools, Arcade tools"
       extraNavbarHTML={
-        <Tippy content="Search tools by author or name!">
+        <Tippy content="Search tools by author, name, description, or URL!">
           <input
             type="text"
             className="form-control"
-            placeholder="Search tools by author or name!"
+            placeholder="Search tools by author, name, description, or URL!"
             defaultValue={search}
             onChange={(event) => {
               const v = event.target.value;
@@ -169,6 +175,8 @@ export async function getStaticProps(): Promise<{
       await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
     ).toString()
   );
+
+  await fs.writeFile("./public/tools.json", JSON.stringify(list, undefined, 2));
 
   return {
     props: {
