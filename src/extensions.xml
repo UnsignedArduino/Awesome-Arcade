@@ -265,8 +265,12 @@
       <description>This extension allows you to easily add complex music to your games with a [script](https://github.com/UnsignedArduino/Musical-Images-Generator)! This adds a new category called `MusicalImages` to your toolbox.</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Musical-Images</url>
+        <url label="Forum post">https://forum.makecode.com/t/music-requests/6454/22?u=unsignedarduino</url>
         <url label="Demo">https://makecode.com/_0t46cj0j24jH</url>
       </links>
+      <depreciatedBy>
+        <extensionRef repo="UnsignedArduino/ArcadeMIDI" />
+      </depreciatedBy>
     </extension>
     <extension repo="klausw3/pxt-sound-effects">
       <description>This extension allows custom sound effects other than the boring square wave! This adds a new category called `Sound Effects`.</description>
@@ -347,13 +351,12 @@
       </links>
     </extension>
     <extension repo="UnsignedArduino/ArcadeMIDI">
-      <description>A new and improved version of the Musical-Images extension, this extension can play MIDI files after conversion using the associated tool! ([Offline](https://github.com/UnsignedArduino/ArcadeMIDIGenerator) and [online](https://arcademidigeneratoronlinemain.gatsbyjs.io/) versions of the converter exist) This adds a new category `Arcade MIDI`.</description>
+      <description>A new and improved version of the Musical-Images extension, this extension can play MIDI files after conversion using the associated tool! (Use [this Python tool](https://github.com/UnsignedArduino/ArcadeMIDIGenerator) to convert MIDI files) This adds a new category `Arcade MIDI`.</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/ArcadeMIDI</url>
         <url label="Forum post">https://forum.makecode.com/t/arcademidi-extension/15079?u=unsignedarduino</url>
         <url label="Demo">https://arcade.makecode.com/08305-64887-13518-23118</url>
-        <url label="Offline MIDI converter">https://github.com/UnsignedArduino/ArcadeMIDIGenerator</url>
-        <url label="Online MIDI converter">https://arcademidigeneratoronlinemain.gatsbyjs.io/</url>
+        <url label="MIDI converter">https://github.com/UnsignedArduino/ArcadeMIDIGenerator</url>
       </links>
     </extension>
     <extension repo="meeeeeeeep1/custom-systemmenu-options">

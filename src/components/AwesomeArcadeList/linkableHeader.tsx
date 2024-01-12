@@ -6,7 +6,11 @@ export function smoothScrollHash(
   e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 ) {
   e.preventDefault();
-  smoothScrollToID(new URL(e.currentTarget.href).hash);
+  const hash = e.currentTarget.href.split("#")[1];
+  setTimeout(() => {
+    console.log(`Smooth scrolling to ${hash}`);
+    smoothScrollToID(hash);
+  });
 }
 
 export function smoothScrollToID(id: string) {

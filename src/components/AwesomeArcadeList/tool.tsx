@@ -1,7 +1,7 @@
 import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseOldExtensionsXML";
 import React from "react";
 import Link from "next/link";
-import { smoothScrollHash } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
+import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
 
 export function AwesomeArcadeTool({
@@ -29,7 +29,7 @@ export function AwesomeArcadeTool({
           {showCardLink ? (
             <Link
               className="ms-1"
-              href={`/#${tool.repo}`}
+              href={`/tools#${tool.repo}`}
               onClick={smoothScrollHash}
             >
               <i className="bi-link-45deg" />
@@ -94,7 +94,10 @@ export function AwesomeArcadeTool({
                 {tool.forks.map((t: ToolRef) => {
                   return (
                     <li key={t.repo}>
-                      <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
+                      <Link
+                        href={`/tools#${t.repo}`}
+                        onClick={smoothScrollHash}
+                      >
                         {t.repo}
                       </Link>
                     </li>
@@ -113,7 +116,10 @@ export function AwesomeArcadeTool({
                 {tool.depreciatedBy.map((t: ToolRef) => {
                   return (
                     <li key={t.repo}>
-                      <Link href={`/#${t.repo}`} onClick={smoothScrollHash}>
+                      <Link
+                        href={`/tools#${t.repo}`}
+                        onClick={smoothScrollHash}
+                      >
                         {t.repo}
                       </Link>
                     </li>

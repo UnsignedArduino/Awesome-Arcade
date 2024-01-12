@@ -7,7 +7,7 @@ import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
-import { smoothScrollHash } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
+import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
 
 export function AwesomeArcadeExtension({
@@ -77,7 +77,7 @@ export function AwesomeArcadeExtension({
           {showCardLink ? (
             <Link
               className="ms-1"
-              href={`/#${ext.repo}`}
+              href={`/extensions#${ext.repo}`}
               onClick={smoothScrollHash}
             >
               <i className="bi-link-45deg" />
@@ -162,7 +162,10 @@ export function AwesomeArcadeExtension({
                 {ext.forks.map((e: ExtensionRef) => {
                   return (
                     <li key={e.repo}>
-                      <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
+                      <Link
+                        href={`/extensions#${e.repo}`}
+                        onClick={smoothScrollHash}
+                      >
                         {e.repo}
                       </Link>
                     </li>
@@ -182,7 +185,10 @@ export function AwesomeArcadeExtension({
                 {ext.depreciatedBy.map((e: ExtensionRef) => {
                   return (
                     <li key={e.repo}>
-                      <Link href={`/#${e.repo}`} onClick={smoothScrollHash}>
+                      <Link
+                        href={`/extensions#${e.repo}`}
+                        onClick={smoothScrollHash}
+                      >
                         {e.repo}
                       </Link>
                     </li>
