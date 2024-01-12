@@ -17,7 +17,7 @@
       </links>
     </tool>
     <tool repo="shakao/arcade-sprite-pack">
-      <description>Have a bunch of images you want to send to someone, but they hate exercising their pinkie and pointer finger? This will convert a set of images into a MakeCode project that, when you import, will put the images into the image gallery! And as of December 2021, this tool has been updated to be even better than before, with support for animations, tiles, and tilemaps!</description>
+      <description>Have a bunch of images you want to send to someone, but they hate exercising their pinkie and pointer finger? This will convert a set of images into a MakeCode project that, when you import, will put the images into the image gallery! This tool also supports animations, tiles, and tilemaps, as well as exporting an Arcade image to a real image!</description>
       <links>
         <url label="Tool" isPrimary="true">https://shakao.github.io/arcade-sprite-pack/</url>
         <url label="GitHub repo">https://github.com/shakao/arcade-sprite-pack</url>
