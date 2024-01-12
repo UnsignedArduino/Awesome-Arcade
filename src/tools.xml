@@ -47,6 +47,16 @@
         <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
       </links>
     </tool>
+    <tool repo="UnsignedArduino/Musical-Images-Generator">
+      <description>I have written a Python script that will turn MIDI files into images compatible with the Musical-Images extension! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Musical-Images-Generator</url>
+        <url label="Forum post">https://forum.makecode.com/t/music-requests/6454/22?u=unsignedarduino</url>
+      </links>
+      <depreciatedBy>
+        <toolRef repo="UnsignedArduino/ArcadeMIDIGenerator" />
+      </depreciatedBy>
+    </tool>
     <tool repo="UnsignedArduino/ArcadeMIDIGenerator">
       <description>I have written a Python script that will turn MIDI files into images compatible with the ArcadeMIDI extension! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
       <links>
@@ -61,6 +71,9 @@
         <url label="GitHub repo">https://github.com/UnsignedArduino/ArcadeMIDIGeneratorOnline</url>
         <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
       </links>
+      <depreciatedBy>
+        <toolRef repo="UnsignedArduino/ArcadeMIDIGenerator" />
+      </depreciatedBy>
     </tool>
     <tool repo="edermunizz/pixel-art-rpg-character-creator">
       <description>This _beautiful_ character art generator is perfect for RPGs! Use another tool to convert the exported `.png` file to a MakeCode image.</description>
