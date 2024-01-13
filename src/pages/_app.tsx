@@ -8,6 +8,7 @@ import Adsense from "../components/Adsense";
 import Analytics from "../components/Analytics";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function AwesomeArcadeExtensions({
   Component,
@@ -16,6 +17,14 @@ export default function AwesomeArcadeExtensions({
   React.useEffect(() => {
     import("bootstrap");
   }, []);
+
+  const router = useRouter();
+
+  React.useEffect(() => {
+    window.addEventListener("popstate", () => {
+      router.push(window.location.href);
+    });
+  }, [router]);
 
   return (
     <ErrorBoundary>
