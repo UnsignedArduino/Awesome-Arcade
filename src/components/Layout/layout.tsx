@@ -101,10 +101,10 @@ LayoutProps): JSX.Element {
   const baseURL = (() => {
     switch (appProps.environment) {
       case "production": {
-        return "https://awesome-arcade-extensions.vercel.app";
+        return "https://awesome-arcade.vercel.app";
       }
       case "preview": {
-        return "https://awesome-arcade-extensions-beta.vercel.app";
+        return "https://awesome-arcade-beta.vercel.app";
       }
       case "development": {
         return "http://localhost:3000";
