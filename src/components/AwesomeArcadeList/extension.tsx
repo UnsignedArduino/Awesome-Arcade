@@ -9,13 +9,16 @@ import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
+import { useRouter } from "next/router";
 
 export function AwesomeArcadeExtension({
   ext,
+  highlight,
   showImportURL,
   pad,
 }: {
   ext: Extension;
+  highlight?: boolean | undefined;
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): JSX.Element {
@@ -62,7 +65,12 @@ export function AwesomeArcadeExtension({
   }, [tooltip]);
 
   return (
-    <div className={`card ${pad ? "mb-2" : ""} h-100`} id={ext.repo}>
+    <div
+      className={`card ${pad ? "mb-2" : ""} ${
+        highlight ? "border-primary border-3" : ""
+      } h-100`}
+      id={ext.repo}
+    >
       <div className="card-body">
         <h5
           className="card-title"
@@ -216,6 +224,42 @@ export function AwesomeArcadeExtensionGroup({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): JSX.Element {
+  const router = useRouter();
+
+  const [extToHighlight, setExtToHighlight] = React.useState<
+    string | undefined
+  >(undefined);
+
+  const onHashChange = (e?: HashChangeEvent | undefined) => {
+    const repo = e
+      ? e.newURL.split("#")[1]
+      : window.location.hash.replaceAll("#", "");
+    console.log(`Changing extension to highlight ${repo}`);
+    setExtToHighlight(repo);
+  };
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      onHashChange();
+    });
+
+    window.addEventListener("hashchange", onHashChange);
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    router.events.on("routeChangeComplete", () => {
+      onHashChange();
+    });
+
+    return () =>
+      router.events.off("routeChangeComplete", () => {
+        onHashChange();
+      });
+  }, [router.events]);
+
   return (
     <div className={pad == undefined || pad ? "mb-3" : ""}>
       {title}
@@ -227,6 +271,7 @@ export function AwesomeArcadeExtensionGroup({
               <div className="col py-3" key={ext.repo}>
                 <AwesomeArcadeExtension
                   ext={ext}
+                  highlight={ext.repo === extToHighlight}
                   showImportURL={showImportURL}
                   pad={i < exts.length - 1}
                 />

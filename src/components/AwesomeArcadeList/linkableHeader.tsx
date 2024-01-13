@@ -6,10 +6,12 @@ export function smoothScrollHash(
   e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 ) {
   e.preventDefault();
-  const hash = e.currentTarget.href.split("#")[1];
+  const href = e.currentTarget.href;
   setTimeout(() => {
+    const hash = href.split("#")[1];
     console.log(`Smooth scrolling to ${hash}`);
     smoothScrollToID(hash);
+    window.dispatchEvent(new HashChangeEvent("hashchange", { newURL: href }));
   });
 }
 
@@ -17,6 +19,7 @@ export function smoothScrollToID(id: string) {
   const e = document.getElementById(id);
   e?.scrollIntoView({
     behavior: "smooth",
+    block: "center",
   });
   const u = new URL(window.location.toString());
   u.hash = id;
