@@ -10,6 +10,7 @@ const NavbarPages = {
   Home: "/",
   Extensions: "/extensions",
   Tools: "/tools",
+  "Multiplayer browser": "/multiplayer-browser",
   Help: "/help",
   GitHub:
     "https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website",
