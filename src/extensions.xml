@@ -291,7 +291,7 @@
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/kiwiphoenix364/pxt-deltatime</url>
         <url label="Forum post">https://forum.makecode.com/t/extension-for-adding-delta-time-to-blocks/13194?u=unsignedarduino</url>
-        <url label="Demo">https://makecode.com/_Y0j7ef139dmo</url>
+        <url label="Demo">https://arcade.makecode.com/54257-32179-89199-43136</url>
       </links>
     </extension>
     <extension repo="AqeeAqee/arcade-custom-menu">
