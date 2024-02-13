@@ -33,11 +33,19 @@
       </links>
     </tool>
     <tool repo="jacobcarpenter/arcade-font-renderer">
-      <description>@jacobcarpenter on GitHub has written a neat tool that scrapes the [MakeCode Forum's arcade section](https://forum.makecode.com/c/share-your-arcade-projects-here/5) and shows the games in a gallery-like view! So you don't have to suffer and scroll through debug programs and tons of comments to find that dang link. You can also view the most liked-games of all-time and by author, like [me](https://games-gallery.jacobcarpenter.com/author/416), for example, hehe.</description>
+      <description>Stop drawing your title screen text by hand! With this tool, you can render any (well, any font on your computer and in Google Fonts) font onto a Arcade image with outlines and shadows!</description>
       <links>
-        <url label="Tool" isPrimary="true">https://arcade-font-renderer.jacobcarpenter.com/</url>
+        <url label="Tool" isPrimary="true">https://arcade-font-renderer.jacobcarpenter.com</url>
         <url label="GitHub repo">https://github.com/jacobcarpenter/arcade-font-renderer</url>
         <url label="Forum post">https://forum.makecode.com/t/arcade-font-renderer/7174?u=unsignedarduino</url>
+      </links>
+    </tool>
+    <tool repo="jacobcarpenter/games-gallery">
+      <description>@jacobcarpenter [on GitHub](https://github.com/jacobcarpenter) has written a neat tool that scrapes the [MakeCode Forum's arcade section](https://forum.makecode.com/c/share-your-arcade-projects-here/5) and shows the games in a gallery-like view! So you don't have to ~~suffer~~ and scroll through debug programs and tons of comments to find that dang link. You can also view the most liked-games of all-time and by author, like [me](https://games-gallery.jacobcarpenter.com/author/416) for example hehe.</description>
+      <links>
+        <url label="Tool" isPrimary="true">https://games-gallery.jacobcarpenter.com</url>
+        <url label="GitHub repo">https://github.com/jacobcarpenter/games-gallery</url>
+        <url label="Forum post">https://forum.makecode.com/t/games-gallery-an-alternate-view-for-games-posted-to-these-forums/4025</url>
       </links>
     </tool>
     <tool repo="UnsignedArduino/Image-to-MakeCode-Arcade">
