@@ -5,12 +5,15 @@ import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 
 const pageName = "Home";
 
 type HomeProps = { appProps: AppProps };
 
 export function Home({ appProps }: HomeProps): JSX.Element {
+  const removeOldHome = useFeatureIsOn("remove-old-home");
+
   const { data: session } = useSession();
 
   type QuickLinkPage = {
@@ -94,10 +97,14 @@ export function Home({ appProps }: HomeProps): JSX.Element {
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
       </p>
-      <p>
-        You can find the old home page <Link href="/old">here</Link>. (please
-        note that this page will be removed soon.)
-      </p>
+      {removeOldHome ? (
+        <></>
+      ) : (
+        <p>
+          You can find the old home page <Link href="/old">here</Link>. (please
+          note that this page will be removed soon.)
+        </p>
+      )}
       <p>
         Want to suggest a new extension, tool, or modification? Head over to our
         GitHub repository and file an{" "}
@@ -119,7 +126,7 @@ export async function getStaticProps(): Promise<{
 }> {
   await fs.writeFile(
     "./public/site.webmanifest",
-    await generateSiteWebmanifest()
+    await generateSiteWebmanifest(),
   );
 
   return {
