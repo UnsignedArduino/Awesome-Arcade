@@ -9,6 +9,8 @@ import Analytics from "../components/Analytics";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
+import { GrowthBookProvider } from "@growthbook/growthbook-react";
+import growthbook from "@/components/FeatureFlags";
 
 export default function AwesomeArcadeExtensions({
   Component,
@@ -26,14 +28,20 @@ export default function AwesomeArcadeExtensions({
     });
   }, [router]);
 
+  React.useEffect(() => {
+    growthbook.loadFeatures();
+  }, []);
+
   return (
     <ErrorBoundary>
       <NextNProgress color="#FFF603" options={{ showSpinner: false }} />
       <Analytics />
       <Adsense />
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      <GrowthBookProvider growthbook={growthbook}>
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </GrowthBookProvider>
     </ErrorBoundary>
   );
 }

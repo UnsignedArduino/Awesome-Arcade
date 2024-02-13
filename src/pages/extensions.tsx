@@ -11,6 +11,7 @@ import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
 import { Extension, parseExtensionXML } from "@/scripts/Utils/ParseListXML";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 
 const pageName = "Extensions";
 
@@ -20,12 +21,14 @@ type ExtensionsProps = {
 };
 
 export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
+  const removeOldHome = useFeatureIsOn("remove-old-home");
+
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<number | undefined>(
-    undefined
+    undefined,
   );
 
   const searchParam = "q";
@@ -118,7 +121,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
                 () => {
                   AnalyticEvents.sendSearch(v);
                 },
-                1000
+                1000,
               );
             }}
             aria-label="Search query"
@@ -145,10 +148,15 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         will paste in the URL to the extension. The URL will be posted along
         with the extensions below.
       </p>
-      <p>
-        You can find the old home page <Link href="/old">here</Link>. (please
-        note that this page will be removed soon.)
-      </p>
+      {removeOldHome ? (
+        <></>
+      ) : (
+        <p>
+          You can find the old home page <Link href="/old">here</Link>. (please
+          note that this page will be removed soon.)
+        </p>
+      )}
+
       <p>
         Want to suggest a new extension or modification? Head over to our GitHub
         repository and file an{" "}
@@ -193,12 +201,12 @@ export async function getStaticProps(): Promise<{
   const list = await parseExtensionXML(
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
-    ).toString()
+    ).toString(),
   );
 
   await fs.writeFile(
     "./public/extensions.json",
-    JSON.stringify(list, undefined, 2)
+    JSON.stringify(list, undefined, 2),
   );
 
   return {
