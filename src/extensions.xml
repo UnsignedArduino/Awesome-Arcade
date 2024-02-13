@@ -497,5 +497,13 @@
         <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-moving-platforms</url>
       </links>
     </extension>
+    <extension repo="alexszeto/card-kit">
+      <description>An amazing extension that can help you make beautiful card games! Although this extension is still in beta, it is almost fully functional and has enough features to recreate many card games such as Dominion, Yu-Gi-Oh, Magic, etc. The `Card Kit` category is added to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/alexszeto/card-kit</url>
+        <url label="Forum post">https://forum.makecode.com/t/card-game-extension-alpha-release/26024?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/S60931-54644-26123-83594</url>
+      </links>
+    </extension>
   </extensionList>
 </allExtensions>
