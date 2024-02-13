@@ -499,10 +499,21 @@
     </extension>
     <extension repo="alexszeto/card-kit">
       <description>An amazing extension that can help you make beautiful card games! Although this extension is still in beta, it is almost fully functional and has enough features to recreate many card games such as Dominion, Yu-Gi-Oh, Magic, etc. The `Card Kit` category is added to the toolbox.</description>
+      <inBeta asOf="January 16, 2024">
+        Although the extension has not hit v1.0 yet, there are enough features to build many card games.
+      </inBeta>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/alexszeto/card-kit</url>
         <url label="Forum post">https://forum.makecode.com/t/card-game-extension-alpha-release/26024?u=unsignedarduino</url>
         <url label="Demo">https://arcade.makecode.com/S60931-54644-26123-83594</url>
+      </links>
+    </extension>
+    <extension repo="novawithapizza/neural-networks">
+      <description>@randomuser on the MakeCode Forums has put together a neural network extension that allows you to train and run neural networks! Machine learning can be a difficult concept to grasp, but the linked forum post does a good job explaining how the extension works. The toolbox gains the category `Neural Network` with this extension.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/novawithapizza/neural-networks</url>
+        <url label="Forum post">https://forum.makecode.com/t/the-ai-extension-is-here/23603?u=unsignedarduino</url>
+        <url label="Demo">https://arcade.makecode.com/S61849-21948-78184-39153</url>
       </links>
     </extension>
   </extensionList>
