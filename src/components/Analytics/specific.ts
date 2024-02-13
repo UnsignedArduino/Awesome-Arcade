@@ -10,4 +10,14 @@ export namespace AnalyticEvents {
       query,
     });
   }
+
+  export function sendExperimentView(
+    experimentId: string,
+    variationId: string,
+  ) {
+    window.gtag("event", "view_experiment", {
+      experimentId,
+      variationId,
+    });
+  }
 }

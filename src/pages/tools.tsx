@@ -11,6 +11,7 @@ import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
 import { parseToolXML, Tool } from "@/scripts/Utils/ParseListXML";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 
 const pageName = "Tools";
 
@@ -20,12 +21,14 @@ type ToolsProps = {
 };
 
 export function Tools({ appProps, list }: ToolsProps): JSX.Element {
+  const removeOldHome = useFeatureIsOn("remove-old-home");
+
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<number | undefined>(
-    undefined
+    undefined,
   );
 
   const searchParam = "q";
@@ -102,7 +105,7 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
                 () => {
                   AnalyticEvents.sendSearch(v);
                 },
-                1000
+                1000,
               );
             }}
             aria-label="Search query"
@@ -126,10 +129,14 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         To use these tools, follow the links to their website or GitHub
         repository.
       </p>
-      <p>
-        You can find the old home page <Link href="/old">here</Link>. (please
-        note that this page will be removed soon.)
-      </p>
+      {removeOldHome ? (
+        <></>
+      ) : (
+        <p>
+          You can find the old home page <Link href="/old">here</Link>. (please
+          note that this page will be removed soon.)
+        </p>
+      )}
       <p>
         Want to suggest a new tool or modification? Head over to our GitHub
         repository and file an{" "}
@@ -173,7 +180,7 @@ export async function getStaticProps(): Promise<{
   const list = await parseToolXML(
     (
       await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
-    ).toString()
+    ).toString(),
   );
 
   await fs.writeFile("./public/tools.json", JSON.stringify(list, undefined, 2));
