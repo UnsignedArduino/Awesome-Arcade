@@ -491,5 +491,11 @@
         <url label="Demo">https://arcade.makecode.com/S04393-06456-09228-87946</url>
       </links>
     </extension>
+    <extension repo="riknoll/arcade-moving-platforms">
+      <description>A small extension that adds collision to a sprite based on a tilemap image! This is a pretty advanced extension and there is no documentation or examples, so it is recommended for advanced users only. Adds a `Moving Platforms` category to the toolbox.</description>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/riknoll/arcade-moving-platforms</url>
+      </links>
+    </extension>
   </extensionList>
 </allExtensions>
