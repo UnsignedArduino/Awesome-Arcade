@@ -15,6 +15,12 @@ export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
 
   const helpPages: HelpPage[] = [
     {
+      name: "Adding extensions",
+      description: "A guide on how to add extensions to MakeCode Arcade.",
+      link: "/help/adding-extensions",
+      linkText: "View the guide",
+    },
+    {
       name: "Legal",
       description:
         "Everyone's favorite section, this includes a number of legal documents and settings to change how we process your data.",

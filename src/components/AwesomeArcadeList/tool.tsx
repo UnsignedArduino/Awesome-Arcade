@@ -1,9 +1,10 @@
-import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseOldExtensionsXML";
+import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseListXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
+import Tippy from "@tippyjs/react";
 
 export function AwesomeArcadeTool({
   tool,
@@ -57,18 +58,20 @@ export function AwesomeArcadeTool({
         <>
           Access this tool at:
           <blockquote className="border-start border-secondary border-2 ps-3 mt-1 mb-2">
-            <a
-              className="text-start"
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ wordBreak: "break-all" }}
-              onClick={() => {
-                AnalyticEvents.sendAwesomeClick(tool.repo);
-              }}
-            >
-              {tool.url}
-            </a>
+            <Tippy content="Click to open in a new tab!">
+              <a
+                className="text-start"
+                href={tool.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ wordBreak: "break-all" }}
+                onClick={() => {
+                  AnalyticEvents.sendAwesomeClick(tool.repo);
+                }}
+              >
+                {tool.url}
+              </a>
+            </Tippy>
           </blockquote>
         </>
         <div
