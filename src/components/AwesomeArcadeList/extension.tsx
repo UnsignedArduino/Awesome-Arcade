@@ -1,8 +1,4 @@
-import {
-  Extension,
-  ExtensionRef,
-  URLLink,
-} from "@/scripts/Utils/ParseOldExtensionsXML";
+import { Extension, ExtensionRef, URLLink } from "@/scripts/Utils/ParseListXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
@@ -10,6 +6,8 @@ import Link from "next/link";
 import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
+import { TippyJSLibContext } from "@/pages/_app";
+import { Instance } from "tippy.js";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -22,47 +20,24 @@ export function AwesomeArcadeExtension({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): JSX.Element {
+  const tippyJSLib = React.useContext(TippyJSLibContext);
   const [showCardLink, setShowCardLink] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
-  const tippyRef = React.useRef<any>();
-  const tipRef = React.useRef<any | undefined>();
-  const urlRef = React.useRef<HTMLAnchorElement | null>(null);
+  const tippyRef = React.useRef<Instance | null>(null);
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   React.useEffect(() => {
-    import("tippy.js").then((tippy) => {
-      tippyRef.current = tippy;
-      if (
-        urlRef.current != undefined &&
-        tippyRef.current != undefined &&
-        tipRef.current == undefined
-      ) {
-        tipRef.current = tippyRef.current.default(urlRef.current, {
+    if (tippyJSLib !== null && buttonRef.current !== null) {
+      if (tippyRef.current !== null) {
+        tippyRef.current.setContent(tooltip);
+        tippyRef.current?.show();
+      } else {
+        tippyRef.current = tippyJSLib.default(buttonRef.current, {
           content: tooltip,
-          hideOnClick: false,
-          onHidden: () => {
-            setTooltip("Click to copy");
-          },
-        });
-      }
-    });
-  });
-
-  React.useEffect(() => {
-    if (tipRef.current != undefined) {
-      const t = tipRef.current;
-      t.setContent(tooltip);
-    } else {
-      if (urlRef.current != undefined && tippyRef.current != undefined) {
-        tipRef.current = tippyRef.current.default(urlRef.current, {
-          content: tooltip,
-          hideOnClick: false,
-          onHidden: () => {
-            setTooltip("Click to copy");
-          },
         });
       }
     }
-  }, [tooltip]);
+  }, [tippyJSLib, tooltip]);
 
   return (
     <div
@@ -112,26 +87,27 @@ export function AwesomeArcadeExtension({
                   type="button"
                   className="btn text-start"
                   style={{ wordBreak: "break-all" }}
+                  ref={buttonRef}
+                  onMouseEnter={() => {
+                    setTooltip("Click to copy");
+                  }}
                   onClick={() => {
                     if (copyTextToClipboard(ext.url)) {
                       setTooltip("Copied!");
                     } else {
                       setTooltip(
-                        "Failed to copy - did you give us clipboard permission?"
+                        "Failed to copy - did you give us clipboard permission?",
                       );
                     }
-                    tipRef.current.setContent(tooltip);
                     window.document.documentElement.dispatchEvent(
                       new CustomEvent<string>("clickrepo", {
                         detail: ext.repo,
-                      })
+                      }),
                     );
                     AnalyticEvents.sendAwesomeClick(ext.repo);
                   }}
                 >
-                  <a className="stretched-link" ref={urlRef}>
-                    {ext.url}
-                  </a>
+                  <a className="stretched-link">{ext.url}</a>
                 </button>
               </div>
             </blockquote>

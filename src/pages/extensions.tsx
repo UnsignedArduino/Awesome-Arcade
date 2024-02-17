@@ -142,11 +142,9 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         by Microsoft, the owner of MakeCode Arcade.
       </p>
       <p>
-        To use these extensions, you will need to import them. First go to the
-        toolbox, click on <code>Extensions</code>, and you will see a text box
-        that says <code>Search or enter project URL...</code> This is where you
-        will paste in the URL to the extension. The URL will be posted along
-        with the extensions below.
+        Need help with adding extensions? Check out our{" "}
+        <Link href="/help/adding-extensions">guide</Link> on how to add
+        extensions to MakeCode Arcade!
       </p>
       {removeOldHome ? (
         <></>

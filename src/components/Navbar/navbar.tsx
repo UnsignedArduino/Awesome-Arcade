@@ -131,23 +131,26 @@ function Navbar({
           </div>
         </div>
         {(() => {
-          const elements = [];
+          const elements: { key: string; html: React.ReactNode }[] = [];
           if (extraNavbarHTML) {
-            elements.push(extraNavbarHTML);
+            elements.push({ key: "extraNavbarHTML", html: extraNavbarHTML });
           }
           if (!dontShowSignIn) {
-            elements.push(<Profile />);
+            elements.push({ key: "Profile", html: <Profile /> });
           }
-          elements.push(<NavbarDropdownThemePicker alignEnd />);
+          elements.push({
+            key: "NavbarDropdownThemePicker",
+            html: <NavbarDropdownThemePicker alignEnd />,
+          });
 
-          return elements.map((ele: JSX.Element, index: number) => {
+          return elements.map((ele, index: number) => {
             return (
-              <>
-                <div className="d-flex d-none d-md-inline me-2">{ele}</div>
+              <React.Fragment key={ele.key}>
+                <div className="d-flex d-none d-md-inline me-2">{ele.html}</div>
                 {index < elements.length - 1 ? (
                   <div className="d-flex d-none d-md-inline vr me-2" />
                 ) : undefined}
-              </>
+              </React.Fragment>
             );
           });
         })()}
