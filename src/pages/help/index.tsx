@@ -21,6 +21,12 @@ export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
       linkText: "View the guide",
     },
     {
+      name: "Contributing",
+      description: "Guides on how to contribute to Awesome Arcade.",
+      link: "/help/contributing",
+      linkText: "Contribute to Awesome Arcade",
+    },
+    {
       name: "Legal",
       description:
         "Everyone's favorite section, this includes a number of legal documents and settings to change how we process your data.",

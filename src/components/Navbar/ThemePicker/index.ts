@@ -1,1 +1,5 @@
-export { default, NavbarDropdownThemePicker } from "./themePicker";
+export {
+  default,
+  NavbarDropdownThemePicker,
+  ThemeContext,
+} from "./themePicker";

@@ -1,6 +1,7 @@
 import React from "react";
-import { toast, ToastContainer, ToastOptions, Id, Theme } from "react-toastify";
+import { Id, toast, ToastContainer, ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeContext } from "@/components/Navbar/ThemePicker";
 
 const allOpenToasts: Id[] = [];
 
@@ -26,7 +27,7 @@ export function notify(
   text: string,
   type: NotificationType,
   autoHide?: boolean,
-  progress?: number | undefined
+  progress?: number | undefined,
 ): Id {
   const opts: ToastOptions = {
     position: "bottom-right",
@@ -74,7 +75,7 @@ export function promiseNotify(
   waiting: string,
   success: string,
   failure: string,
-  autoHide?: boolean
+  autoHide?: boolean,
 ) {
   const opts: ToastOptions = {
     position: "bottom-right",
@@ -88,7 +89,7 @@ export function promiseNotify(
   toast.promise(
     promise,
     { pending: waiting, error: failure, success: success },
-    opts
+    opts,
   );
 }
 
@@ -102,7 +103,7 @@ export function loadingNotify(
   loadingText: string,
   successText: string,
   errorText: string,
-  canceledText: string
+  canceledText: string,
 ): LoadingNotifyReturn {
   const id = toast.loading(loadingText);
   return {
@@ -134,27 +135,7 @@ export function loadingNotify(
 }
 
 export function Notifications(): JSX.Element {
-  const [theme, setTheme] = React.useState<Theme>("light");
-
-  function onThemeChange(event: CustomEvent<"Dark" | "Light">) {
-    setTheme(event.detail.toLowerCase() as Theme);
-  }
-
-  React.useEffect(() => {
-    let theme = window.localStorage.getItem("themeUsed");
-    if (theme === null) {
-      theme = "light";
-    } else {
-      theme = theme.toLowerCase();
-    }
-
-    window.document.documentElement.addEventListener(
-      "themeused",
-      onThemeChange
-    );
-
-    setTheme(theme as Theme);
-  }, []);
+  const theme = React.useContext(ThemeContext);
 
   return (
     <div
@@ -177,7 +158,7 @@ export function Notifications(): JSX.Element {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme={theme}
+        theme={theme.toLowerCase()}
       />
     </div>
   );
