@@ -1,7 +1,7 @@
 import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseListXML";
 import React from "react";
 import Link from "next/link";
-import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
+import { smoothScrollHash } from "@/components/Linkable/Header";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
 import Tippy from "@tippyjs/react";
