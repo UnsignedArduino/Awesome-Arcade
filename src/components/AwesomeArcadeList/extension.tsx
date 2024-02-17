@@ -30,7 +30,6 @@ export function AwesomeArcadeExtension({
     if (tippyJSLib !== null && buttonRef.current !== null) {
       if (tippyRef.current !== null) {
         tippyRef.current.setContent(tooltip);
-        tippyRef.current?.show();
       } else {
         tippyRef.current = tippyJSLib.default(buttonRef.current, {
           content: tooltip,
@@ -99,6 +98,7 @@ export function AwesomeArcadeExtension({
                         "Failed to copy - did you give us clipboard permission?",
                       );
                     }
+                    tippyRef.current?.show();
                     window.document.documentElement.dispatchEvent(
                       new CustomEvent<string>("clickrepo", {
                         detail: ext.repo,
