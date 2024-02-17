@@ -51,7 +51,8 @@ export function ContributingExtensions({
         list.
       </p>
       <p>
-        Please insert the relevant information, replacing the brackets below:
+        Please insert the relevant information, replacing the brackets as
+        necessary.
       </p>
       <p>
         For example, if I wanted to contribute{" "}
@@ -146,7 +147,7 @@ export function ContributingExtensions({
     </extension>`}</ThemedSyntaxHighlighter>
       <h3>Extension XML elements</h3>
       <p>
-        Here is sample using all the possible XML elements in an{" "}
+        Here is a sample using all the possible XML elements in an{" "}
         <code>{`<extension>`}</code>:
       </p>
       <ThemedSyntaxHighlighter language="xml">{`    <extension repo="user/github-repo">

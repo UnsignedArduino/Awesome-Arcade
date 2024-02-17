@@ -10,7 +10,7 @@ export default function ThemedSyntaxHighlighter({
   language,
   children,
 }: {
-  language: string;
+  language?: string;
   children: string;
 }) {
   const theme = React.useContext(ThemeContext);

@@ -138,24 +138,9 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         </p>
       )}
       <p>
-        Want to suggest a new tool or modification? Head over to our GitHub
-        repository and file an{" "}
-        <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues/new?assignees=&labels=tool&projects=&template=new-tool.md&title=Add+tool+%5BINSERT+TOOL+URL%5D"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          issue
-        </a>{" "}
-        or submit a pull request to{" "}
-        <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/tools.xml"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          edit the <code>tools.xml</code>
-        </a>{" "}
-        file! (A GitHub account is required.)
+        Want to suggest a new tool or modification? Check out our{" "}
+        <Link href="/help/contributing/tools">guide</Link> on how to submit a
+        tool to Awesome Arcade!
       </p>
       <div>
         {resultCount != undefined ? (
