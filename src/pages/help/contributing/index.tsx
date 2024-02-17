@@ -1,7 +1,8 @@
-import Link from "next/link";
 import React from "react";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import Layout from "@/components/Layout";
+import { QuickLink } from "@/components/QuickLinks/types";
+import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
 
 const pageName = "Contributing";
 
@@ -10,14 +11,7 @@ export function Contributing({
 }: {
   appProps: AppProps;
 }): JSX.Element {
-  type HelpPage = {
-    name: string;
-    description: string;
-    link: string;
-    linkText: string;
-  };
-
-  const helpPages: HelpPage[] = [
+  const helpPages: QuickLink[] = [
     {
       name: "Contributing extensions",
       description: "A guide on how to contribute extensions to Awesome Arcade.",
@@ -42,43 +36,7 @@ export function Contributing({
       breadCrumbs={[{ Help: "/help" }, { Contributing: "/help/contributing" }]}
     >
       <h1>{pageName}</h1>
-      <div style={{ overflowX: "hidden" }}>
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-          {helpPages.map((feature: HelpPage, index: number) => {
-            return (
-              <div className="col mb-3 mt-1" key={`help-card-${index}`}>
-                <div className="card mb-2 h-100">
-                  {/* <Image
-                    src={feature.image}
-                    alt={feature.altText}
-                    className="card-img-top"
-                    objectFit="cover"
-                  /> */}
-                  <h5 className="card-title m-3 mb-0">{feature.name}</h5>
-                  <div className="card-body">
-                    <div className="card-text">
-                      <p>{feature.description}</p>
-                    </div>
-                    <Link
-                      href={
-                        feature.link.startsWith("/")
-                          ? feature.link
-                          : `/help/${feature.link}`
-                      }
-                      passHref
-                      legacyBehavior
-                    >
-                      <a className="card-link stretched-link">
-                        {feature.linkText}
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <QuickLinkCards quickLinks={helpPages} />
       <p>
         If you have any problems, you can join me on{" "}
         <a
