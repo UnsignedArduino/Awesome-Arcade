@@ -6,6 +6,8 @@ import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
+import { QuickLink } from "@/components/QuickLinks/types";
 
 const pageName = "Home";
 
@@ -16,14 +18,7 @@ export function Home({ appProps }: HomeProps): JSX.Element {
 
   const { data: session } = useSession();
 
-  type QuickLinkPage = {
-    name: string;
-    description: string;
-    link: string;
-    linkText: string;
-  };
-
-  const quickLinkPages: QuickLinkPage[] = [
+  const quickLinks: QuickLink[] = [
     {
       name: "Extensions",
       description:
@@ -56,43 +51,10 @@ export function Home({ appProps }: HomeProps): JSX.Element {
         This is a website of awesome MakeCode Arcade extensions and tools that I
         find super useful (or just plain cool) in my projects.
       </p>
-      <div style={{ overflowX: "hidden" }}>
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
-          {quickLinkPages.map((feature: QuickLinkPage, index: number) => {
-            return (
-              <div className="col mb-3 mt-1" key={`help-card-${index}`}>
-                <div className="card mb-2 h-100">
-                  {/* <Image
-                    src={feature.image}
-                    alt={feature.altText}
-                    className="card-img-top"
-                    objectFit="cover"
-                  /> */}
-                  <h5 className="card-title m-3 mb-0">{feature.name}</h5>
-                  <div className="card-body">
-                    <div className="card-text">
-                      <p>{feature.description}</p>
-                    </div>
-                    <Link
-                      href={
-                        feature.link.startsWith("/")
-                          ? feature.link
-                          : `/help/${feature.link}`
-                      }
-                      passHref
-                      legacyBehavior
-                    >
-                      <a className="card-link stretched-link">
-                        {feature.linkText}
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <QuickLinkCards
+        quickLinks={quickLinks}
+        divColumnClasses="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
+      />
       <p>
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
@@ -106,16 +68,9 @@ export function Home({ appProps }: HomeProps): JSX.Element {
         </p>
       )}
       <p>
-        Want to suggest a new extension, tool, or modification? Head over to our
-        GitHub repository and file an{" "}
-        <a
-          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues/new/choose"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          issue
-        </a>
-        ! (A GitHub account is required.)
+        Want to suggest a new extension, tool, or modification? Check out our{" "}
+        <Link href="/help/contributing">guides</Link> on contributing to Awesome
+        Arcade!
       </p>
     </Layout>
   );

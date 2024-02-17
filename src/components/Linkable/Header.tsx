@@ -3,7 +3,7 @@ import Link from "next/link";
 
 // https://reacthustle.com/blog/nextjs-scroll-to-element
 export function smoothScrollHash(
-  e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
 ) {
   e.preventDefault();
   const href = e.currentTarget.href;
@@ -31,10 +31,12 @@ export function smoothScrollToID(id: string) {
 export function LinkableH2({
   props,
   id,
+  url,
   children,
 }: {
   props?: any;
   id: string;
+  url: string;
   children: JSX.Element | string;
 }): JSX.Element {
   const [showLink, setShowLink] = React.useState(false);
@@ -52,10 +54,44 @@ export function LinkableH2({
     >
       {children}
       {showLink ? (
-        <Link className="ms-1" href={`/#${id}`}>
+        <Link className="ms-1" href={`${url}#${id}`}>
           <i className="bi-link-45deg" />
         </Link>
       ) : undefined}
     </h2>
+  );
+}
+
+export function LinkableH3({
+  props,
+  id,
+  url,
+  children,
+}: {
+  props?: any;
+  id: string;
+  url: string;
+  children: JSX.Element | string;
+}): JSX.Element {
+  const [showLink, setShowLink] = React.useState(false);
+
+  return (
+    <h3
+      {...props}
+      id={id}
+      onMouseEnter={() => {
+        setShowLink(true);
+      }}
+      onMouseLeave={() => {
+        setShowLink(false);
+      }}
+    >
+      {children}
+      {showLink ? (
+        <Link className="ms-1" href={`${url}#${id}`}>
+          <i className="bi-link-45deg" />
+        </Link>
+      ) : undefined}
+    </h3>
   );
 }

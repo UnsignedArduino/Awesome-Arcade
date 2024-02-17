@@ -3,7 +3,7 @@ import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import Link from "next/link";
-import { smoothScrollHash } from "@/components/AwesomeArcadeList/linkableHeader";
+import { smoothScrollHash } from "@/components/Linkable/Header";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
 import { TippyJSLibContext } from "@/pages/_app";
