@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../components/Layout";
-import getAppProps, { AppProps } from "../components/WithAppProps";
+import Layout from "@/components/Layout";
+import getAppProps, { AppProps } from "@/components/WithAppProps";
 import Link from "next/link";
 import { promises as fs } from "fs";
 import path from "path";
@@ -11,7 +11,7 @@ import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
 import { parseToolXML, Tool } from "@/scripts/Utils/ParseListXML";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import { useFeatureIsOn, useFeatureValue } from "@growthbook/growthbook-react";
 import { stringToBool } from "@/scripts/Utils/ParseListXML/helpers";
 
 const pageName = "Tools";
@@ -23,6 +23,11 @@ type ToolsProps = {
 
 export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   const removeOldHome = useFeatureIsOn("remove-old-home");
+  const showEmbeddedTools = useFeatureIsOn("embedded-tools");
+  const embeddedToolsTitle = useFeatureValue(
+    "embedded-tools-title",
+    "Try out Awesome Arcade's built-in tools!",
+  );
 
   const { data: session } = useSession();
 
@@ -141,6 +146,15 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         <Link href="/help/contributing/tools">guide</Link> on how to submit a
         tool to Awesome Arcade!
       </p>
+      {showEmbeddedTools ? (
+        <div className="alert alert-primary position-relative" role="alert">
+          <Link href="/tools/built-in" className="stretched-link">
+            {embeddedToolsTitle}
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="row g-3 align-items-center mb-2">
         <div className="col-auto">
           <label htmlFor="searchBar" className="col-form-label">
@@ -200,8 +214,8 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       </div>
       <p>
         Looking for Awesome Arcade Extensions? They have been split up into the{" "}
-        <Link href="/">Extensions</Link> page! (Which you can also find in the
-        navigation bar!)
+        <Link href="/public">Extensions</Link> page! (Which you can also find in
+        the navigation bar!)
       </p>
     </Layout>
   );

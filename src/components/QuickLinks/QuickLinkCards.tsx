@@ -23,6 +23,11 @@ export default function QuickLinkCards({
                     objectFit="cover"
                   /> */}
                 <h5 className="card-title m-3 mb-0">{quick.name}</h5>
+                {quick.subtitle !== null ? (
+                  <h6 className="card-subtitle mx-3 mt-1 text-body-secondary">
+                    {quick.subtitle}
+                  </h6>
+                ) : null}
                 <div className="card-body">
                   <div className="card-text">
                     <p>{quick.description}</p>
