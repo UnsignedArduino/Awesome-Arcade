@@ -56,6 +56,14 @@ export function AwesomeArcadeExtension({
           }}
         >
           {ext.title}
+          {ext.javascriptOnly ? (
+            <>
+              {" "}
+              <span className="badge text-bg-warning me-1">
+                JavaScript only
+              </span>
+            </>
+          ) : undefined}
           {showCardLink ? (
             <Link
               className="ms-1"
@@ -78,7 +86,13 @@ export function AwesomeArcadeExtension({
         </h6>
         {showImportURL == undefined || showImportURL ? (
           <>
-            Import this extension with the URL:
+            Import this{" "}
+            {ext.javascriptOnly ? (
+              <>
+                <b>JavaScript only</b>{" "}
+              </>
+            ) : null}
+            extension with the URL:
             <blockquote className="border-start border-secondary border-2 mt-1 mb-2">
               {/* This transform is applied so the stretched-link only applies up to this div */}
               <div style={{ transform: "rotate(0)" }}>

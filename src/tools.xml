@@ -48,14 +48,14 @@
         <url label="Forum post">https://forum.makecode.com/t/games-gallery-an-alternate-view-for-games-posted-to-these-forums/4025</url>
       </links>
     </tool>
-    <tool repo="UnsignedArduino/Image-to-MakeCode-Arcade">
+    <tool repo="UnsignedArduino/Image-to-MakeCode-Arcade" notAWebsite="true">
       <description>I have written a Python script that will turn images and multi-frame GIFs into MakeCode Arcade images and arrays! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Image-to-MakeCode-Arcade</url>
         <url label="Forum post">https://forum.makecode.com/t/image-to-makecode-arcade-image-converter-again/12367?u=unsignedarduino</url>
       </links>
     </tool>
-    <tool repo="UnsignedArduino/Musical-Images-Generator">
+    <tool repo="UnsignedArduino/Musical-Images-Generator" notAWebsite="true">
       <description>I have written a Python script that will turn MIDI files into images compatible with the Musical-Images extension! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Musical-Images-Generator</url>
@@ -65,7 +65,7 @@
         <toolRef repo="UnsignedArduino/ArcadeMIDIGenerator" />
       </depreciatedBy>
     </tool>
-    <tool repo="UnsignedArduino/ArcadeMIDIGenerator">
+    <tool repo="UnsignedArduino/ArcadeMIDIGenerator" notAWebsite="true">
       <description>I have written a Python script that will turn MIDI files into images compatible with the ArcadeMIDI extension! Note that this tools requires at least Python 3.9 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/ArcadeMIDIGenerator</url>
@@ -100,7 +100,7 @@
         Currently no way to use these exported fonts.
       </inBeta>
     </tool>
-    <tool repo="UnsignedArduino/Arcade-MIDI-to-Song">
+    <tool repo="UnsignedArduino/Arcade-MIDI-to-Song" notAWebsite="true">
       <description>I have written a Python script that will turn MIDI files into MakeCode Arcade songs! Note that this tools requires at least Python 3.11 on a computer, and command line knowledge is highly recommended!</description>
       <links>
         <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Arcade-MIDI-to-Song</url>

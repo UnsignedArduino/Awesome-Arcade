@@ -36,7 +36,7 @@ export async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
   for (const extension of exts) {
     const ext = findElementInElement(extension, "extension").extension;
     const description = await markdownToHTML(
-      findElementInElement(ext, "description").description[0]["#text"]
+      findElementInElement(ext, "description").description[0]["#text"],
     );
     const links: URLLink[] = findElementInElement(ext, "links").links.map(
       (obj: any): URLLink => {
@@ -46,7 +46,7 @@ export async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
           url: obj.url[0]["#text"],
           isPrimary: stringToBool(obj[":@"]["@_isPrimary"]),
         };
-      }
+      },
     );
     const url = links.filter((link) => {
       return link.isPrimary;
@@ -57,6 +57,7 @@ export async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
     const forks = findElementInElement(ext, "forks");
     const depreciatedBy = findElementInElement(ext, "depreciatedBy");
     const inBeta = findElementInElement(ext, "inBeta");
+    const javascriptOnly = stringToBool(extension[":@"]["@_javascriptOnly"]);
     newExts.push(<Extension>{
       type: "Extension",
       title,
@@ -77,6 +78,7 @@ export async function gatherExtensionList(exts: any[]): Promise<Extension[]> {
               since: inBeta[":@"]["@_asOf"],
             }
           : null,
+      javascriptOnly,
     });
   }
   return newExts;
@@ -105,7 +107,7 @@ export async function gatherToolList(tools: any[]): Promise<Tool[]> {
   for (const tool of tools) {
     const t = findElementInElement(tool, "tool").tool;
     const description = await markdownToHTML(
-      findElementInElement(t, "description").description[0]["#text"]
+      findElementInElement(t, "description").description[0]["#text"],
     );
     const links: URLLink[] = findElementInElement(t, "links").links.map(
       (obj: any): URLLink => {
@@ -115,7 +117,7 @@ export async function gatherToolList(tools: any[]): Promise<Tool[]> {
           url: obj.url[0]["#text"],
           isPrimary: stringToBool(obj[":@"]["@_isPrimary"]),
         };
-      }
+      },
     );
     const url = links.filter((link) => {
       return link.isPrimary;
@@ -126,6 +128,7 @@ export async function gatherToolList(tools: any[]): Promise<Tool[]> {
     const forks = findElementInElement(t, "forks");
     const depreciatedBy = findElementInElement(t, "depreciatedBy");
     const inBeta = findElementInElement(t, "inBeta");
+    const notAWebsite = stringToBool(tool[":@"]["@_notAWebsite"]);
     newTools.push({
       type: "Tool",
       title,
@@ -146,6 +149,7 @@ export async function gatherToolList(tools: any[]): Promise<Tool[]> {
               since: inBeta[":@"]["@_asOf"],
             }
           : null,
+      notAWebsite,
     });
   }
   return newTools;
@@ -163,7 +167,7 @@ export async function parseExtensionXML(xml: string): Promise<Extension[]> {
   const notBuiltIn = findElementWithAttributeValue(
     allExtensions,
     "label",
-    "Not built in"
+    "Not built in",
   ).extensionList;
 
   return await gatherExtensionList(notBuiltIn);
@@ -181,7 +185,7 @@ export async function parseToolXML(xml: string): Promise<Tool[]> {
   const tools = findElementWithAttributeValue(
     allExtensions,
     "label",
-    "Tools"
+    "Tools",
   ).toolList;
 
   return await gatherToolList(tools);

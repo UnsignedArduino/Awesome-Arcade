@@ -12,6 +12,7 @@ import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
 import { parseToolXML, Tool } from "@/scripts/Utils/ParseListXML";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import { stringToBool } from "@/scripts/Utils/ParseListXML/helpers";
 
 const pageName = "Tools";
 
@@ -26,17 +27,25 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
+  const [showNotWebsiteTools, setShowNotWebsiteTools] = React.useState(false);
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<number | undefined>(
     undefined,
   );
 
   const searchParam = "q";
+  const showNotWebsiteParam = "showNotWebsite";
 
   React.useEffect(() => {
     const q = new URLSearchParams(window.location.search).get(searchParam);
     if (q !== null) {
       setSearch(q);
+    }
+    const showNotWebsite = new URLSearchParams(window.location.search).get(
+      showNotWebsiteParam,
+    );
+    if (showNotWebsite !== null) {
+      setShowNotWebsiteTools(stringToBool(showNotWebsite));
     }
     if (window.location.hash.length > 0) {
       smoothScrollToID(window.location.hash.replace("#", ""));
@@ -50,11 +59,16 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
     } else {
       url.searchParams.set(searchParam, search);
     }
+    if (showNotWebsiteTools) {
+      url.searchParams.set(showNotWebsiteParam, "true");
+    } else {
+      url.searchParams.delete(showNotWebsiteParam);
+    }
     window.history.replaceState({}, "", url.toString());
-  }, [search]);
+  }, [search, showNotWebsiteTools]);
 
   React.useEffect(() => {
-    if (search.length > 0) {
+    if (search.length > 0 || showNotWebsiteTools) {
       const filtered = structuredClone(list);
       let toolCount = 0;
       const group = filtered;
@@ -68,8 +82,10 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
           !(
             normalizeString(tool.repo).includes(normalizedSearch) ||
             normalizeString(tool.url).includes(normalizedSearch) ||
-            normalizeString(tool.description).includes(normalizedSearch)
-          )
+            normalizeString(tool.description).includes(normalizedSearch) ||
+            normalizeString(tool.author).includes(normalizedSearch)
+          ) ||
+          (!showNotWebsiteTools && tool.notAWebsite)
         ) {
           group.splice(i, 1);
         }
@@ -78,10 +94,14 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       setFilteredList(filtered);
       setResultCount(toolCount);
     } else {
-      setFilteredList(list);
+      setFilteredList(
+        list.filter((tool) => {
+          return !tool.notAWebsite;
+        }),
+      );
       setResultCount(undefined);
     }
-  }, [search, list]);
+  }, [search, showNotWebsiteTools, list]);
 
   return (
     <Layout
@@ -90,36 +110,15 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
       appProps={appProps}
       description="This is a list of MakeCode Arcade tools that I find super useful (or just plain cool) to use in my projects."
       keywords="Game development, Awesome, Tools, Curated, Arcade, Useful, Curated list, MakeCode, Awesome tools, Useful tools, MakeCode Arcade, MakeCode Arcade tools, Arcade tools"
-      extraNavbarHTML={
-        <Tippy content="Search tools by author, name, description, or URL!">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search tools by author, name, description, or URL!"
-            defaultValue={search}
-            onChange={(event) => {
-              const v = event.target.value;
-              setSearch(v);
-              debounce(
-                "toolSearchChange",
-                () => {
-                  AnalyticEvents.sendSearch(v);
-                },
-                1000,
-              );
-            }}
-            aria-label="Search query"
-          />
-        </Tippy>
-      }
     >
       <h1>
         Welcome to Awesome Arcade Tools
         {session?.user?.name != null ? `, ${session.user.name}` : ""}!
       </h1>
       <p>
-        This is a list of MakeCode Arcade tools that I find super useful (or
-        just plain cool) to use in my projects.
+        This is a list of {Math.floor(appProps.toolsListed / 10) * 10}+ MakeCode
+        Arcade tools that I find super useful (or just plain cool) to use in my
+        projects.
       </p>
       <p>
         Please note that this website is not developed, affiliated, or endorsed
@@ -142,6 +141,55 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         <Link href="/help/contributing/tools">guide</Link> on how to submit a
         tool to Awesome Arcade!
       </p>
+      <div className="row g-3 align-items-center mb-2">
+        <div className="col-auto">
+          <label htmlFor="searchBar" className="col-form-label">
+            Search:
+          </label>
+        </div>
+        <div className="col-auto">
+          <Tippy content="Search tools by author, name, description, or URL!">
+            <input
+              id="searchBar"
+              type="text"
+              className="form-control"
+              placeholder="Search tools by author, name, description, or URL!"
+              defaultValue={search}
+              onChange={(event) => {
+                const v = event.target.value;
+                setSearch(v);
+                debounce(
+                  "toolSearchChange",
+                  () => {
+                    AnalyticEvents.sendSearch(v);
+                  },
+                  1000,
+                );
+              }}
+              aria-label="Search query"
+            />
+          </Tippy>
+        </div>
+        <div className="col-auto">
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              defaultChecked={showNotWebsiteTools}
+              onChange={(e) => {
+                setShowNotWebsiteTools(e.target.checked);
+              }}
+              id="showNotWebsiteToolsCheckInput"
+            />
+            <label
+              className="form-check-label"
+              htmlFor="showNotWebsiteToolsCheckInput"
+            >
+              Show non-browser based tools
+            </label>
+          </div>
+        </div>
+      </div>
       <div>
         {resultCount != undefined ? (
           <p>

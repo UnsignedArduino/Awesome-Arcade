@@ -23,6 +23,7 @@ export type Extension = {
   forks?: ExtensionRef[] | null;
   depreciatedBy?: ExtensionRef[] | null;
   inBeta?: { text: string; since: string } | null;
+  javascriptOnly?: boolean | null;
 };
 
 export type ToolRef = {
@@ -44,6 +45,7 @@ export type Tool = {
   forks?: ToolRef[] | null;
   depreciatedBy?: ToolRef[] | null;
   inBeta?: { text: string; since: string } | null;
+  notAWebsite?: boolean | null;
 };
 
 export type URLLink = {
