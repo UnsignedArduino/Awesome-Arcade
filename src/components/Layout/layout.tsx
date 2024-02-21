@@ -208,7 +208,11 @@ LayoutProps): JSX.Element {
           </main>
         </ErrorBoundary>
 
-        {showFooter == undefined || showFooter ? <Footer /> : <></>}
+        {showFooter == undefined || showFooter ? (
+          <Footer appProps={appProps} />
+        ) : (
+          <></>
+        )}
 
         <Notifications />
       </ThemeProxy>

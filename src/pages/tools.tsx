@@ -116,8 +116,9 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         {session?.user?.name != null ? `, ${session.user.name}` : ""}!
       </h1>
       <p>
-        This is a list of MakeCode Arcade tools that I find super useful (or
-        just plain cool) to use in my projects.
+        This is a list of {Math.floor(appProps.toolsListed / 10) * 10}+ MakeCode
+        Arcade tools that I find super useful (or just plain cool) to use in my
+        projects.
       </p>
       <p>
         Please note that this website is not developed, affiliated, or endorsed

@@ -131,8 +131,9 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
         {session?.user?.name != null ? `, ${session.user.name}` : ""}!
       </h1>
       <p>
-        On this page, you can find my list of MakeCode Arcade extensions that I
-        find super useful (or just plain cool) in my projects.
+        On this page, you can find my list of{" "}
+        {Math.floor(appProps.extensionsListed / 10) * 10}+ MakeCode Arcade
+        extensions that I find super useful (or just plain cool) in my projects.
       </p>
       <p>
         Please note that this website is not developed, affiliated, or endorsed

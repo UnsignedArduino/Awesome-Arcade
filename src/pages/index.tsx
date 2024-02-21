@@ -21,15 +21,13 @@ export function Home({ appProps }: HomeProps): JSX.Element {
   const quickLinks: QuickLink[] = [
     {
       name: "Extensions",
-      description:
-        "A list of awesome MakeCode Arcade extensions to further your games!",
+      description: `A list of ${Math.floor(appProps.extensionsListed / 10) * 10}+ awesome MakeCode Arcade extensions to further your games!`,
       link: "/extensions",
       linkText: "View awesome extensions",
     },
     {
       name: "Tools",
-      description:
-        "A list of awesome MakeCode Arcade tools to help you develop great games!",
+      description: `A list of ${Math.floor(appProps.toolsListed / 10) * 10}+ awesome MakeCode Arcade tools to help you develop great games!`,
       link: "/tools",
       linkText: "View awesome tools",
     },

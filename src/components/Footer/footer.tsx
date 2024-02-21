@@ -4,10 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { appName } from "@/components/Layout/layout";
 import icon from "../../../public/android-chrome-512x512.png";
+import { AppProps } from "@/components/WithAppProps";
+import { formatDateLong } from "@/scripts/Utils/DateAndTime/Format";
 
 export const DEVELOPERS = ["UnsignedArduino"];
+export const CREATION_DATE = new Date("2023-04-15T02:00:20Z");
 
-function Footer(): JSX.Element {
+function Footer({ appProps }: { appProps: AppProps }): JSX.Element {
   type FooterThing = {
     title: string;
     link: string;
@@ -69,6 +72,9 @@ function Footer(): JSX.Element {
       </Link>
       © 2024 UnsignedArduino. All rights reserved.
       <br />
+      Keeping track of {appProps.extensionsListed} extensions and{" "}
+      {appProps.toolsListed} tools since {formatDateLong(CREATION_DATE)}.
+      <br />
       {appName} is developed and maintained by{" "}
       {DEVELOPERS.map((dev, index) => {
         return (
@@ -83,8 +89,8 @@ function Footer(): JSX.Element {
             {index < DEVELOPERS.length - 2
               ? ", "
               : index < DEVELOPERS.length - 1
-              ? " and "
-              : ""}
+                ? " and "
+                : ""}
           </span>
         );
       })}{" "}
