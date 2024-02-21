@@ -35,6 +35,12 @@ export function AwesomeArcadeTool({
           }}
         >
           {tool.title}
+          {tool.notAWebsite ? (
+            <>
+              {" "}
+              <span className="badge text-bg-warning me-1">Not a website</span>
+            </>
+          ) : undefined}
           {showCardLink ? (
             <Link
               className="ms-1"
@@ -56,7 +62,13 @@ export function AwesomeArcadeTool({
           </a>
         </h6>
         <>
-          Access this tool at:
+          Access this{" "}
+          {tool.notAWebsite ? (
+            <>
+              <b>not-browser based</b>{" "}
+            </>
+          ) : null}
+          tool at:
           <blockquote className="border-start border-secondary border-2 ps-3 mt-1 mb-2">
             <Tippy content="Click to open in a new tab!">
               <a
