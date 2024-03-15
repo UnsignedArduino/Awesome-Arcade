@@ -39,3 +39,6 @@ next-env.d.ts
 /public/oldExtensions.json
 /public/extensions.json
 /public/tools.json
+
+node_modules
+.env

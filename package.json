@@ -37,8 +37,9 @@
     "url": "https://github.com/UnsignedArduino/Awesome-Arcade.git"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cmd /V /C \"set \"TINA_PUBLIC_IS_LOCAL=true\" && tinacms dev -c \"next dev\"\"",
+    "devLinux": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev\"",
+    "build": "tinacms build && next build",
     "start": "next start",
     "test": "yarn run playwright test",
     "lint": "next lint",
@@ -53,7 +54,7 @@
     "@popperjs/core": "2.11.8",
     "@tippyjs/react": "^4.2.6",
     "@types/bootstrap": "^5.2.10",
-    "@types/node": "20.11.17",
+    "@types/node": "^20.11.28",
     "@types/react": "18.2.55",
     "@types/react-dom": "18.2.19",
     "@types/react-syntax-highlighter": "^15.5.11",
@@ -82,10 +83,12 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
     "sass": "^1.70.0",
+    "tinacms": "^1.6.0",
     "tippy.js": "^6.3.7",
     "unified": "^11.0.4"
   },
   "devDependencies": {
+    "@tinacms/cli": "^1.5.42",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "^9.1.0",
