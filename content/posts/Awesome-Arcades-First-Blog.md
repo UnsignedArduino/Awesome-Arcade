@@ -17,4 +17,6 @@ Hey, welcome to Awesome Arcade's developer blog!
 
 In this blog, I will be writing about all things related to MakeCode Arcade, including games, extensions, tools, tips and tricks, and experiences developing in MakeCode Arcade.
 
-I promise the next blog post will have more content than this!
+I've also implemented an [RSS feed](/rss.xml) - you should subscribe to that. 😉
+
+I promise the next blog post will have more content than this! (I mean, there isn't that much to say in a first blog post)

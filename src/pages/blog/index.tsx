@@ -70,7 +70,7 @@ export default function BlogPage(props: BlogProps) {
         </>
       }
       <p>
-        View all <Link href="/blog/all">here</Link>.
+        View all blog posts <Link href="/blog/all">here</Link>.
       </p>
     </Layout>
   );

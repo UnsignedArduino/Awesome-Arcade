@@ -5,6 +5,7 @@ import {
   RichTextSectionRenderer,
   ShortAuthorRenderer,
 } from "@/components/Blog/Elements";
+import Comments from "@/components/Blog/Post/Comments";
 
 export default function BlogPost({
   data,
@@ -24,7 +25,9 @@ export default function BlogPost({
       <small>
         <p>{data.post.description}</p>
       </small>
+      <hr />
       <RichTextSectionRenderer content={data.post.body} />
+      <Comments title={data.post.title} />
       <small>
         <p>
           {(data.post.tags?.length ?? 0) > 0 ? (
