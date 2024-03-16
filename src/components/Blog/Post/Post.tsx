@@ -22,7 +22,7 @@ export default function BlogPost({
         ) : null}
       </p>
       <small>
-        <RichTextSectionRenderer content={data.post.description} />
+        <p>{data.post.description}</p>
       </small>
       <RichTextSectionRenderer content={data.post.body} />
       <small>

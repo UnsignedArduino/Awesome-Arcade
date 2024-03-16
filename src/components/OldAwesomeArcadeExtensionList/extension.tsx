@@ -2,7 +2,7 @@ import {
   Extension,
   ExtensionRef,
   URLLink,
-} from "@/scripts/Utils/ParseOldExtensionsXML";
+} from "../../scripts/ParseOldExtensionsXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
@@ -109,14 +109,14 @@ export function AwesomeArcadeExtension({
                       setTooltip("Copied!");
                     } else {
                       setTooltip(
-                        "Failed to copy - did you give us clipboard permission?"
+                        "Failed to copy - did you give us clipboard permission?",
                       );
                     }
                     tipRef.current.setContent(tooltip);
                     window.document.documentElement.dispatchEvent(
                       new CustomEvent<string>("clickrepo", {
                         detail: ext.repo,
-                      })
+                      }),
                     );
                     AnalyticEvents.sendAwesomeClick(ext.repo);
                   }}

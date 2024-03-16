@@ -80,12 +80,12 @@
             "uid": false
           },
           {
-            "type": "rich-text",
-            "name": "description",
             "label": "Description",
+            "name": "description",
+            "type": "string",
+            "ui": { "component": "textarea" },
             "namespace": ["post", "description"],
             "searchable": true,
-            "parser": { "type": "markdown" },
             "uid": false
           },
           {
@@ -1396,7 +1396,7 @@
             "arguments": [],
             "type": {
               "kind": "NamedType",
-              "name": { "kind": "Name", "value": "JSON" }
+              "name": { "kind": "Name", "value": "String" }
             }
           },
           {
@@ -1555,7 +1555,7 @@
             "name": { "kind": "Name", "value": "description" },
             "type": {
               "kind": "NamedType",
-              "name": { "kind": "Name", "value": "RichTextFilter" }
+              "name": { "kind": "Name", "value": "StringFilter" }
             }
           },
           {
@@ -2089,7 +2089,7 @@
             "name": { "kind": "Name", "value": "description" },
             "type": {
               "kind": "NamedType",
-              "name": { "kind": "Name", "value": "JSON" }
+              "name": { "kind": "Name", "value": "String" }
             }
           },
           {

@@ -76,9 +76,12 @@ export default defineConfig({
             required: true,
           },
           {
-            type: "rich-text",
-            name: "description",
             label: "Description",
+            name: "description",
+            type: "string",
+            ui: {
+              component: "textarea",
+            },
           },
           {
             type: "string",

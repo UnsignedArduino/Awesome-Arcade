@@ -1,4 +1,4 @@
-import { parseExtensionXML, parseToolXML } from "@/scripts/Utils/ParseListXML";
+import { parseExtensionXML, parseToolXML } from "../../scripts/ParseListXML";
 import { promises as fs } from "fs";
 import path from "path";
 
@@ -10,6 +10,20 @@ export function getEnvironment(): Environment {
     : process.env.NODE_ENV != undefined
       ? (process.env.NODE_ENV as Environment)
       : "production";
+}
+
+export function getBaseURL(): string {
+  switch (getEnvironment()) {
+    case "production": {
+      return "https://awesome-arcade.vercel.app";
+    }
+    case "preview": {
+      return "https://awesome-arcade-beta.vercel.app";
+    }
+    case "development": {
+      return "http://localhost:3000";
+    }
+  }
 }
 
 export function getBranch(): "main" | "staging" {

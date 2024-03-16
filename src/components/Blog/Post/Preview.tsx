@@ -1,9 +1,6 @@
 import { Authors } from "../../../../tina/__generated__/types";
 import React from "react";
-import {
-  RichTextSectionRenderer,
-  ShortAuthorRenderer,
-} from "@/components/Blog/Elements";
+import { ShortAuthorRenderer } from "@/components/Blog/Elements";
 import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
 import Link from "next/link";
 
@@ -35,9 +32,7 @@ export default function BlogPostPreviewRenderer({
               <ShortAuthorRenderer author={preview.author} />
             )}
           </h6>
-          <div className="card-text">
-            <RichTextSectionRenderer content={preview.description} />
-          </div>
+          <p className="card-text">{preview.description}</p>
           <Link href={preview.link} className="card-link">
             View post
           </Link>

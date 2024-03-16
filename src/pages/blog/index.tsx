@@ -7,6 +7,8 @@ import BlogPostPreviewRenderer, {
   BlogPostPreview,
 } from "@/components/Blog/Post/Preview";
 import Link from "next/link";
+import { promises as fs } from "fs";
+import generateRSSFeed from "@/scripts/RSS";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];
@@ -31,7 +33,31 @@ export default function BlogPage(props: BlogProps) {
         MakeCode Arcade.
       </p>
       <p>
-        Find all blog posts <Link href="/blog/all">here</Link>.
+        I hope you find these posts useful and interesting. If you have any
+        questions, suggestions, or feedback, feel free to reach out to me on{" "}
+        <a
+          href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/discussions"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub Discussions
+        </a>{" "}
+        or the{" "}
+        <a
+          href="https://forum.makecode.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          MakeCode forums
+        </a>
+        .
+      </p>
+      <p>
+        You can also subscribe to this blog with a{" "}
+        <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
+          RSS feed reader
+        </a>
+        !
       </p>
       <h2>Latest blog posts</h2>
       {
@@ -43,6 +69,9 @@ export default function BlogPage(props: BlogProps) {
           })}
         </>
       }
+      <p>
+        View all <Link href="/blog/all">here</Link>.
+      </p>
     </Layout>
   );
 }
@@ -77,6 +106,8 @@ export async function getStaticProps(): Promise<{
     }
     return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
   });
+
+  await fs.writeFile("./public/rss.xml", await generateRSSFeed(previews));
 
   previews.splice(5);
 

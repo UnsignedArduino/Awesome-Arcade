@@ -9,10 +9,10 @@ import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useSession } from "next-auth/react";
-import { Extension, parseExtensionXML } from "@/scripts/Utils/ParseListXML";
+import { Extension, parseExtensionXML } from "../scripts/ParseListXML";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import Tippy from "@tippyjs/react";
-import { stringToBool } from "@/scripts/Utils/ParseListXML/helpers";
+import { stringToBool } from "@/scripts/ParseListXML/helpers";
 
 const pageName = "Extensions";
 

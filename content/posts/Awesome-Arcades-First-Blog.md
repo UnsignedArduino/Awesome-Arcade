@@ -1,7 +1,7 @@
 ---
 title: Awesome Arcade's First Blog!
 author: content/authors/UnsignedArduino.md
-description: "*The last time I started a blog, I forgot about it after two posts. Hopefully, that doesn't happen this time! \U0001F92A*\n"
+description: "The last time I started a blog, I forgot about it after two posts. Hopefully, that doesn't happen this time! \U0001F92A"
 tags:
   - Experiences
   - Tips and tricks
