@@ -39,3 +39,7 @@ next-env.d.ts
 /public/oldExtensions.json
 /public/extensions.json
 /public/tools.json
+/public/rss.xml
+
+node_modules
+.env

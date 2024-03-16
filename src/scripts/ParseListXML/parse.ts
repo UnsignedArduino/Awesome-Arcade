@@ -6,12 +6,12 @@ import {
   Tool,
   ToolRef,
   URLLink,
-} from "@/scripts/Utils/ParseListXML/types";
+} from "@/scripts/ParseListXML/types";
 import {
   findElementInElement,
   findElementWithAttributeValue,
   stringToBool,
-} from "@/scripts/Utils/ParseListXML/helpers";
+} from "@/scripts/ParseListXML/helpers";
 
 export function gatherExtensionRefList(exts: any[]): ExtensionRef[] {
   const newExtsRef = [];

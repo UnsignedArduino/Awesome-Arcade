@@ -1,4 +1,4 @@
-import { getEnvironment } from "../../../components/WithAppProps";
+import { getEnvironment } from "../../components/WithAppProps";
 
 export default async function generateSiteWebmanifest(): Promise<string> {
   const json = JSON.parse(`{

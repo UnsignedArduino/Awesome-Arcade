@@ -1,4 +1,4 @@
-import { Extension, ExtensionRef, URLLink } from "@/scripts/Utils/ParseListXML";
+import { Extension, ExtensionRef, URLLink } from "../../scripts/ParseListXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";

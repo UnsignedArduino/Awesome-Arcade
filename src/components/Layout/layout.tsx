@@ -13,6 +13,12 @@ import ProfileOffcanvas from "@/components/Authentication/Offcanvas";
 
 export const appName = "Awesome Arcade";
 
+export const createBreadCrumbSegment = (title: string, url: string) => {
+  const breadCrumb: { [title: string]: string } = {};
+  breadCrumb[title] = url;
+  return breadCrumb;
+};
+
 type LayoutProps = {
   children: JSX.Element | JSX.Element[];
   title: string;

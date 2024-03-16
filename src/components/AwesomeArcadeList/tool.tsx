@@ -1,4 +1,4 @@
-import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseListXML";
+import { Tool, ToolRef, URLLink } from "../../scripts/ParseListXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/Linkable/Header";

@@ -31,6 +31,10 @@ function Footer({ appProps }: { appProps: AppProps }): JSX.Element {
         link: "/tools",
       },
       {
+        title: "Blog",
+        link: "/blog",
+      },
+      {
         title: "Help",
         link: "/help",
       },
