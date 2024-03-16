@@ -1,6 +1,5 @@
 import { defineConfig } from "tinacms";
 
-// Your hosting provider likely exposes this as an environment variable
 const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
@@ -10,9 +9,7 @@ const branch =
 export default defineConfig({
   branch,
 
-  // Get this from tina.io
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
-  // Get this from tina.io
   token: process.env.TINA_TOKEN,
 
   build: {
@@ -25,9 +22,39 @@ export default defineConfig({
       publicFolder: "public",
     },
   },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [
+      {
+        name: "authors",
+        label: "Authors",
+        path: "content/authors",
+        fields: [
+          {
+            type: "string",
+            name: "name",
+            label: "Name",
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "link",
+            label: "Link",
+            required: true,
+          },
+          {
+            type: "rich-text",
+            name: "bio",
+            label: "Bio",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "avatarURL",
+            label: "Avatar URL",
+          },
+        ],
+      },
       {
         name: "post",
         label: "Posts",
@@ -41,6 +68,29 @@ export default defineConfig({
             required: true,
           },
           {
+            label: "Author",
+            name: "author",
+            type: "reference",
+            collections: ["authors"],
+            required: true,
+          },
+          {
+            type: "rich-text",
+            name: "description",
+            label: "Description",
+          },
+          {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            list: true,
+          },
+          {
+            type: "datetime",
+            name: "datePosted",
+            label: "Date posted",
+          },
+          {
             type: "rich-text",
             name: "body",
             label: "Body",
@@ -48,8 +98,9 @@ export default defineConfig({
           },
         ],
         ui: {
-          // This is an DEMO router. You can remove this to fit your site
-          router: ({ document }) => `/demo/blog/${document._sys.filename}`,
+          router: ({ document }) => {
+            return `/blog/${document._sys.filename}`;
+          },
         },
       },
     ],

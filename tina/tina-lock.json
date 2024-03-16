@@ -9,6 +9,51 @@
     "meta": { "flags": ["experimentalData"] },
     "collections": [
       {
+        "name": "authors",
+        "label": "Authors",
+        "path": "content/authors",
+        "fields": [
+          {
+            "type": "string",
+            "name": "name",
+            "label": "Name",
+            "isTitle": true,
+            "required": true,
+            "namespace": ["authors", "name"],
+            "searchable": true,
+            "uid": false
+          },
+          {
+            "type": "string",
+            "name": "link",
+            "label": "Link",
+            "required": true,
+            "namespace": ["authors", "link"],
+            "searchable": true,
+            "uid": false
+          },
+          {
+            "type": "rich-text",
+            "name": "bio",
+            "label": "Bio",
+            "required": true,
+            "namespace": ["authors", "bio"],
+            "searchable": true,
+            "parser": { "type": "markdown" },
+            "uid": false
+          },
+          {
+            "type": "string",
+            "name": "avatarURL",
+            "label": "Avatar URL",
+            "namespace": ["authors", "avatarURL"],
+            "searchable": true,
+            "uid": false
+          }
+        ],
+        "namespace": ["authors"]
+      },
+      {
         "name": "post",
         "label": "Posts",
         "path": "content/posts",
@@ -20,6 +65,42 @@
             "isTitle": true,
             "required": true,
             "namespace": ["post", "title"],
+            "searchable": true,
+            "uid": false
+          },
+          {
+            "label": "Author",
+            "name": "author",
+            "type": "reference",
+            "collections": ["authors"],
+            "required": true,
+            "namespace": ["post", "author"],
+            "searchable": true,
+            "uid": false
+          },
+          {
+            "type": "rich-text",
+            "name": "description",
+            "label": "Description",
+            "namespace": ["post", "description"],
+            "searchable": true,
+            "parser": { "type": "markdown" },
+            "uid": false
+          },
+          {
+            "type": "string",
+            "name": "tags",
+            "label": "Tags",
+            "list": true,
+            "namespace": ["post", "tags"],
+            "searchable": true,
+            "uid": false
+          },
+          {
+            "type": "datetime",
+            "name": "datePosted",
+            "label": "Date posted",
+            "namespace": ["post", "datePosted"],
             "searchable": true,
             "uid": false
           },
@@ -46,11 +127,29 @@
     "DocumentConnection": {
       "type": "DocumentConnection",
       "resolveType": "multiCollectionDocumentList",
-      "collections": ["post"]
+      "collections": ["authors", "post"]
     },
     "Node": { "type": "Node", "resolveType": "nodeDocument" },
     "DocumentNode": {
       "type": "DocumentNode",
+      "resolveType": "multiCollectionDocument",
+      "createDocument": "create",
+      "updateDocument": "update"
+    },
+    "Authors": {
+      "type": "Authors",
+      "resolveType": "collectionDocument",
+      "collection": "authors",
+      "createAuthors": "create",
+      "updateAuthors": "update"
+    },
+    "AuthorsConnection": {
+      "type": "AuthorsConnection",
+      "resolveType": "collectionDocumentList",
+      "collection": "authors"
+    },
+    "PostAuthor": {
+      "type": "PostAuthor",
       "resolveType": "multiCollectionDocument",
       "createDocument": "create",
       "updateDocument": "update"
@@ -519,6 +618,88 @@
           },
           {
             "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "authors" },
+            "arguments": [
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "relativePath" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "String" }
+                }
+              }
+            ],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "Authors" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "authorsConnection" },
+            "arguments": [
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "before" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "String" }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "after" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "String" }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "first" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "Float" }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "last" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "Float" }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "sort" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "String" }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "filter" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "AuthorsFilter" }
+                }
+              }
+            ],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "AuthorsConnection" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
             "name": { "kind": "Name", "value": "post" },
             "arguments": [
               {
@@ -605,6 +786,14 @@
         "kind": "InputObjectTypeDefinition",
         "name": { "kind": "Name", "value": "DocumentFilter" },
         "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "authors" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "AuthorsFilter" }
+            }
+          },
           {
             "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "post" },
@@ -862,6 +1051,10 @@
         "name": { "kind": "Name", "value": "DocumentNode" },
         "directives": [],
         "types": [
+          {
+            "kind": "NamedType",
+            "name": { "kind": "Name", "value": "Authors" }
+          },
           { "kind": "NamedType", "name": { "kind": "Name", "value": "Post" } },
           { "kind": "NamedType", "name": { "kind": "Name", "value": "Folder" } }
         ]
@@ -876,11 +1069,11 @@
           }
         ],
         "directives": [],
-        "name": { "kind": "Name", "value": "Post" },
+        "name": { "kind": "Name", "value": "Authors" },
         "fields": [
           {
             "kind": "FieldDefinition",
-            "name": { "kind": "Name", "value": "title" },
+            "name": { "kind": "Name", "value": "name" },
             "arguments": [],
             "type": {
               "kind": "NonNullType",
@@ -892,11 +1085,35 @@
           },
           {
             "kind": "FieldDefinition",
-            "name": { "kind": "Name", "value": "body" },
+            "name": { "kind": "Name", "value": "link" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "bio" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "JSON" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "avatarURL" },
             "arguments": [],
             "type": {
               "kind": "NamedType",
-              "name": { "kind": "Name", "value": "JSON" }
+              "name": { "kind": "Name", "value": "String" }
             }
           },
           {
@@ -1010,6 +1227,309 @@
       },
       {
         "kind": "InputObjectTypeDefinition",
+        "name": { "kind": "Name", "value": "AuthorsFilter" },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "name" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "link" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "bio" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "RichTextFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "avatarURL" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "ObjectTypeDefinition",
+        "interfaces": [],
+        "directives": [],
+        "name": { "kind": "Name", "value": "AuthorsConnectionEdges" },
+        "fields": [
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "cursor" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "node" },
+            "arguments": [],
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "Authors" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "ObjectTypeDefinition",
+        "interfaces": [
+          {
+            "kind": "NamedType",
+            "name": { "kind": "Name", "value": "Connection" }
+          }
+        ],
+        "directives": [],
+        "name": { "kind": "Name", "value": "AuthorsConnection" },
+        "fields": [
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "pageInfo" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "PageInfo" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "totalCount" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "Float" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "edges" },
+            "arguments": [],
+            "type": {
+              "kind": "ListType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "AuthorsConnectionEdges" }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "UnionTypeDefinition",
+        "name": { "kind": "Name", "value": "PostAuthor" },
+        "directives": [],
+        "types": [
+          {
+            "kind": "NamedType",
+            "name": { "kind": "Name", "value": "Authors" }
+          }
+        ]
+      },
+      {
+        "kind": "ObjectTypeDefinition",
+        "interfaces": [
+          { "kind": "NamedType", "name": { "kind": "Name", "value": "Node" } },
+          {
+            "kind": "NamedType",
+            "name": { "kind": "Name", "value": "Document" }
+          }
+        ],
+        "directives": [],
+        "name": { "kind": "Name", "value": "Post" },
+        "fields": [
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "title" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "author" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "PostAuthor" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "description" },
+            "arguments": [],
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "JSON" }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "tags" },
+            "arguments": [],
+            "type": {
+              "kind": "ListType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "datePosted" },
+            "arguments": [],
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "body" },
+            "arguments": [],
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "JSON" }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "id" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "ID" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "_sys" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "SystemInfo" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "_values" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "JSON" }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": { "kind": "Name", "value": "PostAuthorFilter" },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "authors" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "AuthorsFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": { "kind": "Name", "value": "DatetimeFilter" },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "after" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "before" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "eq" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "exists" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "Boolean" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "in" },
+            "type": {
+              "kind": "ListType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
         "name": { "kind": "Name", "value": "PostFilter" },
         "fields": [
           {
@@ -1018,6 +1538,38 @@
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "author" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "PostAuthorFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "description" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "RichTextFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "tags" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "datePosted" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "DatetimeFilter" }
             }
           },
           {
@@ -1280,6 +1832,76 @@
           },
           {
             "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "updateAuthors" },
+            "arguments": [
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "relativePath" },
+                "type": {
+                  "kind": "NonNullType",
+                  "type": {
+                    "kind": "NamedType",
+                    "name": { "kind": "Name", "value": "String" }
+                  }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "params" },
+                "type": {
+                  "kind": "NonNullType",
+                  "type": {
+                    "kind": "NamedType",
+                    "name": { "kind": "Name", "value": "AuthorsMutation" }
+                  }
+                }
+              }
+            ],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "Authors" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "createAuthors" },
+            "arguments": [
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "relativePath" },
+                "type": {
+                  "kind": "NonNullType",
+                  "type": {
+                    "kind": "NamedType",
+                    "name": { "kind": "Name", "value": "String" }
+                  }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "params" },
+                "type": {
+                  "kind": "NonNullType",
+                  "type": {
+                    "kind": "NamedType",
+                    "name": { "kind": "Name", "value": "AuthorsMutation" }
+                  }
+                }
+              }
+            ],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "Authors" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
             "name": { "kind": "Name", "value": "updatePost" },
             "arguments": [
               {
@@ -1356,6 +1978,14 @@
         "fields": [
           {
             "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "authors" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "AuthorsMutation" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "post" },
             "type": {
               "kind": "NamedType",
@@ -1378,10 +2008,56 @@
         "fields": [
           {
             "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "authors" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "AuthorsMutation" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "post" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "PostMutation" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": { "kind": "Name", "value": "AuthorsMutation" },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "name" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "link" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "bio" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "JSON" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "avatarURL" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
             }
           }
         ]
@@ -1393,6 +2069,41 @@
           {
             "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "title" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "author" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "description" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "JSON" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "tags" },
+            "type": {
+              "kind": "ListType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "datePosted" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "String" }
