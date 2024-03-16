@@ -89,6 +89,9 @@ export default defineConfig({
             type: "datetime",
             name: "datePosted",
             label: "Date posted",
+            ui: {
+              timeFormat: "HH:mm",
+            },
           },
           {
             type: "rich-text",
