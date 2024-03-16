@@ -27,7 +27,7 @@ export function findElementInElement(element: any, elementName: string): any {
 export function findElementWithAttributeValue(
   elements: any[],
   attributeName: string,
-  attributeValue: string
+  attributeValue: string,
 ): any {
   for (const element of elements) {
     const attributes = element[":@"];

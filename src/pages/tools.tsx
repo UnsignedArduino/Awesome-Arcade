@@ -10,9 +10,9 @@ import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
-import { parseToolXML, Tool } from "@/scripts/Utils/ParseListXML";
+import { parseToolXML, Tool } from "../scripts/ParseListXML";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
-import { stringToBool } from "@/scripts/Utils/ParseListXML/helpers";
+import { stringToBool } from "@/scripts/ParseListXML/helpers";
 
 const pageName = "Tools";
 

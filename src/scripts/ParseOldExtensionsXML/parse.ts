@@ -1,10 +1,10 @@
 import { XMLParser } from "fast-xml-parser";
-import { Extension, Tool } from "@/scripts/Utils/ParseListXML";
+import { Extension, Tool } from "@/scripts/ParseListXML";
 import {
   gatherExtensionList,
   gatherToolList,
-} from "@/scripts/Utils/ParseListXML/parse";
-import { findElementWithAttributeValue } from "@/scripts/Utils/ParseListXML/helpers";
+} from "@/scripts/ParseListXML/parse";
+import { findElementWithAttributeValue } from "@/scripts/ParseListXML/helpers";
 
 export type ExtensionList = {
   builtIn: Extension[];
@@ -13,7 +13,7 @@ export type ExtensionList = {
 };
 
 export default async function parseListXML(
-  xml: string
+  xml: string,
 ): Promise<ExtensionList> {
   const parser = new XMLParser({
     preserveOrder: true,
@@ -26,17 +26,17 @@ export default async function parseListXML(
   const builtIn = findElementWithAttributeValue(
     allExtensions,
     "label",
-    "Built in"
+    "Built in",
   ).extensionList;
   const notBuiltIn = findElementWithAttributeValue(
     allExtensions,
     "label",
-    "Not built in"
+    "Not built in",
   ).extensionList;
   const tools = findElementWithAttributeValue(
     allExtensions,
     "label",
-    "Tools"
+    "Tools",
   ).toolList;
 
   return {

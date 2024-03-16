@@ -2,9 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import AwesomeArcadeExtensionList from "@/components/OldAwesomeArcadeExtensionList/list";
-import parseListXML, {
-  ExtensionList,
-} from "../scripts/Utils/ParseOldExtensionsXML";
+import parseListXML, { ExtensionList } from "../scripts/ParseOldExtensionsXML";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";

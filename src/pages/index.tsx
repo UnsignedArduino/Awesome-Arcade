@@ -2,7 +2,7 @@ import React from "react";
 import { promises as fs } from "fs";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
-import generateSiteWebmanifest from "../scripts/Utils/SiteWebmanifest/manifest";
+import generateSiteWebmanifest from "@/scripts/SiteWebmanifest/manifest";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
@@ -30,6 +30,13 @@ export function Home({ appProps }: HomeProps): JSX.Element {
       description: `A list of ${Math.floor(appProps.toolsListed / 10) * 10}+ awesome MakeCode Arcade tools to help you develop great games!`,
       link: "/tools",
       linkText: "View awesome tools",
+    },
+    {
+      name: "Blog",
+      description:
+        "Read about the latest news and updates in the MakeCode Arcade world!",
+      link: "/blog",
+      linkText: "Read the blog",
     },
   ];
 

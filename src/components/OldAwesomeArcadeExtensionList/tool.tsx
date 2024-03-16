@@ -1,4 +1,4 @@
-import { Tool, ToolRef, URLLink } from "@/scripts/Utils/ParseOldExtensionsXML";
+import { Tool, ToolRef, URLLink } from "../../scripts/ParseOldExtensionsXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
@@ -57,7 +57,7 @@ export function AwesomeArcadeTool({
     window.document.documentElement.dispatchEvent(
       new CustomEvent<string>("clicktool", {
         detail: tool.repo,
-      })
+      }),
     );
     AnalyticEvents.sendAwesomeClick(tool.repo);
   };
