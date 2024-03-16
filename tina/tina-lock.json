@@ -37,6 +37,7 @@
             "name": "bio",
             "label": "Bio",
             "required": true,
+            "isBody": true,
             "namespace": ["authors", "bio"],
             "searchable": true,
             "parser": { "type": "markdown" },

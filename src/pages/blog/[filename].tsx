@@ -6,7 +6,7 @@ import Layout from "@/components/Layout";
 import { PostQuery } from "../../../tina/__generated__/types";
 import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
-import BlogPost from "@/components/Blog/Post";
+import BlogPost from "@/components/Blog/Post/Post";
 
 type BlogProps = {
   variables: { relativePath: string };

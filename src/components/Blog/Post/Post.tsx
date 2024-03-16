@@ -1,9 +1,9 @@
 import React from "react";
 import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
-import { Authors, PostQuery } from "../../../tina/__generated__/types";
+import { Authors, PostQuery } from "../../../../tina/__generated__/types";
 import {
-  AuthorRenderer,
   RichTextSectionRenderer,
+  ShortAuthorRenderer,
 } from "@/components/Blog/Elements";
 
 export default function BlogPost({
@@ -15,7 +15,7 @@ export default function BlogPost({
     <>
       <h1>{data.post.title}</h1>
       <p>
-        <AuthorRenderer author={data.post.author as Authors} />
+        Written by <ShortAuthorRenderer author={data.post.author as Authors} />
         <br />
         {data.post.datePosted != null ? (
           <>Posted on {formatDateAndTime(new Date(data.post.datePosted))}.</>

@@ -47,6 +47,7 @@ export default defineConfig({
             name: "bio",
             label: "Bio",
             required: true,
+            isBody: true,
           },
           {
             type: "string",

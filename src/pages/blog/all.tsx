@@ -5,7 +5,7 @@ import { Authors } from "../../../tina/__generated__/types";
 import React from "react";
 import BlogPostPreviewRenderer, {
   BlogPostPreview,
-} from "@/components/Blog/Preview";
+} from "@/components/Blog/Post/Preview";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 
 type BlogProps = {
