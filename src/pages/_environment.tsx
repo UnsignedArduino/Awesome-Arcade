@@ -16,9 +16,23 @@ export function About({ envVars, appProps }: AboutProps): JSX.Element {
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <h1>Environment</h1>
       <p>
-        Build hash: <code>{appProps.buildHash}</code>
+        Build hash:{" "}
+        <a
+          href={`https://github.com/UnsignedArduino/Awesome-Arcade/commit/${appProps.buildHash}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <code>{appProps.buildHash}</code>
+        </a>
         <br />
-        Build branch: <code>{appProps.buildBranch}</code>
+        Build branch:{" "}
+        <a
+          href={`https://github.com/UnsignedArduino/Awesome-Arcade/tree/${appProps.buildBranch}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <code>{appProps.buildBranch}</code>
+        </a>
         <br />
         Build time: <code>{appProps.buildTime}</code> (
         {formatDateAndTimeAndSecond(new Date(appProps.buildTime))} -{" "}
