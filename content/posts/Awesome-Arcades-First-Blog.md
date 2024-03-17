@@ -19,4 +19,4 @@ In this blog, I will be writing about all things related to MakeCode Arcade, inc
 
 I've also implemented an [RSS feed](/rss.xml) - you should subscribe to that. 😉
 
-I promise the next blog post will have more content than this! (I mean, there isn't that much to say in a first blog post)
+I promise the next blog post will have more content than this! (I mean, there isn't that much to say in a first blog post 🤷‍♂️)
