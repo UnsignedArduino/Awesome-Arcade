@@ -1,2 +1,2 @@
-export { default, getEnvironment, getBranch } from "./appProps";
+export { default } from "./appProps";
 export type { AppProps } from "./appProps";

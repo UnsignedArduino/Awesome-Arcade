@@ -1,6 +1,6 @@
 import { GoogleAdSense } from "nextjs-google-adsense";
 import React from "react";
-import { getEnvironment } from "../WithAppProps";
+import { getEnvironment } from "@/scripts/Utils/Environment";
 
 export function Adsense(): JSX.Element {
   React.useEffect(() => {

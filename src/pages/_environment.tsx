@@ -1,20 +1,33 @@
 import React from "react";
-import Layout from "../../components/Layout";
-import getAppProps, { AppProps } from "../../components/WithAppProps";
+import Layout from "../components/Layout";
+import getAppProps, { AppProps } from "../components/WithAppProps";
+import { formatDateAndTimeAndSecond } from "@/scripts/Utils/DateAndTime/Format";
+import { TextCountup } from "@/components/TextCountFromDate";
 
-const pageName = "Environment build variables";
+const pageName = "Environment";
 
 interface AboutProps {
-  vercelVars: string[][];
+  envVars: string[][];
   appProps: AppProps;
 }
 
-export function About({ vercelVars, appProps }: AboutProps): JSX.Element {
+export function About({ envVars, appProps }: AboutProps): JSX.Element {
   return (
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
-      <h1>Environment build variables</h1>
-      <pre>
-        {vercelVars.map((value: string[]) => {
+      <h1>Environment</h1>
+      <p>
+        Build hash: <code>{appProps.buildHash}</code>
+        <br />
+        Build branch: <code>{appProps.buildBranch}</code>
+        <br />
+        Build time: <code>{appProps.buildTime}</code> (
+        {formatDateAndTimeAndSecond(new Date(appProps.buildTime))} -{" "}
+        <TextCountup date={new Date(appProps.buildTime)} serverRender={false} />{" "}
+        ago)
+      </p>
+      <h2>Build variables</h2>
+      <code>
+        {envVars.map((value: string[]) => {
           return (
             <React.Fragment key={value[0]}>
               {value[0]}: {value[1]}
@@ -22,7 +35,7 @@ export function About({ vercelVars, appProps }: AboutProps): JSX.Element {
             </React.Fragment>
           );
         })}
-      </pre>
+      </code>
     </Layout>
   );
 }
@@ -45,7 +58,7 @@ export async function getStaticProps(): Promise<{ props: AboutProps }> {
 
   return {
     props: {
-      vercelVars: vercelEnvs.map((envVar: string) => {
+      envVars: vercelEnvs.map((envVar: string) => {
         return [
           envVar,
           process.env[envVar] != undefined ? process.env[envVar] : "undefined",
