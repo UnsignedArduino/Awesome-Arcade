@@ -1,6 +1,6 @@
 import { GrowthBook } from "@growthbook/growthbook-react";
-import { getEnvironment } from "@/components/WithAppProps";
 import { AnalyticEvents } from "@/components/Analytics";
+import { getEnvironment } from "@/scripts/Utils/Environment";
 
 export const growthbook = new GrowthBook({
   apiHost: process.env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,

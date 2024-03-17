@@ -5,7 +5,10 @@ import Image from "next/image";
 import { appName } from "@/components/Layout/layout";
 import icon from "../../../public/android-chrome-512x512.png";
 import { AppProps } from "@/components/WithAppProps";
-import { formatDateLong } from "@/scripts/Utils/DateAndTime/Format";
+import {
+  formatDateAndTime,
+  formatDateLong,
+} from "@/scripts/Utils/DateAndTime/Format";
 
 export const DEVELOPERS = ["UnsignedArduino"];
 export const CREATION_DATE = new Date("2023-04-15T02:00:20Z");
@@ -113,6 +116,25 @@ function Footer({ appProps }: { appProps: AppProps }): JSX.Element {
       owner of MakeCode Arcade. <br />
       Microsoft and MakeCode Arcade are trademarks of the Microsoft group of
       companies.
+      <br />
+      <br />
+      Build{" "}
+      <a
+        href={`https://github.com/UnsignedArduino/Awesome-Arcade/commit/${appProps.buildHash}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <code>{appProps.buildHash}</code>
+      </a>{" "}
+      (branch{" "}
+      <a
+        href={`https://github.com/UnsignedArduino/Awesome-Arcade/tree/${appProps.buildBranch}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <code>{appProps.buildBranch}</code>
+      </a>
+      ) on {formatDateAndTime(new Date(appProps.buildTime))}.
     </>
   );
 

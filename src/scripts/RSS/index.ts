@@ -1,6 +1,6 @@
 import { Feed } from "feed";
-import { getBaseURL, getEnvironment } from "@/components/WithAppProps/appProps";
 import { BlogPostPreview } from "@/components/Blog/Post/Preview";
+import { getBaseURL, getEnvironment } from "@/scripts/Utils/Environment";
 
 export default async function generateRSSFeed(
   posts: BlogPostPreview[],
