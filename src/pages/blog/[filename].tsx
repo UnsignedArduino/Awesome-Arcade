@@ -7,6 +7,8 @@ import { PostQuery } from "../../../tina/__generated__/types";
 import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogPost from "@/components/Blog/Post/Post";
+import getElement from "@/scripts/Utils/Element";
+import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
 
 type BlogProps = {
   variables: { relativePath: string };
@@ -27,6 +29,11 @@ export default function BlogPage(props: BlogProps) {
 
   const pageName = `${data.post.title} | Blog`;
 
+  React.useEffect(() => {
+    const div = getElement(`blogPost${data.post.title}`) as HTMLDivElement;
+    forceOutboundLinksToNewPage(div);
+  }, [data.post.title]);
+
   return (
     <Layout
       title={pageName}
@@ -40,7 +47,9 @@ export default function BlogPage(props: BlogProps) {
       ]}
     >
       {/*<code>{JSON.stringify(data, null, 2)}</code>*/}
-      <BlogPost data={data} />
+      <div id={`blogPost${data.post.title}`}>
+        <BlogPost data={data} />
+      </div>
     </Layout>
   );
 }

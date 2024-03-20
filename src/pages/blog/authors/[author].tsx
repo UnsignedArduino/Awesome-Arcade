@@ -7,6 +7,8 @@ import { AuthorsQuery } from "../../../../tina/__generated__/types";
 import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogAuthor from "@/components/Blog/Author/Author";
+import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
+import getElement from "@/scripts/Utils/Element";
 
 type BlogAuthorProps = {
   variables: { relativePath: string };
@@ -27,6 +29,11 @@ export default function BlogAuthorPage(props: BlogAuthorProps) {
 
   const pageName = `${data.authors.name} | Blog`;
 
+  React.useEffect(() => {
+    const div = getElement(`blogAuthor${data.authors.name}`) as HTMLDivElement;
+    forceOutboundLinksToNewPage(div);
+  }, [data.authors.name]);
+
   return (
     <Layout
       title={pageName}
@@ -44,7 +51,9 @@ export default function BlogAuthorPage(props: BlogAuthorProps) {
       ]}
     >
       {/*<code>{JSON.stringify(data, null, 2)}</code>*/}
-      <BlogAuthor data={data} />
+      <div id={`blogAuthor${data.authors.name}`}>
+        <BlogAuthor data={data} />
+      </div>
     </Layout>
   );
 }
