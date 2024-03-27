@@ -1,4 +1,4 @@
-import { Tool, ToolRef, URLLink } from "../../scripts/ParseListXML";
+import { Tool, ToolRef, URLLink } from "@/scripts/ParseListXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/Linkable/Header";
@@ -149,6 +149,15 @@ export function AwesomeArcadeTool({
                   );
                 })}
               </ul>
+            </div>
+          </div>
+        ) : undefined}
+        {tool.inBeta != undefined ? (
+          <div className="mt-3">
+            <div className="alert alert-warning mb-0" role="alert">
+              This tool is in beta since <b>{tool.inBeta.since}</b> because:
+              <br />
+              {tool.inBeta.text}
             </div>
           </div>
         ) : undefined}

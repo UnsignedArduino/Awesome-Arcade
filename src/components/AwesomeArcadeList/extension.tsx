@@ -1,4 +1,4 @@
-import { Extension, ExtensionRef, URLLink } from "../../scripts/ParseListXML";
+import { Extension, ExtensionRef, URLLink } from "@/scripts/ParseListXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
@@ -193,6 +193,15 @@ export function AwesomeArcadeExtension({
                   );
                 })}
               </ul>
+            </div>
+          </div>
+        ) : undefined}
+        {ext.inBeta != undefined ? (
+          <div className="mt-3">
+            <div className="alert alert-warning mb-0" role="alert">
+              This extension is in beta since <b>{ext.inBeta.since}</b> because:
+              <br />
+              {ext.inBeta.text}
             </div>
           </div>
         ) : undefined}
