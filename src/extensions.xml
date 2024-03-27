@@ -516,5 +516,15 @@
         <url label="Demo">https://arcade.makecode.com/S61849-21948-78184-39153</url>
       </links>
     </extension>
+        <extension repo="49dev/pxt-multicamera">
+      <description>Have you ever played a 2-player dungeon-like game and wondered how they made the camera? This extension does all the math, triangulating the camera based on the position of 2 sprites. .</description>
+      <inBeta asOf="March 27th, 2024">
+        This is a very simple extension and is mostly unfinished, but the singular block does work. Not on version 1 yet.
+      </inBeta>
+      <links>
+        <url label="GitHub repo" isPrimary="true">https://github.com/49dev/pxt-multicamera</url>
+      </links>
+    </extension>
+
   </extensionList>
 </allExtensions>
