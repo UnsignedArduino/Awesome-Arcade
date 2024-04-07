@@ -50,7 +50,7 @@ export default async function generateRSSFeed(
       id: `${siteURL}${post.link}`,
       link: `${siteURL}${post.link}`,
       description: post.description,
-      date: new Date(post.postedDate ?? 0),
+      date: new Date(post.createdAt ?? 0),
     });
   }
 
