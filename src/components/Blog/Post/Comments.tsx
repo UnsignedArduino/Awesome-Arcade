@@ -16,7 +16,6 @@ export default function Comments({
 
   React.useEffect(() => {
     const observer = new MutationObserver(() => {
-      console.log("CHANGE IN COMMENTS FRAME");
       const utterancesFrame = document.querySelector(
         ".utterances",
       ) as HTMLDivElement | null;

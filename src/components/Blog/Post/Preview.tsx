@@ -8,7 +8,8 @@ export type BlogPostPreview = {
   title: string;
   author: Authors;
   description: string;
-  postedDate: string | null;
+  createdAt: string | null;
+  lastUpdated: string | null;
   link: string;
 };
 
@@ -23,10 +24,13 @@ export default function BlogPostPreviewRenderer({
         <div className="card-body">
           <h5 className="card-title">{preview.title}</h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">
-            {preview.postedDate !== null ? (
+            {preview.createdAt !== null ? (
               <>
                 Posted by <ShortAuthorRenderer author={preview.author} /> on{" "}
-                {formatDateAndTime(new Date(preview.postedDate))}.
+                {formatDateAndTime(new Date(preview.createdAt))}.
+                {preview.lastUpdated !== null
+                  ? ` (last updated ${formatDateAndTime(new Date(preview.lastUpdated))})`
+                  : null}
               </>
             ) : (
               <ShortAuthorRenderer author={preview.author} />

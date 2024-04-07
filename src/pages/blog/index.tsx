@@ -9,6 +9,7 @@ import BlogPostPreviewRenderer, {
 import Link from "next/link";
 import { promises as fs } from "fs";
 import generateRSSFeed from "@/scripts/RSS";
+import { makeUndefinedNull } from "@/scripts/TypeHelp/NullUndefined";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];
@@ -88,23 +89,25 @@ export async function getStaticProps(): Promise<{
       continue;
     }
     const post = edge.node;
+    console.log(post);
     previews.push({
       title: post.title,
       author: post.author as Authors,
       description: post.description ?? "",
-      postedDate: post.datePosted == null ? null : post.datePosted,
+      createdAt: makeUndefinedNull(post.createdAt),
+      lastUpdated: makeUndefinedNull(post.lastUpdated),
       link: `/blog/${post._sys.filename}`,
     });
   }
 
   previews.sort((a, b) => {
-    if (a.postedDate === null) {
+    if (a.createdAt === null) {
       return 1;
     }
-    if (b.postedDate === null) {
+    if (b.createdAt === null) {
       return -1;
     }
-    return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 
   await fs.writeFile("./public/rss.xml", await generateRSSFeed(previews));

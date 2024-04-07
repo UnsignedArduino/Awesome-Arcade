@@ -18,13 +18,16 @@ export default function BlogPost({
       <p>
         Written by <ShortAuthorRenderer author={data.post.author as Authors} />
         <br />
-        {data.post.datePosted != null ? (
-          <>Posted on {formatDateAndTime(new Date(data.post.datePosted))}.</>
+        {data.post.createdAt != null ? (
+          <>
+            Posted on {formatDateAndTime(new Date(data.post.createdAt))}.
+            {data.post.lastUpdated != null
+              ? ` (last updated ${formatDateAndTime(new Date(data.post.lastUpdated))})`
+              : null}
+          </>
         ) : null}
       </p>
-      <small>
-        <p>{data.post.description}</p>
-      </small>
+      <p>{data.post.description}</p>
       <hr />
       <RichTextSectionRenderer content={data.post.body} />
       <Comments title={data.post.title} />

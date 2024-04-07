@@ -99,10 +99,19 @@
           },
           {
             "type": "datetime",
-            "name": "datePosted",
-            "label": "Date posted",
+            "name": "createdAt",
+            "label": "Created at",
             "ui": { "timeFormat": "HH:mm" },
-            "namespace": ["post", "datePosted"],
+            "namespace": ["post", "createdAt"],
+            "searchable": true,
+            "uid": false
+          },
+          {
+            "type": "datetime",
+            "name": "lastUpdated",
+            "label": "Last updated",
+            "ui": { "timeFormat": "HH:mm" },
+            "namespace": ["post", "lastUpdated"],
             "searchable": true,
             "uid": false
           },
@@ -1413,7 +1422,16 @@
           },
           {
             "kind": "FieldDefinition",
-            "name": { "kind": "Name", "value": "datePosted" },
+            "name": { "kind": "Name", "value": "createdAt" },
+            "arguments": [],
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "lastUpdated" },
             "arguments": [],
             "type": {
               "kind": "NamedType",
@@ -1568,7 +1586,15 @@
           },
           {
             "kind": "InputValueDefinition",
-            "name": { "kind": "Name", "value": "datePosted" },
+            "name": { "kind": "Name", "value": "createdAt" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "DatetimeFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "lastUpdated" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "DatetimeFilter" }
@@ -2105,7 +2131,15 @@
           },
           {
             "kind": "InputValueDefinition",
-            "name": { "kind": "Name", "value": "datePosted" },
+            "name": { "kind": "Name", "value": "createdAt" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "lastUpdated" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "String" }

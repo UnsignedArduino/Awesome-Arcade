@@ -1,4 +1,4 @@
-import { defineConfig } from "tinacms";
+import { defineConfig, Form, TinaCMS } from "tinacms";
 
 const branch =
   process.env.GITHUB_BRANCH ||
@@ -91,8 +91,16 @@ export default defineConfig({
           },
           {
             type: "datetime",
-            name: "datePosted",
-            label: "Date posted",
+            name: "createdAt",
+            label: "Created at",
+            ui: {
+              timeFormat: "HH:mm",
+            },
+          },
+          {
+            type: "datetime",
+            name: "lastUpdated",
+            label: "Last updated",
             ui: {
               timeFormat: "HH:mm",
             },
@@ -107,6 +115,24 @@ export default defineConfig({
         ui: {
           router: ({ document }) => {
             return `/blog/${document._sys.filename}`;
+          },
+          beforeSubmit: async ({
+            form,
+            values,
+          }: {
+            form: Form;
+            cms: TinaCMS;
+            values: Record<string, any>;
+          }) => {
+            console.log(values);
+            const now = new Date().toISOString();
+            if (form.crudType === "create") {
+              values.createdAt = now;
+              values.lastUpdated = null;
+            } else {
+              values.lastUpdated = now;
+            }
+            return values;
           },
         },
       },
