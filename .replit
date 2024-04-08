@@ -1,5 +1,7 @@
-run = "yarn run dev"
+run = "yarn run devLinux"
 hidden = [".config", "package-lock.json", "tsconfig.json"]
+entrypoint = "index.js"
+modules = ["nodejs-20:v8-20230920-bd784b9"]
 
 [packager]
 language = "nodejs"
@@ -29,3 +31,14 @@ requiredFiles = [".replit", "replit.nix", ".config"]
 run = ["sh", "-c", "yarn run dev"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
+
+[unitTest]
+language = "nodejs"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 9000
+externalPort = 80

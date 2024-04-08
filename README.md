@@ -7,7 +7,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/unsignedarduino/awesome-arcade/badge)](https://www.codefactor.io/repository/github/unsignedarduino/awesome-arcade)
 [![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/UnsignedArduino/Awesome-Arcade/tree/staging)
 
-This is the source code for the Awesome Arcade!
+This is the source code for the Awesome Arcade website!
 
 ## Install
 
