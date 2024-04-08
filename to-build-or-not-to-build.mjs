@@ -11,7 +11,20 @@ const processed = lastCommitMessage
   .replaceAll(" ", "")
   .replaceAll("'", "");
 
-if (processed.includes("donotbuild") || processed.includes("dontbuild")) {
+const phrases = [
+  "donotbuild",
+  "dontbuild",
+  "donotdeploy",
+  "dontdeploy",
+  "ignorebuild",
+  "ignoredeploy",
+  "ignoredeployment",
+];
+
+const isToBuild = phrases.some((phrase) => {
+  return processed.includes(phrase);
+});
+if (isToBuild) {
   console.log("...the answer is to not build!");
   process.exitCode = 0;
 }
