@@ -24,10 +24,11 @@ const phrases = [
 const isToBuild = phrases.some((phrase) => {
   return processed.includes(phrase);
 });
+
 if (isToBuild) {
   console.log("...the answer is to not build!");
   process.exitCode = 0;
+} else {
+  console.log("...the answer is to build!");
+  process.exitCode = 1;
 }
-
-console.log("...the answer is to build!");
-process.exitCode = 1;
