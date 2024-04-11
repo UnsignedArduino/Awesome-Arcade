@@ -8,7 +8,6 @@ import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogPost from "@/components/Blog/Post/Post";
 import MakeCodeArcadeBlockRendererContext from "@/components/MakeCodeArcade/Blocks/RendererContext";
-import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
 
 type BlogProps = {
   variables: { relativePath: string };
@@ -41,9 +40,9 @@ export default function BlogPage(props: BlogProps) {
         createBreadCrumbSegment(data.post.title, props.filename),
       ]}
     >
-      <ThemedSyntaxHighlighter language="json">
-        {JSON.stringify(data.post.body, null, 2)}
-      </ThemedSyntaxHighlighter>
+      {/*<ThemedSyntaxHighlighter language="json">*/}
+      {/*  {JSON.stringify(data.post.body, null, 2)}*/}
+      {/*</ThemedSyntaxHighlighter>*/}
       <MakeCodeArcadeBlockRendererContext>
         <div id={`blogPost${data.post.title}`}>
           <BlogPost data={data} />
