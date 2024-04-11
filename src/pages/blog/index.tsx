@@ -9,7 +9,7 @@ import BlogPostPreviewRenderer, {
 import Link from "next/link";
 import { promises as fs } from "fs";
 import generateRSSFeed from "@/scripts/RSS";
-import { makeUndefinedNull } from "@/scripts/TypeHelp/NullUndefined";
+import { makeUndefinedNull } from "@/scripts/Utils/TypeHelp/NullUndefined";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];

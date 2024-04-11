@@ -60,6 +60,7 @@ export default defineConfig({
         name: "post",
         label: "Posts",
         path: "content/posts",
+        format: "mdx",
         fields: [
           {
             type: "string",
@@ -110,6 +111,71 @@ export default defineConfig({
             name: "body",
             label: "Body",
             isBody: true,
+            templates: [
+              {
+                name: "MakeCodeArcadeBlockDoc",
+                label: "MakeCode Arcade Block Documentation",
+                fields: [
+                  {
+                    name: "blocksJS",
+                    label: "Blocks (JS)",
+                    type: "string",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                  {
+                    name: "javascript",
+                    label: "JavaScript",
+                    type: "string",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                  {
+                    name: "python",
+                    label: "Python",
+                    type: "string",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                ],
+              },
+              {
+                name: "MakeCodeArcadeProjectCode",
+                label: "MakeCode Arcade Project Code",
+                fields: [
+                  {
+                    name: "id",
+                    label: "Project ID",
+                    type: "string",
+                  },
+                ],
+              },
+              {
+                name: "MakeCodeArcadeProjectEditor",
+                label: "MakeCode Arcade Project Editor",
+                fields: [
+                  {
+                    name: "id",
+                    label: "Project ID",
+                    type: "string",
+                  },
+                ],
+              },
+              {
+                name: "MakeCodeArcadeProjectSimulator",
+                label: "MakeCode Arcade Project Simulator",
+                fields: [
+                  {
+                    name: "id",
+                    label: "Project ID",
+                    type: "string",
+                  },
+                ],
+              },
+            ],
           },
         ],
         ui: {

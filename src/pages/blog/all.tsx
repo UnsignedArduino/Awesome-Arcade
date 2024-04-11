@@ -7,7 +7,7 @@ import BlogPostPreviewRenderer, {
   BlogPostPreview,
 } from "@/components/Blog/Post/Preview";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
-import { makeUndefinedNull } from "@/scripts/TypeHelp/NullUndefined";
+import { makeUndefinedNull } from "@/scripts/Utils/TypeHelp/NullUndefined";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];

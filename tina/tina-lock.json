@@ -58,6 +58,7 @@
         "name": "post",
         "label": "Posts",
         "path": "content/posts",
+        "format": "mdx",
         "fields": [
           {
             "type": "string",
@@ -120,9 +121,120 @@
             "name": "body",
             "label": "Body",
             "isBody": true,
+            "templates": [
+              {
+                "name": "MakeCodeArcadeBlockDoc",
+                "label": "MakeCode Arcade Block Documentation",
+                "fields": [
+                  {
+                    "name": "blocksJS",
+                    "label": "Blocks (JS)",
+                    "type": "string",
+                    "ui": { "component": "textarea" },
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeBlockDoc",
+                      "blocksJS"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "name": "javascript",
+                    "label": "JavaScript",
+                    "type": "string",
+                    "ui": { "component": "textarea" },
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeBlockDoc",
+                      "javascript"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "name": "python",
+                    "label": "Python",
+                    "type": "string",
+                    "ui": { "component": "textarea" },
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeBlockDoc",
+                      "python"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": ["post", "body", "MakeCodeArcadeBlockDoc"]
+              },
+              {
+                "name": "MakeCodeArcadeProjectCode",
+                "label": "MakeCode Arcade Project Code",
+                "fields": [
+                  {
+                    "name": "id",
+                    "label": "Project ID",
+                    "type": "string",
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeProjectCode",
+                      "id"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": ["post", "body", "MakeCodeArcadeProjectCode"]
+              },
+              {
+                "name": "MakeCodeArcadeProjectEditor",
+                "label": "MakeCode Arcade Project Editor",
+                "fields": [
+                  {
+                    "name": "id",
+                    "label": "Project ID",
+                    "type": "string",
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeProjectEditor",
+                      "id"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": ["post", "body", "MakeCodeArcadeProjectEditor"]
+              },
+              {
+                "name": "MakeCodeArcadeProjectSimulator",
+                "label": "MakeCode Arcade Project Simulator",
+                "fields": [
+                  {
+                    "name": "id",
+                    "label": "Project ID",
+                    "type": "string",
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeProjectSimulator",
+                      "id"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": ["post", "body", "MakeCodeArcadeProjectSimulator"]
+              }
+            ],
             "namespace": ["post", "body"],
             "searchable": true,
-            "parser": { "type": "markdown" },
+            "parser": { "type": "mdx" },
             "uid": false
           }
         ],
@@ -1550,6 +1662,143 @@
       },
       {
         "kind": "InputObjectTypeDefinition",
+        "name": {
+          "kind": "Name",
+          "value": "PostBodyMakeCodeArcadeBlockDocFilter"
+        },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "blocksJS" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "javascript" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "python" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": {
+          "kind": "Name",
+          "value": "PostBodyMakeCodeArcadeProjectCodeFilter"
+        },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "id" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": {
+          "kind": "Name",
+          "value": "PostBodyMakeCodeArcadeProjectEditorFilter"
+        },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "id" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": {
+          "kind": "Name",
+          "value": "PostBodyMakeCodeArcadeProjectSimulatorFilter"
+        },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "id" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
+        "name": { "kind": "Name", "value": "PostBodyFilter" },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "MakeCodeArcadeBlockDoc" },
+            "type": {
+              "kind": "NamedType",
+              "name": {
+                "kind": "Name",
+                "value": "PostBodyMakeCodeArcadeBlockDocFilter"
+              }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "MakeCodeArcadeProjectCode" },
+            "type": {
+              "kind": "NamedType",
+              "name": {
+                "kind": "Name",
+                "value": "PostBodyMakeCodeArcadeProjectCodeFilter"
+              }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "MakeCodeArcadeProjectEditor" },
+            "type": {
+              "kind": "NamedType",
+              "name": {
+                "kind": "Name",
+                "value": "PostBodyMakeCodeArcadeProjectEditorFilter"
+              }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": {
+              "kind": "Name",
+              "value": "MakeCodeArcadeProjectSimulator"
+            },
+            "type": {
+              "kind": "NamedType",
+              "name": {
+                "kind": "Name",
+                "value": "PostBodyMakeCodeArcadeProjectSimulatorFilter"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
         "name": { "kind": "Name", "value": "PostFilter" },
         "fields": [
           {
@@ -1605,7 +1854,7 @@
             "name": { "kind": "Name", "value": "body" },
             "type": {
               "kind": "NamedType",
-              "name": { "kind": "Name", "value": "RichTextFilter" }
+              "name": { "kind": "Name", "value": "PostBodyFilter" }
             }
           }
         ]

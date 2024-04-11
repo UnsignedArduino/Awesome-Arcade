@@ -30,7 +30,9 @@ export default function BlogPost({
       <p>{data.post.description}</p>
       <hr />
       <RichTextSectionRenderer content={data.post.body} />
-      <Comments title={data.post.title} />
+      {data.post.title !== "TESTING" ? (
+        <Comments title={data.post.title} />
+      ) : null}
       <small>
         <p>
           {(data.post.tags?.length ?? 0) > 0 ? (

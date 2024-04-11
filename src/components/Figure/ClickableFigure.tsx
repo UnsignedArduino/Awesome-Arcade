@@ -9,32 +9,65 @@ export default function ClickableFigure({
   src,
   alt,
   caption,
+  width,
+  height,
+  useNormalImage = false,
 }: {
   id: string;
   src: string | StaticImport;
   alt: string;
   caption: string | React.ReactNode;
+  width?: number;
+  height?: number;
+  useNormalImage?: boolean;
 }) {
   const bootstrapLib = React.useContext(BootstrapLibContext);
 
   return (
-    <div>
+    <>
       <figure className="figure">
         <Tippy content="Click to expand">
-          <Image
-            src={src}
-            className="figure-img img-fluid rounded"
-            style={{ width: "50%", height: "50%" }}
-            alt={alt}
-            onClick={() => {
-              if (bootstrapLib !== null) {
-                const modal = bootstrapLib.Modal.getOrCreateInstance(
-                  `#${id}Modal`,
-                );
-                modal.show();
+          {useNormalImage ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              id={id}
+              className="figure-img img-fluid rounded"
+              src={src as string}
+              width={width}
+              height={height}
+              alt={alt}
+              onClick={() => {
+                if (bootstrapLib !== null) {
+                  const modal = bootstrapLib.Modal.getOrCreateInstance(
+                    `#${id}Modal`,
+                  );
+                  modal.show();
+                }
+              }}
+            />
+          ) : (
+            <Image
+              id={id}
+              className="figure-img img-fluid rounded"
+              style={
+                width !== null || height !== null
+                  ? undefined
+                  : { width: "50%", height: "50%" }
               }
-            }}
-          />
+              src={src}
+              width={width}
+              height={height}
+              alt={alt}
+              onClick={() => {
+                if (bootstrapLib !== null) {
+                  const modal = bootstrapLib.Modal.getOrCreateInstance(
+                    `#${id}Modal`,
+                  );
+                  modal.show();
+                }
+              }}
+            />
+          )}
         </Tippy>
         <figcaption className="figure-caption">{caption}</figcaption>
       </figure>
@@ -48,9 +81,9 @@ export default function ClickableFigure({
         <div className="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id={`${id}ModalLabel`}>
+              <span className="h1 modal-title fs-5" id={`${id}ModalLabel`}>
                 Enlarged image
-              </h1>
+              </span>
               <button
                 type="button"
                 className="btn-close"
@@ -60,11 +93,24 @@ export default function ClickableFigure({
             </div>
             <div className="modal-body text-center">
               <figure className="figure">
-                <Image
-                  src={src}
-                  className="figure-img img-fluid rounded"
-                  alt={alt}
-                />
+                {useNormalImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={src as string}
+                    className="figure-img img-fluid rounded"
+                    alt={alt}
+                    width={width}
+                    height={height}
+                  />
+                ) : (
+                  <Image
+                    src={src}
+                    className="figure-img img-fluid rounded"
+                    alt={alt}
+                    width={width}
+                    height={height}
+                  />
+                )}
                 <figcaption className="figure-caption">{caption}</figcaption>
               </figure>
             </div>
@@ -80,6 +126,6 @@ export default function ClickableFigure({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

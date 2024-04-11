@@ -7,8 +7,8 @@ import { PostQuery } from "../../../tina/__generated__/types";
 import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogPost from "@/components/Blog/Post/Post";
-import getElement from "@/scripts/Utils/Element";
-import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
+import MakeCodeArcadeBlockRendererContext from "@/components/MakeCodeArcade/Blocks/RendererContext";
+import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
 
 type BlogProps = {
   variables: { relativePath: string };
@@ -29,11 +29,6 @@ export default function BlogPage(props: BlogProps) {
 
   const pageName = `${data.post.title} | Blog`;
 
-  React.useEffect(() => {
-    const div = getElement(`blogPost${data.post.title}`) as HTMLDivElement;
-    forceOutboundLinksToNewPage(div);
-  }, [data.post.title]);
-
   return (
     <Layout
       title={pageName}
@@ -46,10 +41,14 @@ export default function BlogPage(props: BlogProps) {
         createBreadCrumbSegment(data.post.title, props.filename),
       ]}
     >
-      {/*<code>{JSON.stringify(data, null, 2)}</code>*/}
-      <div id={`blogPost${data.post.title}`}>
-        <BlogPost data={data} />
-      </div>
+      <ThemedSyntaxHighlighter language="json">
+        {JSON.stringify(data.post.body, null, 2)}
+      </ThemedSyntaxHighlighter>
+      <MakeCodeArcadeBlockRendererContext>
+        <div id={`blogPost${data.post.title}`}>
+          <BlogPost data={data} />
+        </div>
+      </MakeCodeArcadeBlockRendererContext>
     </Layout>
   );
 }
@@ -61,7 +60,7 @@ export async function getStaticProps({
 }): Promise<{
   props: BlogProps;
 }> {
-  let variables = { relativePath: `${params.filename}.md` };
+  let variables = { relativePath: `${params.filename}.mdx` };
 
   const res = await client.queries.post(variables);
   const query = res.query;
