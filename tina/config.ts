@@ -190,7 +190,6 @@ export default defineConfig({
             cms: TinaCMS;
             values: Record<string, any>;
           }) => {
-            console.log(values);
             const now = new Date().toISOString();
             if (form.crudType === "create") {
               values.createdAt = now;
