@@ -8,9 +8,11 @@ import React from "react";
 
 export default function ThemedSyntaxHighlighter({
   language,
+  style,
   children,
 }: {
   language?: string;
+  style?: React.CSSProperties;
   children: string;
 }) {
   const theme = React.useContext(ThemeContext);
@@ -19,6 +21,7 @@ export default function ThemedSyntaxHighlighter({
     <SyntaxHighlighter
       language={language}
       style={theme === "Light" ? defaultStyle : obsidian}
+      customStyle={style}
     >
       {children}
     </SyntaxHighlighter>

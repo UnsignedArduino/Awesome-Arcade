@@ -6,6 +6,7 @@ import {
   ShortAuthorRenderer,
 } from "@/components/Blog/Elements";
 import Comments from "@/components/Blog/Post/Comments";
+import ContextualEditingPostAssist from "@/components/Blog/Post/ContextualEditingMode/PostAssist";
 
 export default function BlogPost({
   data,
@@ -29,6 +30,7 @@ export default function BlogPost({
       </p>
       <p>{data.post.description}</p>
       <hr />
+      <ContextualEditingPostAssist />
       <RichTextSectionRenderer content={data.post.body} />
       {data.post.title !== "TESTING" ? (
         <Comments title={data.post.title} />
