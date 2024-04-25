@@ -265,6 +265,11 @@ export default defineConfig({
             required: true,
           },
           {
+            type: "image",
+            label: "Hero image",
+            name: "heroImage",
+          },
+          {
             label: "Description",
             name: "description",
             type: "string",

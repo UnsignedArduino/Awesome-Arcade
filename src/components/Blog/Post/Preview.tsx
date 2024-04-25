@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export type BlogPostPreview = {
   title: string;
+  heroImage: string | null;
   author: Authors;
   description: string;
   createdAt: string | null;
@@ -21,6 +22,19 @@ export default function BlogPostPreviewRenderer({
   return (
     <>
       <div className="card mb-2">
+        {preview.heroImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className="card-img-top"
+            style={{
+              width: "100%",
+              objectFit: "cover",
+              maxHeight: "10vh",
+            }}
+            src={preview.heroImage}
+            alt={`Hero image for post titled "${preview.title}".`}
+          />
+        )}
         <div className="card-body">
           <h5 className="card-title">{preview.title}</h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">

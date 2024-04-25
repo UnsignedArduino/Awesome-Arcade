@@ -58,6 +58,7 @@ export async function getStaticProps(): Promise<{
     const post = edge.node;
     previews.push({
       title: post.title,
+      heroImage: makeUndefinedNull(post.heroImage),
       author: post.author as Authors,
       description: post.description ?? "",
       createdAt: makeUndefinedNull(post.createdAt),

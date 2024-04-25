@@ -33,7 +33,7 @@ export default async function generateRSSFeed(
     title: `${name} Blog`,
     description,
     id: siteURL,
-    link: siteURL,
+    link: `${siteURL}/blog`,
     language: "en",
     image: `${siteURL}/android-chrome-512x512.png`,
     favicon: `${siteURL}/favicon.ico`,
@@ -49,6 +49,13 @@ export default async function generateRSSFeed(
       title: post.title,
       id: `${siteURL}${post.link}`,
       link: `${siteURL}${post.link}`,
+      author: [
+        {
+          name: post.author.name,
+          link: `${siteURL}/blog/authors/${post.author.name}`,
+        },
+      ],
+      image: post.heroImage ? `${siteURL}${post.heroImage}` : undefined,
       description: post.description,
       date: new Date(post.createdAt ?? 0),
     });

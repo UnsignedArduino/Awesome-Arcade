@@ -92,6 +92,7 @@ export async function getStaticProps(): Promise<{
     console.log(post);
     previews.push({
       title: post.title,
+      heroImage: makeUndefinedNull(post.heroImage),
       author: post.author as Authors,
       description: post.description ?? "",
       createdAt: makeUndefinedNull(post.createdAt),

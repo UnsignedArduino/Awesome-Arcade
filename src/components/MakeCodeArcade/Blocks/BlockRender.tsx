@@ -2,7 +2,7 @@ import React from "react";
 import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
 import { MakeCodeArcadeBlockRendererFunctionsContext } from "@/components/MakeCodeArcade/Blocks/RendererContext";
 import { MakeCodeArcadeBlockRendererResult } from "@/components/MakeCodeArcade/Blocks/renderer";
-import ClickableFigure from "@/components/Figure/ClickableFigure";
+import ClickableFigure from "@/components/Images/ClickableFigure";
 import cyrb53 from "@/scripts/Utils/Hash/CYRB53";
 import inContextualEditor from "@/scripts/Utils/In/ContextualEditingMode";
 

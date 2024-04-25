@@ -7,6 +7,7 @@ import {
 } from "@/components/Blog/Elements";
 import Comments from "@/components/Blog/Post/Comments";
 import ContextualEditingPostAssist from "@/components/Blog/Post/ContextualEditingMode/PostAssist";
+import HeroImage from "@/components/Images/HeroImage";
 
 export default function BlogPost({
   data,
@@ -28,6 +29,12 @@ export default function BlogPost({
           </>
         ) : null}
       </p>
+      {data.post.heroImage && (
+        <HeroImage
+          image={data.post.heroImage}
+          alt={`Hero image for post titled "${data.post.title}".`}
+        />
+      )}
       <p>{data.post.description}</p>
       <hr />
       <ContextualEditingPostAssist />

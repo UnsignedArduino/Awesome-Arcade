@@ -8,6 +8,7 @@ import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogPost from "@/components/Blog/Post/Post";
 import MakeCodeArcadeBlockRendererContext from "@/components/MakeCodeArcade/Blocks/RendererContext";
+import { makeNullUndefined } from "@/scripts/Utils/TypeHelp/NullUndefined";
 
 type BlogProps = {
   variables: { relativePath: string };
@@ -33,6 +34,7 @@ export default function BlogPage(props: BlogProps) {
       title={pageName}
       currentPage={pageName}
       appProps={props.appProps}
+      imageURL={makeNullUndefined(data.post.heroImage)}
       description={data.post.description ?? "A blog post on Awesome Arcade!"}
       keywords={`Game development, Awesome, Modules, Libraries, Extensions, Tools, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Awesome tools, Useful tools, MakeCode Arcade, MakeCode Arcade tools, Arcade tools, Blog, Awesome Arcade blog, Blog post, Awesome Arcade blog post, ${(data.post.tags ?? []).join(", ")}`}
       breadCrumbs={[
