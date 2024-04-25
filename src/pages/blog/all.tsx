@@ -7,6 +7,7 @@ import BlogPostPreviewRenderer, {
   BlogPostPreview,
 } from "@/components/Blog/Post/Preview";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
+import { makeUndefinedNull } from "@/scripts/Utils/TypeHelp/NullUndefined";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];
@@ -57,21 +58,23 @@ export async function getStaticProps(): Promise<{
     const post = edge.node;
     previews.push({
       title: post.title,
+      heroImage: makeUndefinedNull(post.heroImage),
       author: post.author as Authors,
       description: post.description ?? "",
-      postedDate: post.datePosted == null ? null : post.datePosted,
+      createdAt: makeUndefinedNull(post.createdAt),
+      lastUpdated: makeUndefinedNull(post.lastUpdated),
       link: `/blog/${post._sys.filename}`,
     });
   }
 
   previews.sort((a, b) => {
-    if (a.postedDate === null) {
+    if (a.createdAt === null) {
       return 1;
     }
-    if (b.postedDate === null) {
+    if (b.createdAt === null) {
       return -1;
     }
-    return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 
   return {

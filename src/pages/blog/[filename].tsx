@@ -7,6 +7,8 @@ import { PostQuery } from "../../../tina/__generated__/types";
 import React from "react";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogPost from "@/components/Blog/Post/Post";
+import MakeCodeArcadeBlockRendererContext from "@/components/MakeCodeArcade/Blocks/RendererContext";
+import { makeNullUndefined } from "@/scripts/Utils/TypeHelp/NullUndefined";
 
 type BlogProps = {
   variables: { relativePath: string };
@@ -32,6 +34,7 @@ export default function BlogPage(props: BlogProps) {
       title={pageName}
       currentPage={pageName}
       appProps={props.appProps}
+      imageURL={makeNullUndefined(data.post.heroImage)}
       description={data.post.description ?? "A blog post on Awesome Arcade!"}
       keywords={`Game development, Awesome, Modules, Libraries, Extensions, Tools, Curated, Arcade, Useful, Curated list, MakeCode, Awesome extensions, Useful extensions, MakeCode Arcade, MakeCode Arcade Extensions, Arcade Extensions, Awesome tools, Useful tools, MakeCode Arcade, MakeCode Arcade tools, Arcade tools, Blog, Awesome Arcade blog, Blog post, Awesome Arcade blog post, ${(data.post.tags ?? []).join(", ")}`}
       breadCrumbs={[
@@ -39,8 +42,14 @@ export default function BlogPage(props: BlogProps) {
         createBreadCrumbSegment(data.post.title, props.filename),
       ]}
     >
-      {/*<code>{JSON.stringify(data, null, 2)}</code>*/}
-      <BlogPost data={data} />
+      {/*<ThemedSyntaxHighlighter language="json">*/}
+      {/*  {JSON.stringify(data.post.body, null, 2)}*/}
+      {/*</ThemedSyntaxHighlighter>*/}
+      <MakeCodeArcadeBlockRendererContext>
+        <div id={`blogPost${data.post.title}`}>
+          <BlogPost data={data} />
+        </div>
+      </MakeCodeArcadeBlockRendererContext>
     </Layout>
   );
 }
@@ -52,7 +61,7 @@ export async function getStaticProps({
 }): Promise<{
   props: BlogProps;
 }> {
-  let variables = { relativePath: `${params.filename}.md` };
+  let variables = { relativePath: `${params.filename}.mdx` };
 
   const res = await client.queries.post(variables);
   const query = res.query;

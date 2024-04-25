@@ -1,7 +1,7 @@
 import React from "react";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import Layout from "@/components/Layout";
-import ClickableFigure from "@/components/Figure/ClickableFigure";
+import ClickableFigure from "@/components/Images/ClickableFigure";
 import EmptyNewExtensionIssueImage from "@/assets/images/help/contributing/extensions/empty-new-extension-issue.png";
 import FilledOutNewExtensionIssueImage from "@/assets/images/help/contributing/extensions/filled-out-new-extension-issue-template.png";
 import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";

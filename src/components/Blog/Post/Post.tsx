@@ -6,6 +6,8 @@ import {
   ShortAuthorRenderer,
 } from "@/components/Blog/Elements";
 import Comments from "@/components/Blog/Post/Comments";
+import ContextualEditingPostAssist from "@/components/Blog/Post/ContextualEditingMode/PostAssist";
+import HeroImage from "@/components/Images/HeroImage";
 
 export default function BlogPost({
   data,
@@ -18,16 +20,28 @@ export default function BlogPost({
       <p>
         Written by <ShortAuthorRenderer author={data.post.author as Authors} />
         <br />
-        {data.post.datePosted != null ? (
-          <>Posted on {formatDateAndTime(new Date(data.post.datePosted))}.</>
+        {data.post.createdAt != null ? (
+          <>
+            Posted on {formatDateAndTime(new Date(data.post.createdAt))}.
+            {data.post.lastUpdated != null
+              ? ` (last updated ${formatDateAndTime(new Date(data.post.lastUpdated))})`
+              : null}
+          </>
         ) : null}
       </p>
-      <small>
-        <p>{data.post.description}</p>
-      </small>
+      {data.post.heroImage && (
+        <HeroImage
+          image={data.post.heroImage}
+          alt={`Hero image for post titled "${data.post.title}".`}
+        />
+      )}
+      <p>{data.post.description}</p>
       <hr />
+      <ContextualEditingPostAssist />
       <RichTextSectionRenderer content={data.post.body} />
-      <Comments title={data.post.title} />
+      {data.post.title !== "TESTING" ? (
+        <Comments title={data.post.title} />
+      ) : null}
       <small>
         <p>
           {(data.post.tags?.length ?? 0) > 0 ? (

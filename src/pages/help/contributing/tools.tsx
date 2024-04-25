@@ -1,7 +1,7 @@
 import React from "react";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import Layout from "@/components/Layout";
-import ClickableFigure from "@/components/Figure/ClickableFigure";
+import ClickableFigure from "@/components/Images/ClickableFigure";
 import EmptyNewToolIssueImage from "@/assets/images/help/contributing/tools/empty-new-tool-issue.png";
 import FilledOutNewToolIssueImage from "@/assets/images/help/contributing/tools/filled-out-new-tool-issue-template.png";
 import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";

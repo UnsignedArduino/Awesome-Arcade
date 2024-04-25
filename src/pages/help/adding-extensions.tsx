@@ -7,7 +7,7 @@ import ExtensionButtonInToolboxImage from "@/assets/images/help/adding-extension
 import ExtensionURLInputImage from "@/assets/images/help/adding-extensions/extension-url-input.png";
 import ExtensionCardImage from "@/assets/images/help/adding-extensions/riknoll-arcade-mini-menu-extension-card.png";
 import ExtensionToolboxImage from "@/assets/images/help/adding-extensions/riknoll-arcade-mini-menu-toolbox.png";
-import ClickableFigure from "@/components/Figure/ClickableFigure";
+import ClickableFigure from "@/components/Images/ClickableFigure";
 
 const pageName = "Adding extensions";
 

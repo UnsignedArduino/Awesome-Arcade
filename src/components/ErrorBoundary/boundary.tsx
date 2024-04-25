@@ -1,6 +1,7 @@
 import React, { ErrorInfo } from "react";
 import { copyTextToClipboard } from "../../scripts/Utils/Clipboard";
 import { NotificationType, notify } from "../Notifications";
+import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
 
 type ErrorBoundaryProps = {
   children: JSX.Element | JSX.Element[];
@@ -41,7 +42,7 @@ export class ErrorBoundary extends React.Component {
           <p>
             Try refreshing the page. If this keeps happening, you can report{" "}
             <a
-              href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/issues"
+              href="https://github.com/UnsignedArduino/Awesome-Arcade/issues"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -60,7 +61,7 @@ export class ErrorBoundary extends React.Component {
           </button>
           <details style={{ whiteSpace: "pre-wrap" }}>
             <summary>Stack trace</summary>
-            <pre>{this.errorStack}</pre>
+            <ThemedSyntaxHighlighter>{this.errorStack}</ThemedSyntaxHighlighter>
             <button
               type="button"
               className="btn btn-primary"
@@ -71,13 +72,13 @@ export class ErrorBoundary extends React.Component {
                   } else {
                     notify(
                       "Unable to copy to clipboard!",
-                      NotificationType.Error
+                      NotificationType.Error,
                     );
                   }
                 } else {
                   notify(
                     "Unable to copy to clipboard!",
-                    NotificationType.Error
+                    NotificationType.Error,
                   );
                 }
               }}

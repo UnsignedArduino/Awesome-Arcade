@@ -1,6 +1,7 @@
 import React from "react";
 import getElement from "@/scripts/Utils/Element";
 import { ThemeContext } from "@/components/Navbar/ThemePicker";
+import inContextualEditor from "@/scripts/Utils/In/ContextualEditingMode";
 
 const REPO = "UnsignedArduino/Awesome-Arcade-Blog-Comments";
 
@@ -9,6 +10,9 @@ export default function Comments({
 }: {
   title: string;
 }): React.ReactNode {
+  const inEditor = inContextualEditor();
+  const [showComments, setShowComments] = React.useState(!inEditor);
+
   const theme = React.useContext(ThemeContext);
   const [state, setState] = React.useState<
     "loading" | "loaded" | "error" | null
@@ -16,7 +20,6 @@ export default function Comments({
 
   React.useEffect(() => {
     const observer = new MutationObserver(() => {
-      console.log("CHANGE IN COMMENTS FRAME");
       const utterancesFrame = document.querySelector(
         ".utterances",
       ) as HTMLDivElement | null;
@@ -40,10 +43,19 @@ export default function Comments({
   }, []);
 
   React.useEffect(() => {
+    const parent = getElement("comments-container");
+
+    if (!showComments) {
+      console.log("Comments hidden");
+      setState(null);
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+      return;
+    }
+
     console.log(`Loading comments widget for blog post ${title}`);
     setState("loading");
-
-    const parent = getElement("comments-container");
 
     const script = document.createElement("script");
     script.src = "https://utteranc.es/client.js";
@@ -79,10 +91,42 @@ export default function Comments({
         parent.removeChild(parent.firstChild);
       }
     };
-  }, [title, theme]);
+  }, [title, theme, showComments]);
+
+  function onContextualEditingPostAssist(event: CustomEvent) {
+    if (event.detail === "showall") {
+      setShowComments(true);
+    } else if (event.detail === "hideall") {
+      setShowComments(false);
+    }
+  }
+
+  React.useEffect(() => {
+    window.document.documentElement.addEventListener(
+      "contextualeditingpostassist",
+      onContextualEditingPostAssist,
+    );
+
+    return () => {
+      window.document.documentElement.removeEventListener(
+        "contextualeditingpostassist",
+        onContextualEditingPostAssist,
+      );
+    };
+  }, []);
 
   return (
     <>
+      {inEditor && (
+        <button
+          className="btn btn-sm btn-primary mb-2"
+          onClick={() => {
+            setShowComments(!showComments);
+          }}
+        >
+          {showComments ? "Hide" : "Show"} comments
+        </button>
+      )}
       <div id="comments-container" />
       {(() => {
         switch (state) {

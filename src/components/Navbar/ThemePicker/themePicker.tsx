@@ -45,6 +45,13 @@ export function NavbarDropdownThemePicker({
       "themechange",
       onThemeChange,
     );
+
+    return () => {
+      window.document.documentElement.removeEventListener(
+        "themechange",
+        onThemeChange,
+      );
+    };
   }, []);
 
   return (

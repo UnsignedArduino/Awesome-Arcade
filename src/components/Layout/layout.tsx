@@ -56,8 +56,8 @@ function Layout({
   dontShowServicesWarning,
   extraNavbarHTML,
   dontShowSignIn,
-}: // dontShowAdblockerWarning,
-LayoutProps): JSX.Element {
+  // dontShowAdblockerWarning,
+}: LayoutProps): JSX.Element {
   const breadCrumbsHTML =
     breadCrumbs != undefined ? (
       <nav aria-label="breadcrumb">
