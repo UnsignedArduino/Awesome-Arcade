@@ -26,19 +26,19 @@ export default function BlockRender({
   const [isRendering, setIsRendering] = React.useState(false);
 
   React.useEffect(() => {
-    setShowBlocks(false);
-  }, []);
-
-  React.useEffect(() => {
     setSVG(null);
     if (!showBlocks) {
       return;
     }
     setIsRendering(true);
-    functions?.renderBlocksToSVG(js, packageId, snippetMode).then((result) => {
-      setSVG(result);
-      setIsRendering(false);
-    });
+    setTimeout(() => {
+      functions
+        ?.renderBlocksToSVG(js, packageId, snippetMode)
+        .then((result) => {
+          setSVG(result);
+          setIsRendering(false);
+        });
+    }, 100);
   }, [showBlocks, functions, js, packageId, snippetMode]);
 
   function onContextualEditingPostAssist(event: CustomEvent) {
