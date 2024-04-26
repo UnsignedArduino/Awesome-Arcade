@@ -23,22 +23,26 @@ export default function BlockRender({
   const [svg, setSVG] =
     React.useState<MakeCodeArcadeBlockRendererResult | null>(null);
   const [showBlocks, setShowBlocks] = React.useState(!inEditor);
-  const [isRendering, setIsRendering] = React.useState(false);
+  const [blockStatus, setBlockStatus] = React.useState<
+    "waiting" | "loading" | "loaded" | "error"
+  >("loading");
 
   React.useEffect(() => {
     setSVG(null);
+    setBlockStatus("waiting");
     if (!showBlocks) {
       return;
     }
-    setIsRendering(true);
-    setTimeout(() => {
-      functions
-        ?.renderBlocksToSVG(js, packageId, snippetMode)
-        .then((result) => {
-          setSVG(result);
-          setIsRendering(false);
-        });
-    }, 100);
+    setBlockStatus("loading");
+    functions
+      ?.renderBlocksToSVG(js, packageId, snippetMode)
+      .then((result) => {
+        setSVG(result);
+        setBlockStatus("loaded");
+      })
+      .catch(() => {
+        setBlockStatus("error");
+      });
   }, [showBlocks, functions, js, packageId, snippetMode]);
 
   function onContextualEditingPostAssist(event: CustomEvent) {
@@ -88,21 +92,26 @@ export default function BlockRender({
             language="js"
             style={{ marginBottom: "0px" }}
           >
-            {(isRendering
-              ? "// Please wait, the blocks are loading...\n"
-              : inEditor && "// Click button below to show blocks\n") + js}
+            {(() => {
+              return {
+                waiting: "",
+                loading: "// Loading blocks...\n",
+                loaded: "",
+                error: "// Error loading blocks.\n",
+              }[blockStatus];
+            })() + js}
           </ThemedSyntaxHighlighter>
         </div>
       )}
       {inEditor && (
         <button
           className="btn btn-sm btn-primary mt-0 mb-2"
-          disabled={isRendering}
+          disabled={blockStatus === "loading"}
           onClick={() => {
             setShowBlocks(!showBlocks);
           }}
         >
-          {isRendering
+          {blockStatus === "loading"
             ? "Loading..."
             : showBlocks
               ? "Hide blocks"
