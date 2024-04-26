@@ -8,10 +8,10 @@ import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useSession } from "next-auth/react";
 import Tippy from "@tippyjs/react";
-import { stringToBool } from "@/scripts/ParseListXML/helpers";
 import fetchExtensionsFromCMS from "@/scripts/FetchListsFromCMS/FetchExtensions";
 import { Extension } from "@/scripts/FetchListsFromCMS/types";
 import { smoothScrollToID } from "@/components/Linkable/Header";
+import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
 
 const pageName = "Extensions";
 
@@ -20,7 +20,10 @@ type ExtensionsProps = {
   list: Extension[];
 };
 
-export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
+export function Extensions({
+  appProps,
+  list,
+}: ExtensionsProps): React.ReactNode {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");

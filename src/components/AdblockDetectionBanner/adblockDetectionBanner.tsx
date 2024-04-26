@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import { AD_CLASSES } from "./adClasses";
-import { getCookie, setCookie } from "../../scripts/Utils/Cookies";
+import { getCookie, setCookie } from "@/scripts/Utils/Cookies";
 
-function FakeAd(): JSX.Element {
+function FakeAd(): React.ReactNode {
   return (
     <div
       id="detect"
@@ -45,7 +45,7 @@ function detectAdblock(): Promise<boolean> {
   }
 }
 
-export function AdblockDetectionBanner(): JSX.Element {
+export function AdblockDetectionBanner(): React.ReactNode {
   const [showMessage, setShowMessage] = React.useState(false);
   const [userClosed, setUserClosed] = React.useState(false);
 
@@ -79,7 +79,7 @@ export function AdblockDetectionBanner(): JSX.Element {
               setCookie(
                 ADBLOCK_DETECTION_IGNORE_COOKIE,
                 "true",
-                ADBLOCK_DETECTION_IGNORE_COOKIE_EXPIRE
+                ADBLOCK_DETECTION_IGNORE_COOKIE_EXPIRE,
               );
             }}
             aria-label="Close"

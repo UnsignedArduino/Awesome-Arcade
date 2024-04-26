@@ -134,7 +134,7 @@ export function loadingNotify(
   };
 }
 
-export function Notifications(): JSX.Element {
+export function Notifications(): React.ReactNode {
   const theme = React.useContext(ThemeContext);
 
   return (

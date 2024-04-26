@@ -13,7 +13,7 @@ declare global {
 
 export const ThemeContext = React.createContext<Theme>("Light");
 
-function ThemeToIcon({ theme }: { theme: ThemeOptions }): JSX.Element {
+function ThemeToIcon({ theme }: { theme: ThemeOptions }): React.ReactNode {
   switch (theme) {
     default:
     case "Auto": {
@@ -32,7 +32,7 @@ export function NavbarDropdownThemePicker({
   alignEnd = false,
 }: {
   alignEnd?: boolean;
-}): JSX.Element {
+}): React.ReactNode {
   const [dropdownTheme, setDropdownTheme] =
     React.useState<ThemeOptions>("Auto");
 
@@ -128,7 +128,7 @@ export function ThemeProxy({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
+}): React.ReactNode {
   const [dropdownTheme, setDropdownTheme] =
     React.useState<ThemeOptions>("Auto");
   const [actualTheme, setActualTheme] = React.useState<Theme>("Light");

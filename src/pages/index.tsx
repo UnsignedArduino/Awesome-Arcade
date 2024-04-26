@@ -12,7 +12,7 @@ const pageName = "Home";
 
 type HomeProps = { appProps: AppProps };
 
-export function Home({ appProps }: HomeProps): JSX.Element {
+export function Home({ appProps }: HomeProps): React.ReactNode {
   const { data: session } = useSession();
 
   const quickLinks: QuickLink[] = [

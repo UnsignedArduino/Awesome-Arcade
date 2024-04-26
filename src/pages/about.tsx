@@ -4,13 +4,13 @@ import getAppProps, { AppProps } from "../components/WithAppProps";
 
 const pageName = "About";
 
-export function About({ appProps }: { appProps: AppProps }): JSX.Element {
+export function About({ appProps }: { appProps: AppProps }): React.ReactNode {
   return (
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <h1>About</h1>
       <p>
-        Awesome Arcade is developed and run by a high school student
-        learning to program. Having a passion for MakeCode Arcade, I decided to{" "}
+        Awesome Arcade is developed and run by a high school student learning to
+        program. Having a passion for MakeCode Arcade, I decided to{" "}
         <a
           href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions"
           target="_blank"

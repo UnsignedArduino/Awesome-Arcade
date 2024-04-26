@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
-export default function Document(): JSX.Element {
+export default function Document(): React.ReactNode {
   return (
     <Html lang="en">
       <Head />

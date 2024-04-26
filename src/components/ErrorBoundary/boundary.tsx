@@ -1,10 +1,10 @@
 import React, { ErrorInfo } from "react";
-import { copyTextToClipboard } from "../../scripts/Utils/Clipboard";
+import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
 import { NotificationType, notify } from "../Notifications";
 import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
 
 type ErrorBoundaryProps = {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode | React.ReactNode[];
 };
 
 type ErrorBoundaryState = {
@@ -95,8 +95,9 @@ export class ErrorBoundary extends React.Component {
   }
 }
 
-export function ThrowARenderingExceptionHerePlease(): JSX.Element {
+export function ThrowARenderingExceptionHerePlease(): React.ReactNode {
   throw new Error("LOL");
+  // noinspection UnreachableCodeJS
   return <></>;
 }
 

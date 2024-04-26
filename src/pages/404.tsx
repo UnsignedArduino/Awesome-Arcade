@@ -8,7 +8,7 @@ export function PageNotFound({
   appProps,
 }: {
   appProps: AppProps;
-}): JSX.Element {
+}): React.ReactNode {
   return (
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <>

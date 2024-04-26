@@ -8,10 +8,10 @@ import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
-import { stringToBool } from "@/scripts/ParseListXML/helpers";
 import { smoothScrollToID } from "@/components/Linkable/Header";
 import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
 import { Tool } from "@/scripts/FetchListsFromCMS/types";
+import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
 
 const pageName = "Tools";
 
@@ -20,7 +20,7 @@ type ToolsProps = {
   list: Tool[];
 };
 
-export function Tools({ appProps, list }: ToolsProps): JSX.Element {
+export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");

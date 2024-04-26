@@ -24,7 +24,7 @@ export function AwesomeArcadeExtension({
   highlight?: boolean | undefined;
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
-}): JSX.Element {
+}): React.ReactNode {
   const tippyJSLib = React.useContext(TippyJSLibContext);
   const [showCardLink, setShowCardLink] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
@@ -221,12 +221,12 @@ export function AwesomeArcadeExtensionGroup({
   showImportURL,
   pad,
 }: {
-  title?: JSX.Element | undefined;
-  description?: JSX.Element | undefined;
+  title?: React.ReactNode | undefined;
+  description?: React.ReactNode | undefined;
   exts: Extension[];
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
-}): JSX.Element {
+}): React.ReactNode {
   const router = useRouter();
 
   const [extToHighlight, setExtToHighlight] = React.useState<

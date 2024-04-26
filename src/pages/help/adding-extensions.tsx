@@ -15,7 +15,7 @@ export function AddingExtensions({
   appProps,
 }: {
   appProps: AppProps;
-}): JSX.Element {
+}): React.ReactNode {
   return (
     <Layout
       title={pageName}

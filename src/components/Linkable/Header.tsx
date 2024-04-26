@@ -37,8 +37,8 @@ export function LinkableH2({
   props?: any;
   id: string;
   url: string;
-  children: JSX.Element | string;
-}): JSX.Element {
+  children: React.ReactNode | string;
+}): React.ReactNode {
   const [showLink, setShowLink] = React.useState(false);
 
   return (
@@ -71,8 +71,8 @@ export function LinkableH3({
   props?: any;
   id: string;
   url: string;
-  children: JSX.Element | string;
-}): JSX.Element {
+  children: React.ReactNode | string;
+}): React.ReactNode {
   const [showLink, setShowLink] = React.useState(false);
 
   return (

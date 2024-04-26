@@ -9,7 +9,7 @@ export function AwesomeArcadeExtensionsList({
   list,
 }: {
   list: Extension[];
-}): JSX.Element {
+}): React.ReactNode {
   React.useEffect(() => {
     const div = getElement("awesomeArcadeExtensions") as HTMLDivElement;
     forceOutboundLinksToNewPage(div);
@@ -26,7 +26,7 @@ export function AwesomeArcadeToolsList({
   list,
 }: {
   list: Tool[];
-}): JSX.Element {
+}): React.ReactNode {
   React.useEffect(() => {
     const div = getElement("awesomeArcadeTools") as HTMLDivElement;
     forceOutboundLinksToNewPage(div);

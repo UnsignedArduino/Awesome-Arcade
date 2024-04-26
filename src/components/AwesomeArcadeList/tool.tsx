@@ -15,7 +15,7 @@ export function AwesomeArcadeTool({
   tool: Tool;
   highlight?: boolean | undefined;
   pad?: boolean | undefined;
-}): JSX.Element {
+}): React.ReactNode {
   const [showCardLink, setShowCardLink] = React.useState(false);
 
   return (
@@ -172,11 +172,11 @@ export function AwesomeArcadeToolGroup({
   tools,
   pad,
 }: {
-  title?: JSX.Element | undefined;
-  description?: JSX.Element | undefined;
+  title?: React.ReactNode | undefined;
+  description?: React.ReactNode | undefined;
   tools: Tool[];
   pad?: boolean | undefined;
-}): JSX.Element {
+}): React.ReactNode {
   const router = useRouter();
 
   const [toolToHighlight, setToolToHighlight] = React.useState<

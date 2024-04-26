@@ -6,7 +6,7 @@ import { appName } from "@/components/Layout/layout";
 
 const pageName = "Legal";
 
-export function Legal({ appProps }: { appProps: AppProps }): JSX.Element {
+export function Legal({ appProps }: { appProps: AppProps }): React.ReactNode {
   const legalPages = {
     "External services and data collection":
       "external-services-and-data-collection",

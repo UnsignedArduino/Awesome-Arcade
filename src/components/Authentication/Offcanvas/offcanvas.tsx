@@ -48,6 +48,7 @@ export default function ProfileOffcanvas() {
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => {
+                  // noinspection JSIgnoredPromiseFromCall
                   signOut();
                 }}
               >

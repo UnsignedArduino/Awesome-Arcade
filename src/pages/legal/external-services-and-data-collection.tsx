@@ -10,7 +10,7 @@ export function ExternalServicesAndDataCollection({
   appProps,
 }: {
   appProps: AppProps;
-}): JSX.Element {
+}): React.ReactNode {
   return (
     <Layout
       title={pageName}
