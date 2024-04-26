@@ -131,6 +131,12 @@ export default defineConfig({
             required: true,
           },
           {
+            type: "string",
+            name: "project",
+            label: "Author/project",
+            required: true,
+          },
+          {
             type: "boolean",
             name: "isNotWebsite",
             label: "Is not a website",

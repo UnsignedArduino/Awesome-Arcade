@@ -3,15 +3,15 @@ import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import { promises as fs } from "fs";
-import path from "path";
 import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
-import { parseToolXML, Tool } from "@/scripts/ParseListXML";
 import { stringToBool } from "@/scripts/ParseListXML/helpers";
 import { smoothScrollToID } from "@/components/Linkable/Header";
+import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
+import { Tool } from "@/scripts/FetchListsFromCMS/types";
 
 const pageName = "Tools";
 
@@ -79,7 +79,7 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
           !(
             normalizeString(tool.repo).includes(normalizedSearch) ||
             normalizeString(tool.url).includes(normalizedSearch) ||
-            normalizeString(tool.description).includes(normalizedSearch) ||
+            // normalizeString(tool.description).includes(normalizedSearch) ||
             normalizeString(tool.author).includes(normalizedSearch)
           ) ||
           (!showNotWebsiteTools && tool.notAWebsite)
@@ -137,12 +137,12 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
           </label>
         </div>
         <div className="col-auto">
-          <Tippy content="Search tools by author, name, description, or URL!">
+          <Tippy content="Search tools by author, name, or URL!">
             <input
               id="searchBar"
               type="text"
               className="form-control"
-              placeholder="Search tools by author, name, description, or URL!"
+              placeholder="Search tools by author, name, or URL!"
               defaultValue={search}
               onChange={(event) => {
                 const v = event.target.value;
@@ -199,11 +199,13 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: ToolsProps;
 }> {
-  const list = await parseToolXML(
-    (
-      await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
-    ).toString(),
-  );
+  const list = await fetchToolsFromCMS();
+
+  // const list = await parseToolXML(
+  //   (
+  //     await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
+  //   ).toString(),
+  // );
 
   await fs.writeFile("./public/tools.json", JSON.stringify(list, undefined, 2));
 

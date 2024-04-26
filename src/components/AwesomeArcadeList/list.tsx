@@ -3,8 +3,7 @@ import getElement from "@/scripts/Utils/Element";
 import { forceOutboundLinksToNewPage } from "@/scripts/Utils/PageUtils";
 import { AwesomeArcadeExtensionGroup } from "@/components/AwesomeArcadeList/extension";
 import { AwesomeArcadeToolGroup } from "@/components/AwesomeArcadeList/tool";
-import { Tool } from "@/scripts/ParseListXML";
-import { Extension } from "@/scripts/FetchListsFromCMS/types";
+import { Extension, Tool } from "@/scripts/FetchListsFromCMS/types";
 
 export function AwesomeArcadeExtensionsList({
   list,
