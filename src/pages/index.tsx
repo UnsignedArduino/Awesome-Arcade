@@ -5,7 +5,6 @@ import getAppProps, { AppProps } from "../components/WithAppProps";
 import generateSiteWebmanifest from "@/scripts/SiteWebmanifest/manifest";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
 import { QuickLink } from "@/components/QuickLinks/types";
 
@@ -14,8 +13,6 @@ const pageName = "Home";
 type HomeProps = { appProps: AppProps };
 
 export function Home({ appProps }: HomeProps): JSX.Element {
-  const removeOldHome = useFeatureIsOn("remove-old-home");
-
   const { data: session } = useSession();
 
   const quickLinks: QuickLink[] = [
@@ -64,14 +61,6 @@ export function Home({ appProps }: HomeProps): JSX.Element {
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
       </p>
-      {removeOldHome ? (
-        <></>
-      ) : (
-        <p>
-          You can find the old home page <Link href="/old">here</Link>. (please
-          note that this page will be removed soon.)
-        </p>
-      )}
       <p>
         Want to suggest a new extension, tool, or modification? Check out our{" "}
         <Link href="/help/contributing">guides</Link> on contributing to Awesome

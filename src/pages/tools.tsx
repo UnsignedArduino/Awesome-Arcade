@@ -4,15 +4,14 @@ import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import { promises as fs } from "fs";
 import path from "path";
-import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
-import { parseToolXML, Tool } from "../scripts/ParseListXML";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import { parseToolXML, Tool } from "@/scripts/ParseListXML";
 import { stringToBool } from "@/scripts/ParseListXML/helpers";
+import { smoothScrollToID } from "@/components/Linkable/Header";
 
 const pageName = "Tools";
 
@@ -22,8 +21,6 @@ type ToolsProps = {
 };
 
 export function Tools({ appProps, list }: ToolsProps): JSX.Element {
-  const removeOldHome = useFeatureIsOn("remove-old-home");
-
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
@@ -128,14 +125,6 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         To use these tools, follow the links to their website or GitHub
         repository.
       </p>
-      {removeOldHome ? (
-        <></>
-      ) : (
-        <p>
-          You can find the old home page <Link href="/old">here</Link>. (please
-          note that this page will be removed soon.)
-        </p>
-      )}
       <p>
         Want to suggest a new tool or modification? Check out our{" "}
         <Link href="/help/contributing/tools">guide</Link> on how to submit a
