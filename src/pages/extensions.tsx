@@ -3,16 +3,16 @@ import { promises as fs } from "fs";
 import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
-import path from "path";
 import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useSession } from "next-auth/react";
-import { Extension, parseExtensionXML } from "../scripts/ParseListXML";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import Tippy from "@tippyjs/react";
 import { stringToBool } from "@/scripts/ParseListXML/helpers";
+import fetchExtensionsFromCMS from "@/scripts/FetchListsFromCMS/FetchExtensions";
+import { Extension } from "@/scripts/FetchListsFromCMS/types";
 
 const pageName = "Extensions";
 
@@ -97,7 +97,7 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
           !(
             normalizeString(ext.repo).includes(normalizedSearch) ||
             normalizeString(ext.url).includes(normalizedSearch) ||
-            normalizeString(ext.description).includes(normalizedSearch) ||
+            // normalizeString(ext.description).includes(normalizedSearch) ||
             normalizeString(ext.author).includes(normalizedSearch)
           ) ||
           (!showJSOnlyExts && ext.javascriptOnly)
@@ -164,12 +164,12 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
           </label>
         </div>
         <div className="col-auto">
-          <Tippy content="Search extensions by author, name, description, or URL!">
+          <Tippy content="Search extensions by author, name, or URL!">
             <input
               id="searchBar"
               type="text"
               className="form-control"
-              placeholder="Search extensions by author, name, description, or URL!"
+              placeholder="Search extensions by author, name, or URL!"
               defaultValue={search}
               onChange={(event) => {
                 const v = event.target.value;
@@ -227,11 +227,13 @@ export function Extensions({ appProps, list }: ExtensionsProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: ExtensionsProps;
 }> {
-  const list = await parseExtensionXML(
-    (
-      await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
-    ).toString(),
-  );
+  const list = await fetchExtensionsFromCMS();
+
+  // const list = await parseExtensionXML(
+  //   (
+  //     await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
+  //   ).toString(),
+  // );
 
   await fs.writeFile(
     "./public/extensions.json",

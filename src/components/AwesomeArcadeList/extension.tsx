@@ -1,4 +1,3 @@
-import { Extension, ExtensionRef, URLLink } from "@/scripts/ParseListXML";
 import React from "react";
 import "tippy.js/dist/tippy.css";
 import { copyTextToClipboard } from "@/scripts/Utils/Clipboard";
@@ -8,6 +7,12 @@ import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
 import { TippyJSLibContext } from "@/pages/_app";
 import { Instance } from "tippy.js";
+import {
+  Extension,
+  ExtensionRef,
+  URLLink,
+} from "@/scripts/FetchListsFromCMS/types";
+import { RichTextSectionRenderer } from "@/components/Blog/Elements";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -129,10 +134,9 @@ export function AwesomeArcadeExtension({
         ) : (
           <></>
         )}
-        <div
-          className="card-text"
-          dangerouslySetInnerHTML={{ __html: ext.description }}
-        />
+        <div className="card-text">
+          <RichTextSectionRenderer content={ext.description} />
+        </div>
         <ul className="list-inline mb-0">
           {ext.links.map((link: URLLink) => {
             return (
