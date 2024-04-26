@@ -63,7 +63,7 @@ export class MakeCodeArcadeBlockRenderer {
     packageId?: string,
     snippetMode?: boolean,
   ): Promise<MakeCodeArcadeBlockRendererResult> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const params = {
         code: js,
         id: `${this.nextID++}`,
