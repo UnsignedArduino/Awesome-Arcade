@@ -24,7 +24,7 @@ export const TippyJSLibContext =
 export default function AwesomeArcadeExtensions({
   Component,
   pageProps: { session, ...pageProps },
-}: AppProps): JSX.Element {
+}: AppProps): React.ReactNode {
   const [bootstrapLib, setBootstrapLib] =
     React.useState<BootstrapLibContextType>(null);
   const [tippyJSLib, setTippyJSLib] =

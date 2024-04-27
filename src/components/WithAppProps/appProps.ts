@@ -1,8 +1,7 @@
-import { parseExtensionXML, parseToolXML } from "@/scripts/ParseListXML";
-import { promises as fs } from "fs";
-import path from "path";
 import { Environment, getEnvironment } from "@/scripts/Utils/Environment";
 import { execSync } from "node:child_process";
+import fetchExtensionsFromCMS from "@/scripts/FetchListsFromCMS/FetchExtensions";
+import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
 
 export interface AppProps {
   environment: Environment;
@@ -25,22 +24,8 @@ export async function getAppProps(): Promise<AppProps> {
         ? process.env.VERCEL_GIT_COMMIT_REF
         : execSync("git rev-parse --abbrev-ref HEAD").toString().trim(),
     buildTime: new Date().toISOString(),
-    extensionsListed: (
-      await parseExtensionXML(
-        (
-          await fs.readFile(
-            path.resolve(process.cwd(), "src", "extensions.xml"),
-          )
-        ).toString(),
-      )
-    ).length,
-    toolsListed: (
-      await parseToolXML(
-        (
-          await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
-        ).toString(),
-      )
-    ).length,
+    extensionsListed: (await fetchExtensionsFromCMS()).length,
+    toolsListed: (await fetchToolsFromCMS()).length,
   };
 }
 

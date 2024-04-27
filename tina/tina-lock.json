@@ -142,6 +142,15 @@
             "uid": false
           },
           {
+            "type": "string",
+            "name": "project",
+            "label": "Author/project",
+            "required": true,
+            "namespace": ["tools", "project"],
+            "searchable": true,
+            "uid": false
+          },
+          {
             "type": "boolean",
             "name": "isNotWebsite",
             "label": "Is not a website",
@@ -2196,6 +2205,18 @@
           },
           {
             "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "project" },
+            "arguments": [],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "String" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
             "name": { "kind": "Name", "value": "isNotWebsite" },
             "arguments": [],
             "type": {
@@ -2357,6 +2378,14 @@
           {
             "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "url" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "project" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "StringFilter" }
@@ -3953,6 +3982,14 @@
           {
             "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "url" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "String" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "project" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "String" }

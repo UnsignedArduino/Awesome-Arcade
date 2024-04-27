@@ -6,7 +6,7 @@ import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
 
 const pageName = "Help";
 
-export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
+export function Help({ appProps }: { appProps: AppProps }): React.ReactNode {
   const helpPages: QuickLink[] = [
     {
       name: "Adding extensions",

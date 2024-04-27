@@ -3,16 +3,15 @@ import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import { promises as fs } from "fs";
-import path from "path";
-import { smoothScrollToID } from "@/components/OldAwesomeArcadeExtensionList/linkableHeader";
 import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeList";
 import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
-import { parseToolXML, Tool } from "../scripts/ParseListXML";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
-import { stringToBool } from "@/scripts/ParseListXML/helpers";
+import { smoothScrollToID } from "@/components/Linkable/Header";
+import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
+import { Tool } from "@/scripts/FetchListsFromCMS/types";
+import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
 
 const pageName = "Tools";
 
@@ -21,9 +20,7 @@ type ToolsProps = {
   list: Tool[];
 };
 
-export function Tools({ appProps, list }: ToolsProps): JSX.Element {
-  const removeOldHome = useFeatureIsOn("remove-old-home");
-
+export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
   const { data: session } = useSession();
 
   const [search, setSearch] = React.useState("");
@@ -82,7 +79,7 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
           !(
             normalizeString(tool.repo).includes(normalizedSearch) ||
             normalizeString(tool.url).includes(normalizedSearch) ||
-            normalizeString(tool.description).includes(normalizedSearch) ||
+            // normalizeString(tool.description).includes(normalizedSearch) ||
             normalizeString(tool.author).includes(normalizedSearch)
           ) ||
           (!showNotWebsiteTools && tool.notAWebsite)
@@ -128,14 +125,6 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
         To use these tools, follow the links to their website or GitHub
         repository.
       </p>
-      {removeOldHome ? (
-        <></>
-      ) : (
-        <p>
-          You can find the old home page <Link href="/old">here</Link>. (please
-          note that this page will be removed soon.)
-        </p>
-      )}
       <p>
         Want to suggest a new tool or modification? Check out our{" "}
         <Link href="/help/contributing/tools">guide</Link> on how to submit a
@@ -148,12 +137,12 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
           </label>
         </div>
         <div className="col-auto">
-          <Tippy content="Search tools by author, name, description, or URL!">
+          <Tippy content="Search tools by author, name, or URL!">
             <input
               id="searchBar"
               type="text"
               className="form-control"
-              placeholder="Search tools by author, name, description, or URL!"
+              placeholder="Search tools by author, name, or URL!"
               defaultValue={search}
               onChange={(event) => {
                 const v = event.target.value;
@@ -210,11 +199,7 @@ export function Tools({ appProps, list }: ToolsProps): JSX.Element {
 export async function getStaticProps(): Promise<{
   props: ToolsProps;
 }> {
-  const list = await parseToolXML(
-    (
-      await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
-    ).toString(),
-  );
+  const list = await fetchToolsFromCMS();
 
   await fs.writeFile("./public/tools.json", JSON.stringify(list, undefined, 2));
 

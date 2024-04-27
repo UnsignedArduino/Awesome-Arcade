@@ -20,7 +20,7 @@ type NavbarProps = {
   appName: string;
   appProps: AppProps;
   currentPage?: string;
-  extraNavbarHTML?: JSX.Element | undefined;
+  extraNavbarHTML?: React.ReactNode | undefined;
   dontShowSignIn?: boolean;
 };
 
@@ -30,7 +30,7 @@ function Navbar({
   currentPage,
   extraNavbarHTML,
   dontShowSignIn,
-}: NavbarProps): JSX.Element {
+}: NavbarProps): React.ReactNode {
   dontShowSignIn = true;
 
   return (

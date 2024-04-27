@@ -20,7 +20,7 @@ export const createBreadCrumbSegment = (title: string, url: string) => {
 };
 
 type LayoutProps = {
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode | React.ReactNode[];
   title: string;
   breadCrumbs?:
     | {
@@ -37,7 +37,7 @@ type LayoutProps = {
   showFooter?: boolean;
   dontShowServicesWarning?: boolean;
   dontShowAdblockerWarning?: boolean;
-  extraNavbarHTML?: JSX.Element | undefined;
+  extraNavbarHTML?: React.ReactNode | undefined;
   dontShowSignIn?: boolean;
 };
 
@@ -57,7 +57,7 @@ function Layout({
   extraNavbarHTML,
   dontShowSignIn,
   // dontShowAdblockerWarning,
-}: LayoutProps): JSX.Element {
+}: LayoutProps): React.ReactNode {
   const breadCrumbsHTML =
     breadCrumbs != undefined ? (
       <nav aria-label="breadcrumb">

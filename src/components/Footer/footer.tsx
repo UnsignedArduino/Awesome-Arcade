@@ -13,7 +13,7 @@ import {
 export const DEVELOPERS = ["UnsignedArduino"];
 export const CREATION_DATE = new Date("2023-04-15T02:00:20Z");
 
-function Footer({ appProps }: { appProps: AppProps }): JSX.Element {
+function Footer({ appProps }: { appProps: AppProps }): React.ReactNode {
   type FooterThing = {
     title: string;
     link: string;
@@ -149,10 +149,10 @@ function Footer({ appProps }: { appProps: AppProps }): JSX.Element {
               <td>
                 <table className="table table-sm table-borderless d-none d-sm-table">
                   <tbody>
-                    {footerThings.map((row, rowIndex): JSX.Element => {
+                    {footerThings.map((row, rowIndex): React.ReactNode => {
                       return (
                         <tr key={`row-${rowIndex}`}>
-                          {row.map((thing, colIndex): JSX.Element => {
+                          {row.map((thing, colIndex): React.ReactNode => {
                             if (thing.link.startsWith("/")) {
                               return (
                                 <td key={`col-${colIndex}`}>
@@ -184,7 +184,7 @@ function Footer({ appProps }: { appProps: AppProps }): JSX.Element {
         </table>
         <table className="table table-sm table-borderless d-sm-none d-table">
           <tbody>
-            {mobileFooterThings.map((thing, rowIndex): JSX.Element => {
+            {mobileFooterThings.map((thing, rowIndex): React.ReactNode => {
               return (
                 <tr key={`row-${rowIndex}`}>
                   {rowIndex === 0 ? (

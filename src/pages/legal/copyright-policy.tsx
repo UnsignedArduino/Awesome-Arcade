@@ -19,7 +19,7 @@ type CopyrightPolicyProps = { appProps: AppProps; copyrightPolicyHTML: string };
 export function CopyrightPolicy({
   appProps,
   copyrightPolicyHTML,
-}: CopyrightPolicyProps): JSX.Element {
+}: CopyrightPolicyProps): React.ReactNode {
   return (
     <Layout
       title={pageName}
@@ -55,8 +55,7 @@ export async function getStaticProps(): Promise<{
           .use(rehypeKatex)
           .use(rehypeStringify)
           .process(raw);
-        const result = processed.toString();
-        return result;
+        return processed.toString();
       })(),
     },
   };

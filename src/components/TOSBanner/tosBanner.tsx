@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { getCookie, setCookie } from "../../scripts/Utils/Cookies";
+import { getCookie, setCookie } from "@/scripts/Utils/Cookies";
 
-export function TOSBanner(): JSX.Element {
+export function TOSBanner(): React.ReactNode {
   const [showMessage, setShowMessage] = React.useState(false);
   const [userClosed, setUserClosed] = React.useState(false);
 

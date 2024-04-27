@@ -11,7 +11,7 @@ interface AboutProps {
   appProps: AppProps;
 }
 
-export function About({ envVars, appProps }: AboutProps): JSX.Element {
+export function About({ envVars, appProps }: AboutProps): React.ReactNode {
   return (
     <Layout title={pageName} currentPage={pageName} appProps={appProps}>
       <h1>Environment</h1>

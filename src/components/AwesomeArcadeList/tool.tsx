@@ -1,10 +1,11 @@
-import { Tool, ToolRef, URLLink } from "@/scripts/ParseListXML";
 import React from "react";
 import Link from "next/link";
 import { smoothScrollHash } from "@/components/Linkable/Header";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
 import Tippy from "@tippyjs/react";
+import { Tool, ToolRef, URLLink } from "@/scripts/FetchListsFromCMS/types";
+import { RichTextSectionRenderer } from "@/components/Blog/Elements";
 
 export function AwesomeArcadeTool({
   tool,
@@ -14,7 +15,7 @@ export function AwesomeArcadeTool({
   tool: Tool;
   highlight?: boolean | undefined;
   pad?: boolean | undefined;
-}): JSX.Element {
+}): React.ReactNode {
   const [showCardLink, setShowCardLink] = React.useState(false);
 
   return (
@@ -86,10 +87,9 @@ export function AwesomeArcadeTool({
             </Tippy>
           </blockquote>
         </>
-        <div
-          className="card-ttool"
-          dangerouslySetInnerHTML={{ __html: tool.description }}
-        />
+        <div className="card-text">
+          <RichTextSectionRenderer content={tool.description} />
+        </div>
         <ul className="list-inline mb-0">
           {tool.links.map((link: URLLink) => {
             return (
@@ -172,11 +172,11 @@ export function AwesomeArcadeToolGroup({
   tools,
   pad,
 }: {
-  title?: JSX.Element | undefined;
-  description?: JSX.Element | undefined;
+  title?: React.ReactNode | undefined;
+  description?: React.ReactNode | undefined;
   tools: Tool[];
   pad?: boolean | undefined;
-}): JSX.Element {
+}): React.ReactNode {
   const router = useRouter();
 
   const [toolToHighlight, setToolToHighlight] = React.useState<

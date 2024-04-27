@@ -78,6 +78,16 @@ export class MakeCodeArcadeBlockRenderer {
       if (this.isRendererReady()) {
         this.pushToRenderer(params);
       }
+      // setTimeout(() => {
+      //   console.log(`Timeout for ${params.id}`);
+      //   reject();
+      //   this.paramQueue.splice(
+      //     this.paramQueue.findIndex((p) => {
+      //       return params.id == p.id;
+      //     }),
+      //     1,
+      //   );
+      // }, 10000);
     });
   }
 

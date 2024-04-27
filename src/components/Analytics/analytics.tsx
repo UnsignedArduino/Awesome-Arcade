@@ -34,7 +34,7 @@ declare global {
   }
 }
 
-export function Analytics(): JSX.Element {
+export function Analytics(): React.ReactNode {
   const [useGA, setUseGA] = React.useState<boolean>(false);
 
   React.useEffect(() => {

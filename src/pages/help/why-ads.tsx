@@ -4,7 +4,7 @@ import getAppProps, { AppProps } from "../../components/WithAppProps";
 
 const pageName = "Why ads?";
 
-export function Help({ appProps }: { appProps: AppProps }): JSX.Element {
+export function Help({ appProps }: { appProps: AppProps }): React.ReactNode {
   return (
     <Layout
       title={pageName}
