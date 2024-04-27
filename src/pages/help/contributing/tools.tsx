@@ -4,8 +4,7 @@ import Layout from "@/components/Layout";
 import ClickableFigure from "@/components/Images/ClickableFigure";
 import EmptyNewToolIssueImage from "@/assets/images/help/contributing/tools/empty-new-tool-issue.png";
 import FilledOutNewToolIssueImage from "@/assets/images/help/contributing/tools/filled-out-new-tool-issue-template.png";
-import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
-import { LinkableH2, LinkableH3 } from "@/components/Linkable/Header";
+import { LinkableH2 } from "@/components/Linkable/Header";
 
 const pageName = "Contributing tools";
 const url = "/help/contributing/tools";
@@ -99,87 +98,15 @@ export function ContributingTools({
       <>
         <p>
           The GitHub repository that hosts the source code for Awesome Arcade
-          accepts pull requests on new tools! You can{" "}
-          <a
-            href="https://github.com/UnsignedArduino/Awesome-Arcade-Extensions-Website/edit/main/src/tools.xml"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            edit the <code>tools.xml</code>
-          </a>{" "}
-          file to add a tool the list. (Yes, it resides in an XML file.) Editing
-          it will automatically fork the repository, afterwards you can submit a
-          pull request to merge your changes into the main repository.
-        </p>
-        <p>You{"'"}ll see an XML file like this:</p>
-        <ThemedSyntaxHighlighter language="xml">{`<?xml version="1.0" encoding="utf-8"?>
-<allTools>
-  <toolList label="Tools">
-    <tool repo="kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite">
-      <description>This tool will convert your images (like \`.png\` files) to Arcade code! Simply copy the output, open JavaScript mode in your project, navigate to where you want the image block to go, and paste in the image code! You may need to remove some redundant characters. Remember that Arcade has a maximum image size of 500x500!</description>
-      <links>
-        <url label="Tool" isPrimary="true">https://kristianpedersen.github.io/Convert-Image-to-MakeCode-Arcade-Sprite/</url>
-        <url label="GitHub repo">https://github.com/kristianpedersen/Convert-Image-to-MakeCode-Arcade-Sprite</url>
-        <url label="Forum post">https://forum.makecode.com/t/ive-made-an-image-file-to-arcade-sprite-converter-feedback-and-code-improvements-wanted/2076?u=unsignedarduino</url>
-      </links>
-    </tool>
-    <!-- More tools... -->
-  </toolList>
-</allTools>`}</ThemedSyntaxHighlighter>
-        <p>
-          To add a tool, add it to the end of the <code>{`<toolList>`}</code>{" "}
-          element.
+          accepts pull requests on new tools!
         </p>
         <p>
-          For example, if I wanted to contribute{" "}
-          <a
-            href="https://github.com/UnsignedArduino/Arcade-MIDI-to-Song"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            my Arcade-MIDI-to-Song tool
-          </a>{" "}
-          that helps you play MIDI music in a MakeCode Arcade game, I would add
-          the following XML to the end of the <code>{`<toolList>`}</code>{" "}
-          element like so:
+          Unfortunately, the author was too lazy to describe how to precisely
+          add in new tools because of the switch over from an XML file (shudder)
+          to TinaCMS which uses Markdown documents. So it{"'"}s recommended to
+          follow the first method of submitting an issue. Maybe one day the
+          author will get around to finishing this section...
         </p>
-        <ThemedSyntaxHighlighter language="xml">{`    <tool repo="UnsignedArduino/Arcade-MIDI-to-Song">
-      <description>I have written a Python script that will turn MIDI files into MakeCode Arcade songs! Note that this tools requires at least Python 3.11 on a computer, and command line knowledge is highly recommended!</description>
-      <links>
-        <url label="GitHub repo" isPrimary="true">https://github.com/UnsignedArduino/Arcade-MIDI-to-Song</url>
-        <url label="Forum post">https://forum.makecode.com/t/new-song-format/17763/11?u=unsignedarduino</url>
-        <url label="Demos">https://forum.makecode.com/t/piano-synthesia/22138?u=unsignedarduino</url>
-      </links>
-    </tool>`}</ThemedSyntaxHighlighter>
-      </>
-      <LinkableH3 id="tool-xml-elements" url={url}>
-        Tool XML elements
-      </LinkableH3>
-      <>
-        <p>
-          Here is a sample using all the possible XML elements in a{" "}
-          <code>{`<tool>`}</code>:
-        </p>
-        <ThemedSyntaxHighlighter language="xml">{`    <tool repo="user/github-repo">
-      <description>Some description about the tool's capabilities.</description>
-      <links>
-        <url label="Tool" isPrimary="true">The tool's link (for example, a web page)</url>
-        <url label="GitHub repo">GitHub repo link</url>
-        <url label="Forum post">Link to forum post</url>
-        <!-- There can be multiple links with any label -->
-      </links>
-      <forks>
-        <toolRef repo="user/github-repo" />
-        <!-- There can be multiple forks elements -->      
-      </forks>
-      <depreciatedBy>
-        <toolRef repo="user/github-repo" />
-        <!-- There can be multiple tools depreciating this tool -->
-      </depreciatedBy>
-      <inBeta asOf="some date">
-        Some description why.
-      </inBeta>
-    </tool>`}</ThemedSyntaxHighlighter>
       </>
     </Layout>
   );
