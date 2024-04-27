@@ -5,7 +5,9 @@ import { partsFromURL } from "@/scripts/FetchListsFromCMS/helpers";
 export default async function fetchExtensionsFromCMS(): Promise<Extension[]> {
   const exts: Extension[] = [];
 
-  const extsListData = await client.queries.extensionsConnection();
+  const extsListData = await client.queries.extensionsConnection({
+    first: 999999,
+  });
 
   for (const edge of extsListData.data.extensionsConnection.edges ?? []) {
     if (!edge || !edge.node) {

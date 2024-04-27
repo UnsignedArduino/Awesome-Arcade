@@ -4,7 +4,7 @@ import client from "../../../tina/__generated__/client";
 export default async function fetchToolsFromCMS(): Promise<Tool[]> {
   const tools: Tool[] = [];
 
-  const toolsListData = await client.queries.toolsConnection();
+  const toolsListData = await client.queries.toolsConnection({ first: 999999 });
 
   for (const edge of toolsListData.data.toolsConnection.edges ?? []) {
     if (!edge || !edge.node) {
