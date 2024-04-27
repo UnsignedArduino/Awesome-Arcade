@@ -221,12 +221,6 @@ export async function getStaticProps(): Promise<{
 }> {
   const list = await fetchExtensionsFromCMS();
 
-  // const list = await parseExtensionXML(
-  //   (
-  //     await fs.readFile(path.resolve(process.cwd(), "src", "extensions.xml"))
-  //   ).toString(),
-  // );
-
   await fs.writeFile(
     "./public/extensions.json",
     JSON.stringify(list, undefined, 2),

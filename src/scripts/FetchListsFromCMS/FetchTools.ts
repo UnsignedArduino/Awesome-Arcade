@@ -1,10 +1,23 @@
 import { Tool, ToolRef } from "./types";
 import client from "../../../tina/__generated__/client";
+import NodeCache from "node-cache";
+
+const toolCache = new NodeCache({ stdTTL: 60 * 5 });
 
 export default async function fetchToolsFromCMS(): Promise<Tool[]> {
+  const cachedTools: Tool[] | undefined = toolCache.get("tools");
+  if (cachedTools) {
+    console.log("Returning cached tools list");
+    return cachedTools;
+  }
+
   const tools: Tool[] = [];
 
   const toolsListData = await client.queries.toolsConnection({ first: 999999 });
+
+  console.log(
+    `Fetched ${(toolsListData.data.toolsConnection.edges ?? []).length} tools`,
+  );
 
   for (const edge of toolsListData.data.toolsConnection.edges ?? []) {
     if (!edge || !edge.node) {
@@ -95,6 +108,8 @@ export default async function fetchToolsFromCMS(): Promise<Tool[]> {
       notAWebsite: tool.isNotWebsite ?? false,
     });
   }
+
+  toolCache.set("tools", tools);
 
   return tools;
 }

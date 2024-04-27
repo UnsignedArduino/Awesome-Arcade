@@ -1,5 +1,7 @@
 import { Environment, getEnvironment } from "@/scripts/Utils/Environment";
 import { execSync } from "node:child_process";
+import fetchExtensionsFromCMS from "@/scripts/FetchListsFromCMS/FetchExtensions";
+import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
 
 export interface AppProps {
   environment: Environment;
@@ -22,9 +24,8 @@ export async function getAppProps(): Promise<AppProps> {
         ? process.env.VERCEL_GIT_COMMIT_REF
         : execSync("git rev-parse --abbrev-ref HEAD").toString().trim(),
     buildTime: new Date().toISOString(),
-    // TODO: FIX THIS TO ACTUALLY GET THE COUNTS
-    extensionsListed: 0,
-    toolsListed: 0,
+    extensionsListed: (await fetchExtensionsFromCMS()).length,
+    toolsListed: (await fetchToolsFromCMS()).length,
   };
 }
 

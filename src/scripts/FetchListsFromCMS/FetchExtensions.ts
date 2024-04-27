@@ -1,13 +1,27 @@
 import { Extension } from "./types";
 import client from "../../../tina/__generated__/client";
 import { partsFromURL } from "@/scripts/FetchListsFromCMS/helpers";
+import NodeCache from "node-cache";
+
+const extensionCache = new NodeCache({ stdTTL: 60 * 5 });
 
 export default async function fetchExtensionsFromCMS(): Promise<Extension[]> {
+  const cachedExtensions: Extension[] | undefined =
+    extensionCache.get("extensions");
+  if (cachedExtensions) {
+    console.log("Returning cached extensions list");
+    return cachedExtensions;
+  }
+
   const exts: Extension[] = [];
 
   const extsListData = await client.queries.extensionsConnection({
     first: 999999,
   });
+
+  console.log(
+    `Fetched ${(extsListData.data.extensionsConnection.edges ?? []).length} extensions`,
+  );
 
   for (const edge of extsListData.data.extensionsConnection.edges ?? []) {
     if (!edge || !edge.node) {
@@ -70,6 +84,8 @@ export default async function fetchExtensionsFromCMS(): Promise<Extension[]> {
       javascriptOnly: extension.isJavascriptOnly ?? false,
     });
   }
+
+  extensionCache.set("extensions", exts);
 
   return exts;
 }

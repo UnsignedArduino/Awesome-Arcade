@@ -201,12 +201,6 @@ export async function getStaticProps(): Promise<{
 }> {
   const list = await fetchToolsFromCMS();
 
-  // const list = await parseToolXML(
-  //   (
-  //     await fs.readFile(path.resolve(process.cwd(), "src", "tools.xml"))
-  //   ).toString(),
-  // );
-
   await fs.writeFile("./public/tools.json", JSON.stringify(list, undefined, 2));
 
   return {
