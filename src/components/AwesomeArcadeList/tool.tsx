@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import Tippy from "@tippyjs/react";
 import { Tool, ToolRef, URLLink } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import useMasonry from "@/hooks/useMasonry";
 
 export function AwesomeArcadeTool({
   tool,
@@ -177,6 +179,13 @@ export function AwesomeArcadeToolGroup({
   tools: Tool[];
   pad?: boolean | undefined;
 }): React.ReactNode {
+  const useFFMasonry = useFeatureIsOn("masonry");
+  const masonry = useMasonry(`${title}ToolRow`, useFFMasonry);
+
+  React.useEffect(() => {
+    masonry?.layout?.();
+  }, [useFFMasonry, masonry]);
+
   const router = useRouter();
 
   const [toolToHighlight, setToolToHighlight] = React.useState<
@@ -218,7 +227,10 @@ export function AwesomeArcadeToolGroup({
       {title}
       {description}
       {tools.length > 0 ? (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        <div
+          id={`${title}ToolRow`}
+          className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
+        >
           {tools.map((tool, i) => {
             return (
               <div className="col py-3" key={tool.repo}>

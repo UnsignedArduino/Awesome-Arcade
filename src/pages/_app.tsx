@@ -21,6 +21,13 @@ export type TippyJSLibContextType = typeof import("tippy.js") | null;
 export const TippyJSLibContext =
   React.createContext<TippyJSLibContextType>(null);
 
+export type MasonryLibContextType = {
+  default: typeof import("masonry-layout");
+  prototype: import("masonry-layout");
+} | null;
+export const MasonryLibContext =
+  React.createContext<MasonryLibContextType>(null);
+
 export default function AwesomeArcadeExtensions({
   Component,
   pageProps: { session, ...pageProps },
@@ -29,6 +36,8 @@ export default function AwesomeArcadeExtensions({
     React.useState<BootstrapLibContextType>(null);
   const [tippyJSLib, setTippyJSLib] =
     React.useState<TippyJSLibContextType>(null);
+  const [masonryLib, setMasonryLib] =
+    React.useState<MasonryLibContextType>(null);
 
   React.useEffect(() => {
     import("bootstrap")
@@ -49,6 +58,15 @@ export default function AwesomeArcadeExtensions({
         console.error("Failed to load Tippy.js!");
         console.error(err);
       });
+    import("masonry-layout")
+      .then((lib) => {
+        setMasonryLib(lib);
+        console.log("Loaded Masonry");
+      })
+      .catch((err) => {
+        console.error("Failed to load Masonry!");
+        console.error(err);
+      });
   }, []);
 
   const router = useRouter();
@@ -67,14 +85,16 @@ export default function AwesomeArcadeExtensions({
     <ErrorBoundary>
       <BootstrapLibContext.Provider value={bootstrapLib}>
         <TippyJSLibContext.Provider value={tippyJSLib}>
-          <NextNProgress color="#FFF603" options={{ showSpinner: false }} />
-          <Analytics />
-          <Adsense />
-          <GrowthBookProvider growthbook={growthbook}>
-            <SessionProvider session={session}>
-              <Component {...pageProps} />
-            </SessionProvider>
-          </GrowthBookProvider>
+          <MasonryLibContext.Provider value={masonryLib}>
+            <NextNProgress color="#FFF603" options={{ showSpinner: false }} />
+            <Analytics />
+            <Adsense />
+            <GrowthBookProvider growthbook={growthbook}>
+              <SessionProvider session={session}>
+                <Component {...pageProps} />
+              </SessionProvider>
+            </GrowthBookProvider>
+          </MasonryLibContext.Provider>
         </TippyJSLibContext.Provider>
       </BootstrapLibContext.Provider>
     </ErrorBoundary>

@@ -13,6 +13,8 @@ import {
   URLLink,
 } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import useMasonry from "@/hooks/useMasonry";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -25,6 +27,8 @@ export function AwesomeArcadeExtension({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
+  const useFFMasonry = useFeatureIsOn("masonry");
+
   const tippyJSLib = React.useContext(TippyJSLibContext);
   const [showCardLink, setShowCardLink] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
@@ -47,7 +51,7 @@ export function AwesomeArcadeExtension({
     <div
       className={`card ${pad ? "mb-2" : ""} ${
         highlight ? "border-primary border-3" : ""
-      } h-100`}
+      }${useFFMasonry ? "" : " h-100"}`}
       id={ext.repo}
     >
       <div className="card-body">
@@ -227,6 +231,13 @@ export function AwesomeArcadeExtensionGroup({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
+  const useFFMasonry = useFeatureIsOn("masonry");
+  const masonry = useMasonry(`${title}ExtensionRow`, useFFMasonry);
+
+  React.useEffect(() => {
+    masonry?.layout?.();
+  }, [useFFMasonry, masonry]);
+
   const router = useRouter();
 
   const [extToHighlight, setExtToHighlight] = React.useState<
@@ -268,7 +279,10 @@ export function AwesomeArcadeExtensionGroup({
       {title}
       {description}
       {exts.length > 0 ? (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        <div
+          id={`${title}ExtensionRow`}
+          className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
+        >
           {exts.map((ext, i) => {
             return (
               <div className="col py-3" key={ext.repo}>
