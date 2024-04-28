@@ -5,7 +5,7 @@ import Link from "next/link";
 import { smoothScrollHash } from "@/components/Linkable/Header";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
-import { TippyJSLibContext } from "@/pages/_app";
+import { MasonryLibContext, TippyJSLibContext } from "@/pages/_app";
 import { Instance } from "tippy.js";
 import {
   Extension,
@@ -13,6 +13,9 @@ import {
   URLLink,
 } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
+import getElement from "@/scripts/Utils/Element";
+import Masonry from "masonry-layout";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -25,6 +28,8 @@ export function AwesomeArcadeExtension({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
+  const useFFMasonry = useFeatureIsOn("masonry");
+
   const tippyJSLib = React.useContext(TippyJSLibContext);
   const [showCardLink, setShowCardLink] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
@@ -47,7 +52,7 @@ export function AwesomeArcadeExtension({
     <div
       className={`card ${pad ? "mb-2" : ""} ${
         highlight ? "border-primary border-3" : ""
-      } h-100`}
+      }${useFFMasonry ? "" : " h-100"}`}
       id={ext.repo}
     >
       <div className="card-body">
@@ -227,6 +232,29 @@ export function AwesomeArcadeExtensionGroup({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
+  const MasonryLib = React.useContext(MasonryLibContext);
+  const masonryInstanceRef = React.useRef<Masonry | null>(null);
+  const useFFMasonry = useFeatureIsOn("masonry");
+
+  React.useEffect(() => {
+    if (MasonryLib !== null) {
+      if (useFFMasonry && masonryInstanceRef.current === null) {
+        masonryInstanceRef.current = new MasonryLib.default(
+          getElement(`${title}ExtensionRow`),
+          {
+            // itemSelector: ".col",
+            // columnWidth: ".col",
+            percentPosition: true,
+            // horizontalOrder: true,
+          },
+        );
+      } else if (!useFFMasonry && masonryInstanceRef.current !== null) {
+        masonryInstanceRef.current?.destroy?.();
+        masonryInstanceRef.current = null;
+      }
+    }
+  }, [MasonryLib, useFFMasonry]);
+
   const router = useRouter();
 
   const [extToHighlight, setExtToHighlight] = React.useState<
@@ -268,7 +296,10 @@ export function AwesomeArcadeExtensionGroup({
       {title}
       {description}
       {exts.length > 0 ? (
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        <div
+          id={`${title}ExtensionRow`}
+          className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
+        >
           {exts.map((ext, i) => {
             return (
               <div className="col py-3" key={ext.repo}>
