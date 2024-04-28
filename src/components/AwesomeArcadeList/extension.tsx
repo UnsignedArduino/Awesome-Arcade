@@ -5,7 +5,7 @@ import Link from "next/link";
 import { smoothScrollHash } from "@/components/Linkable/Header";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
-import { MasonryLibContext, TippyJSLibContext } from "@/pages/_app";
+import { TippyJSLibContext } from "@/pages/_app";
 import { Instance } from "tippy.js";
 import {
   Extension,
@@ -14,8 +14,7 @@ import {
 } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
-import getElement from "@/scripts/Utils/Element";
-import Masonry from "masonry-layout";
+import useMasonry from "@/hooks/useMasonry";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -232,28 +231,12 @@ export function AwesomeArcadeExtensionGroup({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
-  const MasonryLib = React.useContext(MasonryLibContext);
-  const masonryInstanceRef = React.useRef<Masonry | null>(null);
   const useFFMasonry = useFeatureIsOn("masonry");
+  const masonry = useMasonry(`${title}ExtensionRow`, useFFMasonry);
 
   React.useEffect(() => {
-    if (MasonryLib !== null) {
-      if (useFFMasonry && masonryInstanceRef.current === null) {
-        masonryInstanceRef.current = new MasonryLib.default(
-          getElement(`${title}ExtensionRow`),
-          {
-            // itemSelector: ".col",
-            // columnWidth: ".col",
-            percentPosition: true,
-            // horizontalOrder: true,
-          },
-        );
-      } else if (!useFFMasonry && masonryInstanceRef.current !== null) {
-        masonryInstanceRef.current?.destroy?.();
-        masonryInstanceRef.current = null;
-      }
-    }
-  }, [MasonryLib, useFFMasonry]);
+    masonry?.layout?.();
+  }, [useFFMasonry, masonry]);
 
   const router = useRouter();
 
