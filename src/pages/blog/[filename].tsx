@@ -46,9 +46,7 @@ export default function BlogPage(props: BlogProps) {
       {/*  {JSON.stringify(data.post.body, null, 2)}*/}
       {/*</ThemedSyntaxHighlighter>*/}
       <MakeCodeArcadeBlockRendererContext>
-        <div id={`blogPost${data.post.title}`}>
-          <BlogPost data={data} />
-        </div>
+        <BlogPost data={data} />
       </MakeCodeArcadeBlockRendererContext>
     </Layout>
   );
