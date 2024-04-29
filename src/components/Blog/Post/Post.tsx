@@ -8,15 +8,38 @@ import {
 import Comments from "@/components/Blog/Post/Comments";
 import ContextualEditingPostAssist from "@/components/Blog/Post/ContextualEditingMode/PostAssist";
 import HeroImage from "@/components/Images/HeroImage";
+import { ShareButton } from "@/components/Linkable/ShareButton";
 
 export default function BlogPost({
   data,
 }: {
   data: PostQuery;
 }): React.ReactNode {
+  const [showTitleActions, setShowTitleActions] = React.useState(false);
+
   return (
     <>
-      <h1>{data.post.title}</h1>
+      <h1
+        onMouseEnter={() => {
+          setShowTitleActions(true);
+        }}
+        onMouseLeave={() => {
+          setShowTitleActions(false);
+        }}
+      >
+        {data.post.title}{" "}
+        {showTitleActions && (
+          <>
+            <ShareButton
+              data={{
+                text: `Check out the blog post ${data.post.title} by ${data.post.author} on Awesome Arcade!`,
+                url: `/blog/${data.post._sys.filename}`,
+              }}
+              classNames="ms-1 btn btn-link m-0 p-0"
+            />
+          </>
+        )}
+      </h1>
       <p>
         Written by <ShortAuthorRenderer author={data.post.author as Authors} />
         <br />
@@ -28,6 +51,7 @@ export default function BlogPost({
               : null}
           </>
         ) : null}
+        <br />
       </p>
       {data.post.heroImage && (
         <HeroImage

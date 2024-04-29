@@ -3,6 +3,7 @@ import React from "react";
 import { ShortAuthorRenderer } from "@/components/Blog/Elements";
 import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
 import Link from "next/link";
+import { ShareButton } from "@/components/Linkable/ShareButton";
 
 export type BlogPostPreview = {
   title: string;
@@ -19,6 +20,8 @@ export default function BlogPostPreviewRenderer({
 }: {
   preview: BlogPostPreview;
 }): React.ReactNode {
+  const [showCardActions, setShowCardActions] = React.useState(false);
+
   return (
     <>
       <div className="card mb-2">
@@ -36,7 +39,27 @@ export default function BlogPostPreviewRenderer({
           />
         )}
         <div className="card-body">
-          <h5 className="card-title">{preview.title}</h5>
+          <h5
+            className="card-title d-flex align-items-center"
+            onMouseEnter={() => {
+              setShowCardActions(true);
+            }}
+            onMouseLeave={() => {
+              setShowCardActions(false);
+            }}
+          >
+            {preview.title}
+            {showCardActions ? (
+              <>
+                <ShareButton
+                  data={{
+                    text: `Check out the blog post ${preview.title} by ${preview.author} on Awesome Arcade!`,
+                    url: preview.link,
+                  }}
+                />
+              </>
+            ) : undefined}
+          </h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">
             {preview.createdAt !== null ? (
               <>

@@ -8,6 +8,8 @@ import { Tool, ToolRef, URLLink } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
+import HashLink from "@/components/Linkable/HashLink";
+import { ShareButton } from "@/components/Linkable/ShareButton";
 
 export function AwesomeArcadeTool({
   tool,
@@ -18,7 +20,7 @@ export function AwesomeArcadeTool({
   highlight?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
-  const [showCardLink, setShowCardLink] = React.useState(false);
+  const [showCardActions, setShowCardActions] = React.useState(false);
 
   return (
     <div
@@ -29,12 +31,12 @@ export function AwesomeArcadeTool({
     >
       <div className="card-body">
         <h5
-          className="card-title"
+          className="card-title d-flex align-items-center"
           onMouseEnter={() => {
-            setShowCardLink(true);
+            setShowCardActions(true);
           }}
           onMouseLeave={() => {
-            setShowCardLink(false);
+            setShowCardActions(false);
           }}
         >
           {tool.title}
@@ -44,14 +46,16 @@ export function AwesomeArcadeTool({
               <span className="badge text-bg-warning me-1">Not a website</span>
             </>
           ) : undefined}
-          {showCardLink ? (
-            <Link
-              className="ms-1"
-              href={`/tools#${tool.repo}`}
-              onClick={smoothScrollHash}
-            >
-              <i className="bi-link-45deg" />
-            </Link>
+          {showCardActions ? (
+            <>
+              <HashLink url={`/tools#${tool.repo}`} />
+              <ShareButton
+                data={{
+                  text: `Check out the tool ${tool.title} by ${tool.author} on Awesome Arcade!`,
+                  url: `/tools#${tool.repo}`,
+                }}
+              />
+            </>
           ) : undefined}
         </h5>
         <h6 className="card-subtitle mb-2 ttool-body-secondary">
