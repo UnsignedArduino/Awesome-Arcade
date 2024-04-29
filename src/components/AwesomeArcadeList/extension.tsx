@@ -15,6 +15,8 @@ import {
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
 import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
+import HashLink from "@/components/Linkable/HashLink";
+import { ShareButton } from "@/components/Linkable/ShareButton";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -30,7 +32,7 @@ export function AwesomeArcadeExtension({
   const useFFMasonry = useFeatureIsOn("masonry");
 
   const tippyJSLib = React.useContext(TippyJSLibContext);
-  const [showCardLink, setShowCardLink] = React.useState(false);
+  const [showCardActions, setShowCardActions] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
   const tippyRef = React.useRef<Instance | null>(null);
   const buttonRef = React.useRef<HTMLButtonElement>(null);
@@ -56,12 +58,12 @@ export function AwesomeArcadeExtension({
     >
       <div className="card-body">
         <h5
-          className="card-title"
+          className="card-title d-flex align-items-center"
           onMouseEnter={() => {
-            setShowCardLink(true);
+            setShowCardActions(true);
           }}
           onMouseLeave={() => {
-            setShowCardLink(false);
+            setShowCardActions(false);
           }}
         >
           {ext.title}
@@ -73,14 +75,16 @@ export function AwesomeArcadeExtension({
               </span>
             </>
           ) : undefined}
-          {showCardLink ? (
-            <Link
-              className="ms-1"
-              href={`/extensions#${ext.repo}`}
-              onClick={smoothScrollHash}
-            >
-              <i className="bi-link-45deg" />
-            </Link>
+          {showCardActions ? (
+            <>
+              <HashLink url={`/extensions#${ext.repo}`} />
+              <ShareButton
+                data={{
+                  text: `Check out the extension ${ext.title} by ${ext.author} on Awesome Arcade!`,
+                  url: `/extensions#${ext.repo}`,
+                }}
+              />
+            </>
           ) : undefined}
         </h5>
         <h6 className="card-subtitle mb-2 text-body-secondary">
