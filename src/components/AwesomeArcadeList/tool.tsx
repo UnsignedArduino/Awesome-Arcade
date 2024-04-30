@@ -56,6 +56,9 @@ export function AwesomeArcadeTool({
                   text: `Check out the tool ${tool.title} by ${tool.author} on Awesome Arcade!`,
                   url: `/tools#${tool.repo}`,
                 }}
+                onClick={() => {
+                  AnalyticEvents.sendShare("tool", tool.repo);
+                }}
               />
             </>
           ) : undefined}
@@ -87,7 +90,7 @@ export function AwesomeArcadeTool({
                 rel="noopener noreferrer"
                 style={{ wordBreak: "break-all" }}
                 onClick={() => {
-                  AnalyticEvents.sendAwesomeClick(tool.repo);
+                  AnalyticEvents.sendAwesomeClick("tool", tool.repo);
                 }}
               >
                 {tool.url}

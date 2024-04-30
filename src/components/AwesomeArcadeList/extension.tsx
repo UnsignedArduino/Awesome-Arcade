@@ -83,6 +83,9 @@ export function AwesomeArcadeExtension({
                   text: `Check out the extension ${ext.title} by ${ext.author} on Awesome Arcade!`,
                   url: `/extensions#${ext.repo}`,
                 }}
+                onClick={() => {
+                  AnalyticEvents.sendShare("extension", ext.repo);
+                }}
               />
             </>
           ) : undefined}
@@ -131,7 +134,7 @@ export function AwesomeArcadeExtension({
                         detail: ext.repo,
                       }),
                     );
-                    AnalyticEvents.sendAwesomeClick(ext.repo);
+                    AnalyticEvents.sendAwesomeClick("extension", ext.repo);
                   }}
                 >
                   <a className="stretched-link">{ext.url}</a>
