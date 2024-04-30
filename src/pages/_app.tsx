@@ -12,6 +12,7 @@ import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import { GrowthBookProvider } from "@growthbook/growthbook-react";
 import growthbook from "@/components/FeatureFlags";
+import { AnimatePresence } from "framer-motion";
 
 export type BootstrapLibContextType = typeof import("bootstrap") | null;
 export const BootstrapLibContext =
@@ -91,7 +92,13 @@ export default function AwesomeArcadeExtensions({
             <Adsense />
             <GrowthBookProvider growthbook={growthbook}>
               <SessionProvider session={session}>
-                <Component {...pageProps} />
+                <AnimatePresence
+                  mode="wait"
+                  initial={false}
+                  onExitComplete={() => window.scrollTo(0, 0)}
+                >
+                  <Component {...pageProps} />
+                </AnimatePresence>
               </SessionProvider>
             </GrowthBookProvider>
           </MasonryLibContext.Provider>

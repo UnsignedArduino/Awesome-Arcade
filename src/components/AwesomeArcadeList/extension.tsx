@@ -17,6 +17,7 @@ import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
+import { motion } from "framer-motion";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -50,11 +51,21 @@ export function AwesomeArcadeExtension({
   }, [tippyJSLib, tooltip]);
 
   return (
-    <div
-      className={`card ${pad ? "mb-2" : ""} ${
+    <motion.div
+      className={`card ${pad ? "m-1 mb-2" : ""} ${
         highlight ? "border-primary border-3" : ""
       }${useFFMasonry ? "" : " h-100"}`}
       id={ext.repo}
+      // initial={{ x: 300, opacity: 0 }}
+      // animate={{ x: 0, opacity: 1 }}
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      // exit={{ x: 300, opacity: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
     >
       <div className="card-body">
         <h5
@@ -221,7 +232,7 @@ export function AwesomeArcadeExtension({
           </div>
         ) : undefined}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -299,7 +310,7 @@ export function AwesomeArcadeExtensionGroup({
                 ext={ext}
                 highlight={ext.repo === extToHighlight}
                 showImportURL={showImportURL}
-                pad={i < exts.length - 1}
+                pad={i < exts.length - 1 || true}
               />
             </div>
           );
