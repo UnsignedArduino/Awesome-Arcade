@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { AvatarImageRenderer } from "@/components/Blog/Elements";
+import { motion } from "framer-motion";
 
 export type BlogAuthorPreview = {
   name: string;
@@ -15,7 +16,19 @@ export default function BlogAuthorPreviewRenderer({
 }): React.ReactNode {
   return (
     <>
-      <div className="card mb-2">
+      <motion.div
+        // initial={{ x: 300, opacity: 0 }}
+        // animate={{ x: 0, opacity: 1 }}
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        // exit={{ x: 300, opacity: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="card mb-2"
+      >
         <div className="card-body">
           <h5 className="card-title">
             <AvatarImageRenderer
@@ -36,7 +49,7 @@ export default function BlogAuthorPreviewRenderer({
             View profile
           </Link>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
-type Theme = "Light" | "Dark";
-type ThemeOptions = Theme | "Auto";
+export type Theme = "Light" | "Dark";
+export type ThemeOptions = Theme | "Auto";
 
 declare global {
   interface HTMLElementEventMap {

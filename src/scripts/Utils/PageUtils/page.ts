@@ -1,8 +1,18 @@
 export function isExternalLink(url: string): boolean {
+  if (url.startsWith("/")) {
+    return true;
+  }
   try {
     return new URL(url).host !== window.location.host;
   } catch {
-    return false;
+    const urls = [
+      "http://localhost:3000",
+      "https://awesome-arcade.vercel.app",
+      "https://awesome-arcade-beta.vercel.app",
+    ];
+    return !urls.some((u) => {
+      return new URL(url).host === new URL(u).host;
+    });
   }
 }
 

@@ -8,6 +8,8 @@ import BlogPostPreviewRenderer, {
 } from "@/components/Blog/Post/Preview";
 import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import { makeUndefinedNull } from "@/scripts/Utils/TypeHelp/NullUndefined";
+import { CARD_VARIANTS } from "@/animations/card";
+import { motion } from "framer-motion";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];
@@ -32,13 +34,31 @@ export default function AllBlogPosts(props: BlogProps) {
       <h1>All blog posts</h1>
       <p>Here is a list of all blog posts on Awesome Arcade. Enjoy reading!</p>
       {
-        <>
-          {props.blogPostPreviews.map((preview) => {
+        <div className="p-2">
+          {props.blogPostPreviews.map((preview, index) => {
             return (
-              <BlogPostPreviewRenderer preview={preview} key={preview.title} />
+              <motion.div
+                custom={index}
+                variants={CARD_VARIANTS}
+                initial="initial"
+                animate="animate"
+                whileHover="whileHover"
+                whileTap="whileTap"
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                }}
+                key={preview.title}
+              >
+                <BlogPostPreviewRenderer
+                  preview={preview}
+                  key={preview.title}
+                />
+              </motion.div>
             );
           })}
-        </>
+        </div>
       }
     </Layout>
   );
