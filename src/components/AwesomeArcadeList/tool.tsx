@@ -43,7 +43,9 @@ export function AwesomeArcadeTool({
           {tool.notAWebsite ? (
             <>
               {" "}
-              <span className="badge text-bg-warning me-1">Not a website</span>
+              <span className="badge text-bg-warning ms-2 me-1">
+                Not a website
+              </span>
             </>
           ) : undefined}
           {showCardActions ? (
@@ -187,8 +189,11 @@ export function AwesomeArcadeToolGroup({
   const masonry = useMasonry(`${title}ToolRow`, useFFMasonry);
 
   React.useEffect(() => {
-    masonry?.layout?.();
-  }, [useFFMasonry, masonry]);
+    setTimeout(() => {
+      masonry?.reloadItems?.();
+      masonry?.layout?.();
+    });
+  }, [useFFMasonry, masonry, tools]);
 
   const router = useRouter();
 
@@ -230,24 +235,23 @@ export function AwesomeArcadeToolGroup({
     <div className={pad == undefined || pad ? "mb-3" : ""}>
       {title}
       {description}
-      {tools.length > 0 ? (
-        <div
-          id={`${title}ToolRow`}
-          className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
-        >
-          {tools.map((tool, i) => {
-            return (
-              <div className="col py-3" key={tool.repo}>
-                <AwesomeArcadeTool
-                  tool={tool}
-                  highlight={tool.repo === toolToHighlight}
-                  pad={i < tools.length - 1}
-                />
-              </div>
-            );
-          })}
-        </div>
-      ) : (
+      <div
+        id={`${title}ToolRow`}
+        className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
+      >
+        {tools.map((tool, i) => {
+          return (
+            <div className="col py-3" key={tool.repo}>
+              <AwesomeArcadeTool
+                tool={tool}
+                highlight={tool.repo === toolToHighlight}
+                pad={i < tools.length - 1}
+              />
+            </div>
+          );
+        })}
+      </div>
+      {tools.length === 0 && (
         <div className="alert alert-warning" role="alert">
           Could not find any results with your search query!
         </div>
