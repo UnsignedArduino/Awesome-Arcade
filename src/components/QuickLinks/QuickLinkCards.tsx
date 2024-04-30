@@ -2,6 +2,7 @@ import { QuickLink } from "@/components/QuickLinks/types";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
+import { CARD_VARIANTS } from "@/animations/card";
 
 export default function QuickLinkCards({
   quickLinks,
@@ -16,11 +17,12 @@ export default function QuickLinkCards({
         {quickLinks.map((quick: QuickLink, index: number) => {
           return (
             <motion.div
-              // initial={{ x: 300, opacity: 0 }}
-              // animate={{ x: 0, opacity: 1 }}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              // exit={{ x: 300, opacity: 0 }}
+              custom={index}
+              variants={CARD_VARIANTS}
+              initial="initial"
+              animate="animate"
+              whileHover="whileHover"
+              whileTap="whileTap"
               transition={{
                 type: "spring",
                 stiffness: 260,

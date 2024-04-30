@@ -7,6 +7,8 @@ import { createBreadCrumbSegment } from "@/components/Layout/layout";
 import BlogAuthorPreviewRenderer, {
   BlogAuthorPreview,
 } from "@/components/Blog/Author/Preview";
+import { CARD_VARIANTS } from "@/animations/card";
+import { motion } from "framer-motion";
 
 type BlogAuthorProps = {
   blogAuthorPreviews: BlogAuthorPreview[];
@@ -31,13 +33,31 @@ export default function AllBlogAuthors(props: BlogAuthorProps) {
       <h1>All blog authors</h1>
       <p>Here is a list of all blog authors on Awesome Arcade.</p>
       {
-        <>
-          {props.blogAuthorPreviews.map((preview) => {
+        <div className="p-3">
+          {props.blogAuthorPreviews.map((preview, index) => {
             return (
-              <BlogAuthorPreviewRenderer preview={preview} key={preview.name} />
+              <motion.div
+                custom={index}
+                variants={CARD_VARIANTS}
+                initial="initial"
+                animate="animate"
+                whileHover="whileHover"
+                whileTap="whileTap"
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                }}
+                key={preview.name}
+              >
+                <BlogAuthorPreviewRenderer
+                  preview={preview}
+                  key={preview.name}
+                />
+              </motion.div>
             );
           })}
-        </>
+        </div>
       }
     </Layout>
   );

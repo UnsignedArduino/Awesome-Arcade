@@ -12,6 +12,7 @@ import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
 import { motion } from "framer-motion";
 import { ThemeContext } from "@/components/Navbar/ThemePicker";
+import { CARD_VARIANTS } from "@/animations/card";
 
 export function AwesomeArcadeTool({
   tool,
@@ -268,15 +269,29 @@ export function AwesomeArcadeToolGroup({
         id={`${title}ToolRow`}
         className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
       >
-        {tools.map((tool, i) => {
+        {tools.map((tool, index) => {
           return (
-            <div className="col py-3" key={tool.repo}>
+            <motion.div
+              className="col py-3"
+              key={tool.repo}
+              custom={index}
+              variants={CARD_VARIANTS}
+              initial="initial"
+              animate="animate"
+              whileHover="whileHover"
+              whileTap="whileTap"
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
               <AwesomeArcadeTool
                 tool={tool}
                 highlight={tool.repo === toolToHighlight}
-                pad={i < tools.length - 1 || true}
+                pad={index < tools.length - 1 || true}
               />
-            </div>
+            </motion.div>
           );
         })}
       </div>

@@ -19,6 +19,7 @@ import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
 import { motion } from "framer-motion";
 import { ThemeContext } from "@/components/Navbar/ThemePicker";
+import { CARD_VARIANTS } from "@/animations/card";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -318,16 +319,30 @@ export function AwesomeArcadeExtensionGroup({
         id={`${title}ExtensionRow`}
         className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
       >
-        {exts.map((ext, i) => {
+        {exts.map((ext, index) => {
           return (
-            <div className="col py-3" key={ext.repo}>
+            <motion.div
+              className="col py-3"
+              key={ext.repo}
+              custom={index}
+              variants={CARD_VARIANTS}
+              initial="initial"
+              animate="animate"
+              whileHover="whileHover"
+              whileTap="whileTap"
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
               <AwesomeArcadeExtension
                 ext={ext}
                 highlight={ext.repo === extToHighlight}
                 showImportURL={showImportURL}
-                pad={i < exts.length - 1 || true}
+                pad={index < exts.length - 1 || true}
               />
-            </div>
+            </motion.div>
           );
         })}
       </div>

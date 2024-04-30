@@ -10,6 +10,8 @@ import Link from "next/link";
 import { promises as fs } from "fs";
 import generateRSSFeed from "@/scripts/RSS";
 import { makeUndefinedNull } from "@/scripts/Utils/TypeHelp/NullUndefined";
+import { CARD_VARIANTS } from "@/animations/card";
+import { motion } from "framer-motion";
 
 type BlogProps = {
   blogPostPreviews: BlogPostPreview[];
@@ -62,13 +64,31 @@ export default function BlogPage(props: BlogProps) {
       </p>
       <h2>Latest blog posts</h2>
       {
-        <>
-          {props.blogPostPreviews.map((preview) => {
+        <div className="p-3">
+          {props.blogPostPreviews.map((preview, index) => {
             return (
-              <BlogPostPreviewRenderer preview={preview} key={preview.title} />
+              <motion.div
+                custom={index}
+                variants={CARD_VARIANTS}
+                initial="initial"
+                animate="animate"
+                whileHover="whileHover"
+                whileTap="whileTap"
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                }}
+                key={preview.title}
+              >
+                <BlogPostPreviewRenderer
+                  preview={preview}
+                  key={preview.title}
+                />
+              </motion.div>
             );
           })}
-        </>
+        </div>
       }
       <p>
         View all blog posts <Link href="/blog/all">here</Link>.
