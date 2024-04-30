@@ -13,6 +13,7 @@ import { ShareButton } from "@/components/Linkable/ShareButton";
 import { motion } from "framer-motion";
 import { ThemeContext } from "@/components/Navbar/ThemePicker";
 import { CARD_VARIANTS } from "@/animations/card";
+import { ACCENT_COLOR } from "@/themes/colors";
 
 export function AwesomeArcadeTool({
   tool,
@@ -37,7 +38,7 @@ export function AwesomeArcadeTool({
         highlight
           ? {
               borderWidth: "3px",
-              borderColor: "#FFF603",
+              borderColor: ACCENT_COLOR[theme],
             }
           : {
               borderWidth: "1px",

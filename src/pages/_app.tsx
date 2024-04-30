@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import { GrowthBookProvider } from "@growthbook/growthbook-react";
 import growthbook from "@/components/FeatureFlags";
 import { AnimatePresence } from "framer-motion";
+import { Theme } from "@/components/Navbar/ThemePicker/themePicker";
+import { ACCENT_COLOR } from "@/themes/colors";
 
 export type BootstrapLibContextType = typeof import("bootstrap") | null;
 export const BootstrapLibContext =
@@ -82,12 +84,35 @@ export default function AwesomeArcadeExtensions({
     growthbook.loadFeatures();
   }, []);
 
+  const [nprogressTheme, setNProgressTheme] = React.useState<Theme>("Light");
+
+  function onThemeChange(event: CustomEvent<Theme>) {
+    setNProgressTheme(event.detail);
+  }
+
+  React.useEffect(() => {
+    window.document.documentElement.addEventListener(
+      "themeused",
+      onThemeChange,
+    );
+
+    return () => {
+      window.document.documentElement.removeEventListener(
+        "themeused",
+        onThemeChange,
+      );
+    };
+  }, []);
+
   return (
     <ErrorBoundary>
       <BootstrapLibContext.Provider value={bootstrapLib}>
         <TippyJSLibContext.Provider value={tippyJSLib}>
           <MasonryLibContext.Provider value={masonryLib}>
-            <NextNProgress color="#FFF603" options={{ showSpinner: false }} />
+            <NextNProgress
+              color={ACCENT_COLOR[nprogressTheme]}
+              options={{ showSpinner: false }}
+            />
             <Analytics />
             <Adsense />
             <GrowthBookProvider growthbook={growthbook}>
