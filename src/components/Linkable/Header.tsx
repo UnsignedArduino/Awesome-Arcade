@@ -16,15 +16,15 @@ export function smoothScrollHash(
 }
 
 export function smoothScrollToID(id: string) {
-  const e = document.getElementById(id);
-  e?.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-  });
   const u = new URL(window.location.toString());
   u.hash = id;
   setTimeout(() => {
     window.history.replaceState({}, "", u.toString());
+  });
+  const e = document.getElementById(id);
+  e?.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
   });
 }
 

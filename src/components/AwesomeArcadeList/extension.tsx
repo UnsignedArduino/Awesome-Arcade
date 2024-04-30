@@ -18,6 +18,7 @@ import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
 import { motion } from "framer-motion";
+import { ThemeContext } from "@/components/Navbar/ThemePicker";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -50,14 +51,28 @@ export function AwesomeArcadeExtension({
     }
   }, [tippyJSLib, tooltip]);
 
+  const theme = React.useContext(ThemeContext);
+
   return (
     <motion.div
-      className={`card ${pad ? "m-1 mb-2" : ""} ${
-        highlight ? "border-primary border-3" : ""
-      }${useFFMasonry ? "" : " h-100"}`}
+      className={`card ${pad ? "m-1 mb-2" : ""}${useFFMasonry ? "" : " h-100"}`}
       id={ext.repo}
       // initial={{ x: 300, opacity: 0 }}
       // animate={{ x: 0, opacity: 1 }}
+      animate={
+        highlight
+          ? {
+              borderWidth: "3px",
+              borderColor: "#FFF603",
+            }
+          : {
+              borderWidth: "1px",
+              borderColor:
+                theme === "Light"
+                  ? "rgba(0, 0, 0, 0.176)"
+                  : "rgba(255,255,255,0.15)",
+            }
+      }
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 0.99 }}
       // exit={{ x: 300, opacity: 0 }}
