@@ -17,6 +17,9 @@ import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
+import { motion } from "framer-motion";
+import { ThemeContext } from "@/components/Navbar/ThemePicker";
+import { CARD_VARIANTS } from "@/animations/card";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -49,12 +52,36 @@ export function AwesomeArcadeExtension({
     }
   }, [tippyJSLib, tooltip]);
 
+  const theme = React.useContext(ThemeContext);
+
   return (
-    <div
-      className={`card ${pad ? "mb-2" : ""} ${
-        highlight ? "border-primary border-3" : ""
-      }${useFFMasonry ? "" : " h-100"}`}
+    <motion.div
+      className={`card ${pad ? "m-1 mb-2" : ""}${useFFMasonry ? "" : " h-100"}`}
       id={ext.repo}
+      // initial={{ x: 300, opacity: 0 }}
+      // animate={{ x: 0, opacity: 1 }}
+      animate={
+        highlight
+          ? {
+              borderWidth: "3px",
+              borderColor: "#FFF603",
+            }
+          : {
+              borderWidth: "1px",
+              borderColor:
+                theme === "Light"
+                  ? "rgba(0, 0, 0, 0.176)"
+                  : "rgba(255,255,255,0.15)",
+            }
+      }
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      // exit={{ x: 300, opacity: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
     >
       <div className="card-body">
         <h5
@@ -221,7 +248,7 @@ export function AwesomeArcadeExtension({
           </div>
         ) : undefined}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -292,16 +319,30 @@ export function AwesomeArcadeExtensionGroup({
         id={`${title}ExtensionRow`}
         className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
       >
-        {exts.map((ext, i) => {
+        {exts.map((ext, index) => {
           return (
-            <div className="col py-3" key={ext.repo}>
+            <motion.div
+              className="col py-3"
+              key={ext.repo}
+              custom={index}
+              variants={CARD_VARIANTS}
+              initial="initial"
+              animate="animate"
+              whileHover="whileHover"
+              whileTap="whileTap"
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
               <AwesomeArcadeExtension
                 ext={ext}
                 highlight={ext.repo === extToHighlight}
                 showImportURL={showImportURL}
-                pad={i < exts.length - 1}
+                pad={index < exts.length - 1 || true}
               />
-            </div>
+            </motion.div>
           );
         })}
       </div>

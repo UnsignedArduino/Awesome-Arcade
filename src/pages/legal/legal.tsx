@@ -1,19 +1,43 @@
-import Link from "next/link";
 import React from "react";
 import Layout from "../../components/Layout";
 import getAppProps, { AppProps } from "../../components/WithAppProps";
 import { appName } from "@/components/Layout/layout";
+import { QuickLink } from "@/components/QuickLinks/types";
+import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
 
 const pageName = "Legal";
 
 export function Legal({ appProps }: { appProps: AppProps }): React.ReactNode {
-  const legalPages = {
-    "External services and data collection":
-      "external-services-and-data-collection",
-    "Copyright policy": "copyright-policy",
-    "Privacy policy": "privacy-policy",
-    "Terms of service": "terms-of-service",
-  };
+  const legalLinks: QuickLink[] = [
+    {
+      name: "External services and data collection",
+      description:
+        "Read about the external services and data collection used by this website and control how we process your data.",
+      link: "/legal/external-services-and-data-collection",
+      linkText: "View external services and data collection",
+    },
+    {
+      name: "Copyright policy",
+      description:
+        "Read about the copyright policy of this website and how you can use the content.",
+      link: "/legal/copyright-policy",
+      linkText: "View copyright policy",
+    },
+    {
+      name: "Privacy policy",
+      description:
+        "Read about the privacy policy of this website and how we handle your data.",
+      link: "/legal/privacy-policy",
+      linkText: "View privacy policy",
+    },
+    {
+      name: "Terms of service",
+      description:
+        "Read about the terms of service of this website and the rules you must follow.",
+      link: "/legal/terms-of-service",
+      linkText: "View terms of service",
+    },
+  ];
 
   return (
     <Layout
@@ -42,15 +66,10 @@ export function Legal({ appProps }: { appProps: AppProps }): React.ReactNode {
         </a>
         .
       </p>
-      <ul>
-        {Object.entries(legalPages).map(([name, page]) => {
-          return (
-            <li key={name}>
-              <Link href={`/legal/${page}`}>{name}</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <QuickLinkCards
+        quickLinks={legalLinks}
+        divColumnClasses="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
+      />
       <p>
         If you have any problems, you can join me on{" "}
         <a

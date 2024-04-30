@@ -5,6 +5,7 @@ import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
 import Link from "next/link";
 import { ShareButton } from "@/components/Linkable/ShareButton";
 import { AnalyticEvents } from "@/components/Analytics";
+import { motion } from "framer-motion";
 
 export type BlogPostPreview = {
   title: string;
@@ -25,7 +26,19 @@ export default function BlogPostPreviewRenderer({
 
   return (
     <>
-      <div className="card mb-2">
+      <motion.div
+        // initial={{ x: 300, opacity: 0 }}
+        // animate={{ x: 0, opacity: 1 }}
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        // exit={{ x: 300, opacity: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="card mb-2"
+      >
         {preview.heroImage && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -82,7 +95,7 @@ export default function BlogPostPreviewRenderer({
             View post
           </Link>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

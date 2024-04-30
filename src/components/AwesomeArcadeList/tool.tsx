@@ -10,6 +10,9 @@ import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
+import { motion } from "framer-motion";
+import { ThemeContext } from "@/components/Navbar/ThemePicker";
+import { CARD_VARIANTS } from "@/animations/card";
 
 export function AwesomeArcadeTool({
   tool,
@@ -22,12 +25,36 @@ export function AwesomeArcadeTool({
 }): React.ReactNode {
   const [showCardActions, setShowCardActions] = React.useState(false);
 
+  const theme = React.useContext(ThemeContext);
+
   return (
-    <div
-      className={`card ${pad ? "mb-2" : ""} ${
-        highlight ? "border-primary border-3" : ""
-      } h-100`}
+    <motion.div
+      className={`card${pad ? " m-1 mb-2" : " "} h-100`}
       id={tool.repo}
+      // initial={{ x: 300, opacity: 0 }}
+      // animate={{ x: 0, opacity: 1 }}
+      animate={
+        highlight
+          ? {
+              borderWidth: "3px",
+              borderColor: "#FFF603",
+            }
+          : {
+              borderWidth: "1px",
+              borderColor:
+                theme === "Light"
+                  ? "rgba(0, 0, 0, 0.176)"
+                  : "rgba(255,255,255,0.15)",
+            }
+      }
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      // exit={{ x: 300, opacity: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
     >
       <div className="card-body">
         <h5
@@ -173,7 +200,7 @@ export function AwesomeArcadeTool({
           </div>
         ) : undefined}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -242,15 +269,29 @@ export function AwesomeArcadeToolGroup({
         id={`${title}ToolRow`}
         className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
       >
-        {tools.map((tool, i) => {
+        {tools.map((tool, index) => {
           return (
-            <div className="col py-3" key={tool.repo}>
+            <motion.div
+              className="col py-3"
+              key={tool.repo}
+              custom={index}
+              variants={CARD_VARIANTS}
+              initial="initial"
+              animate="animate"
+              whileHover="whileHover"
+              whileTap="whileTap"
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+            >
               <AwesomeArcadeTool
                 tool={tool}
                 highlight={tool.repo === toolToHighlight}
-                pad={i < tools.length - 1}
+                pad={index < tools.length - 1 || true}
               />
-            </div>
+            </motion.div>
           );
         })}
       </div>
