@@ -4,6 +4,7 @@ import { ShortAuthorRenderer } from "@/components/Blog/Elements";
 import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
 import Link from "next/link";
 import { ShareButton } from "@/components/Linkable/ShareButton";
+import { AnalyticEvents } from "@/components/Analytics";
 
 export type BlogPostPreview = {
   title: string;
@@ -55,6 +56,9 @@ export default function BlogPostPreviewRenderer({
                   data={{
                     text: `Check out the blog post ${preview.title} by ${preview.author} on Awesome Arcade!`,
                     url: preview.link,
+                  }}
+                  onClick={() => {
+                    AnalyticEvents.sendShare("blog preview", preview.title);
                   }}
                 />
               </>

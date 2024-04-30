@@ -4,9 +4,11 @@ import React from "react";
 export function ShareButton({
   data,
   classNames = "ms-1 btn btn-sm btn-link m-0 p-0",
+  onClick = () => {},
 }: {
   data: ShareData;
   classNames?: string;
+  onClick?: () => void;
 }): React.ReactNode {
   const [hover, setHover] = React.useState(false);
 
@@ -45,6 +47,7 @@ export function ShareButton({
                 break;
             }
           });
+        onClick();
       }}
     >
       <i className={hover ? "bi-share-fill" : "bi-share"} />

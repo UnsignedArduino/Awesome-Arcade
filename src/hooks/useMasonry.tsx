@@ -13,6 +13,7 @@ export default function useMasonry(
   React.useEffect(() => {
     if (MasonryLib !== null) {
       if (enable && masonryInstanceRef.current === null) {
+        console.log(`Creating masonry for ${id}`);
         masonryInstanceRef.current = new MasonryLib.default(getElement(id), {
           // itemSelector: ".col",
           // columnWidth: ".col",
@@ -20,6 +21,7 @@ export default function useMasonry(
           // horizontalOrder: true,
         });
       } else if (!enable && masonryInstanceRef.current !== null) {
+        console.log(`Destroying masonry for ${id}`);
         masonryInstanceRef.current?.destroy?.();
         masonryInstanceRef.current = null;
       }

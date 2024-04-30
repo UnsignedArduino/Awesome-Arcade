@@ -11,6 +11,7 @@ import HeroImage from "@/components/Images/HeroImage";
 import { ShareButton } from "@/components/Linkable/ShareButton";
 import { getReadingTime } from "@/scripts/Utils/Calculate/readingTime";
 import getElement from "@/scripts/Utils/Element";
+import { AnalyticEvents } from "@/components/Analytics";
 
 export default function BlogPost({
   data,
@@ -46,6 +47,9 @@ export default function BlogPost({
               data={{
                 text: `Check out the blog post ${data.post.title} by ${data.post.author} on Awesome Arcade!`,
                 url: `/blog/${data.post._sys.filename}`,
+              }}
+              onClick={() => {
+                AnalyticEvents.sendShare("blog", data.post.title);
               }}
               classNames="ms-1 btn btn-link m-0 p-0"
             />
