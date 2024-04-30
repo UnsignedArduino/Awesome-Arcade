@@ -33,7 +33,7 @@ export default function AllBlogAuthors(props: BlogAuthorProps) {
       <h1>All blog authors</h1>
       <p>Here is a list of all blog authors on Awesome Arcade.</p>
       {
-        <div className="p-3">
+        <div className="p-2">
           {props.blogAuthorPreviews.map((preview, index) => {
             return (
               <motion.div

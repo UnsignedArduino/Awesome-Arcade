@@ -64,7 +64,7 @@ export default function BlogPage(props: BlogProps) {
       </p>
       <h2>Latest blog posts</h2>
       {
-        <div className="p-3">
+        <div className="p-2">
           {props.blogPostPreviews.map((preview, index) => {
             return (
               <motion.div

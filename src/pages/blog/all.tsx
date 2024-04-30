@@ -34,7 +34,7 @@ export default function AllBlogPosts(props: BlogProps) {
       <h1>All blog posts</h1>
       <p>Here is a list of all blog posts on Awesome Arcade. Enjoy reading!</p>
       {
-        <div className="p-3">
+        <div className="p-2">
           {props.blogPostPreviews.map((preview, index) => {
             return (
               <motion.div
