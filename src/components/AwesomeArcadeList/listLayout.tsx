@@ -19,7 +19,7 @@ export default function ListLayoutButton({
     if (l) {
       setState(l as ListLayout);
     } else {
-      setState("grid");
+      setState("masonry");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
