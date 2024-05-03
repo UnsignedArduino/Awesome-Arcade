@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Tippy from "@tippyjs/react";
 import { Tool, ToolRef, URLLink } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
@@ -14,6 +13,7 @@ import { motion } from "framer-motion";
 import { ThemeContext } from "@/components/Navbar/ThemePicker";
 import { CARD_VARIANTS } from "@/animations/card";
 import { ACCENT_COLOR } from "@/themes/colors";
+import { ListLayout } from "@/components/AwesomeArcadeList/listLayout";
 
 export function AwesomeArcadeTool({
   tool,
@@ -210,21 +210,24 @@ export function AwesomeArcadeToolGroup({
   description,
   tools,
   pad,
+  layout = "grid",
 }: {
   title?: React.ReactNode | undefined;
   description?: React.ReactNode | undefined;
   tools: Tool[];
   pad?: boolean | undefined;
+  layout?: ListLayout;
 }): React.ReactNode {
-  const useFFMasonry = useFeatureIsOn("masonry");
-  const masonry = useMasonry(`${title}ToolRow`, useFFMasonry);
+  const masonry = useMasonry(`${title}ToolRow`, layout == "masonry");
 
   React.useEffect(() => {
-    setTimeout(() => {
-      masonry?.reloadItems?.();
-      masonry?.layout?.();
-    });
-  }, [useFFMasonry, masonry, tools]);
+    if (layout == "masonry") {
+      setTimeout(() => {
+        masonry?.reloadItems?.();
+        masonry?.layout?.();
+      });
+    }
+  }, [layout, masonry, tools]);
 
   const router = useRouter();
 

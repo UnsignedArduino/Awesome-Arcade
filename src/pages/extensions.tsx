@@ -12,6 +12,9 @@ import fetchExtensionsFromCMS from "@/scripts/FetchListsFromCMS/FetchExtensions"
 import { Extension } from "@/scripts/FetchListsFromCMS/types";
 import { smoothScrollToID } from "@/components/Linkable/Header";
 import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
+import ListLayoutButton, {
+  ListLayout,
+} from "@/components/AwesomeArcadeList/listLayout";
 
 const pageName = "Extensions";
 
@@ -118,6 +121,8 @@ export function Extensions({
     }
   }, [search, showJSOnlyExts, list]);
 
+  const [listLayout, setListLayout] = React.useState<ListLayout>("masonry");
+
   return (
     <Layout
       title={pageName}
@@ -197,6 +202,9 @@ export function Extensions({
             </label>
           </div>
         </div>
+        <div className="col-auto">
+          <ListLayoutButton state={listLayout} setState={setListLayout} />
+        </div>
       </div>
       <div>
         {resultCount != undefined ? (
@@ -205,7 +213,7 @@ export function Extensions({
             {resultCount !== 1 ? "s" : ""}.
           </p>
         ) : undefined}
-        <AwesomeArcadeExtensionsList list={filteredList} />
+        <AwesomeArcadeExtensionsList list={filteredList} layout={listLayout} />
       </div>
       <p>
         Looking for Awesome Arcade Tools? They have been moved to the{" "}
