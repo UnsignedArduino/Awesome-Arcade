@@ -15,6 +15,7 @@ import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
 import ListLayoutButton, {
   ListLayout,
 } from "@/components/AwesomeArcadeList/listLayout";
+import { ExtensionTableOfContents } from "@/components/AwesomeArcadeList/extensionTableOfContents";
 
 const pageName = "Extensions";
 
@@ -206,13 +207,21 @@ export function Extensions({
           <ListLayoutButton state={listLayout} setState={setListLayout} />
         </div>
       </div>
+      {resultCount != undefined ? (
+        <p>
+          Found {resultCount} extension
+          {resultCount !== 1 ? "s" : ""}.
+        </p>
+      ) : undefined}
+      <details>
+        <summary>
+          Table of contents{resultCount != undefined ? " (filtered)" : ""}
+        </summary>
+        <div>
+          <ExtensionTableOfContents list={filteredList} />
+        </div>
+      </details>
       <div>
-        {resultCount != undefined ? (
-          <p>
-            Found {resultCount} extension
-            {resultCount !== 1 ? "s" : ""}.
-          </p>
-        ) : undefined}
         <AwesomeArcadeExtensionsList list={filteredList} layout={listLayout} />
       </div>
       <p>

@@ -15,6 +15,7 @@ import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
 import ListLayoutButton, {
   ListLayout,
 } from "@/components/AwesomeArcadeList/listLayout";
+import { ToolTableOfContents } from "@/components/AwesomeArcadeList/toolTableOfContents";
 
 const pageName = "Tools";
 
@@ -187,12 +188,20 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
           <ListLayoutButton state={listLayout} setState={setListLayout} />
         </div>
       </div>
+      {resultCount != undefined ? (
+        <p>
+          Found {resultCount} tool{resultCount !== 1 ? "s" : ""}.
+        </p>
+      ) : undefined}
+      <details>
+        <summary>
+          Table of contents{resultCount != undefined ? " (filtered)" : ""}
+        </summary>
+        <div>
+          <ToolTableOfContents list={filteredList} />
+        </div>
+      </details>
       <div>
-        {resultCount != undefined ? (
-          <p>
-            Found {resultCount} tool{resultCount !== 1 ? "s" : ""}.
-          </p>
-        ) : undefined}
         <AwesomeArcadeToolsList list={filteredList} layout={listLayout} />
       </div>
       <p>
