@@ -13,7 +13,6 @@ import {
   URLLink,
 } from "@/scripts/FetchListsFromCMS/types";
 import { RichTextSectionRenderer } from "@/components/Blog/Elements";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
@@ -21,6 +20,7 @@ import { motion } from "framer-motion";
 import { ThemeContext } from "@/components/Navbar/ThemePicker";
 import { CARD_VARIANTS } from "@/animations/card";
 import { ACCENT_COLOR } from "@/themes/colors";
+import { ListLayout } from "@/components/AwesomeArcadeList/listLayout";
 
 export function AwesomeArcadeExtension({
   ext,
@@ -33,8 +33,6 @@ export function AwesomeArcadeExtension({
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
 }): React.ReactNode {
-  const useFFMasonry = useFeatureIsOn("masonry");
-
   const tippyJSLib = React.useContext(TippyJSLibContext);
   const [showCardActions, setShowCardActions] = React.useState(false);
   const [tooltip, setTooltip] = React.useState("Click to copy");
@@ -57,7 +55,7 @@ export function AwesomeArcadeExtension({
 
   return (
     <motion.div
-      className={`card ${pad ? "m-1 mb-2" : ""}${useFFMasonry ? "" : " h-100"}`}
+      className={`card ${pad ? "m-1 mb-2" : ""} h-100`}
       id={ext.repo}
       // initial={{ x: 300, opacity: 0 }}
       // animate={{ x: 0, opacity: 1 }}
@@ -259,22 +257,25 @@ export function AwesomeArcadeExtensionGroup({
   exts,
   showImportURL,
   pad,
+  layout = "grid",
 }: {
   title?: React.ReactNode | undefined;
   description?: React.ReactNode | undefined;
   exts: Extension[];
   showImportURL?: boolean | undefined;
   pad?: boolean | undefined;
+  layout?: ListLayout;
 }): React.ReactNode {
-  const useFFMasonry = useFeatureIsOn("masonry");
-  const masonry = useMasonry(`${title}ExtensionRow`, useFFMasonry);
+  const masonry = useMasonry(`${title}ExtensionRow`, layout == "masonry");
 
   React.useEffect(() => {
-    setTimeout(() => {
-      masonry?.reloadItems?.();
-      masonry?.layout?.();
-    });
-  }, [useFFMasonry, masonry, exts]);
+    if (layout === "masonry") {
+      setTimeout(() => {
+        masonry?.reloadItems?.();
+        masonry?.layout?.();
+      });
+    }
+  }, [layout, masonry, exts]);
 
   const router = useRouter();
 
