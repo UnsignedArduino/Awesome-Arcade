@@ -5,6 +5,7 @@ import { NavbarDropdownThemePicker } from "./ThemePicker";
 import icon from "../../../public/android-chrome-512x512.png";
 import { AppProps } from "../WithAppProps";
 import Profile from "@/components/Authentication/Profile";
+import NavbarDropdownListLayoutPicker from "@/components/AwesomeArcadeList/listLayout";
 
 const NavbarPages = {
   Home: "/",
@@ -122,6 +123,12 @@ function Navbar({
             </div>
           ) : undefined}
           <div className="d-flex d-inline d-md-none">
+            {(currentPage === "Extensions" || currentPage === "Tools") && (
+              <>
+                <NavbarDropdownListLayoutPicker />
+                <div className="vr mx-2" />
+              </>
+            )}
             {dontShowSignIn ? undefined : (
               <>
                 <Profile />
@@ -135,6 +142,12 @@ function Navbar({
           const elements: { key: string; html: React.ReactNode }[] = [];
           if (extraNavbarHTML) {
             elements.push({ key: "extraNavbarHTML", html: extraNavbarHTML });
+          }
+          if (currentPage === "Extensions" || currentPage === "Tools") {
+            elements.push({
+              key: "NavbarDropdownListLayoutPicker",
+              html: <NavbarDropdownListLayoutPicker alignEnd />,
+            });
           }
           if (!dontShowSignIn) {
             elements.push({ key: "Profile", html: <Profile /> });
