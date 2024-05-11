@@ -51,8 +51,8 @@ export default async function generateRSSFeed(
       link: `${siteURL}${post.link}`,
       author: [
         {
-          name: post.author.name,
-          link: `${siteURL}/blog/authors/${post.author.name}`,
+          name: post.author,
+          link: `https://github.com/${post.author}`,
         },
       ],
       image: post.heroImage ? `${siteURL}${post.heroImage}` : undefined,

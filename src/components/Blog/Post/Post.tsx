@@ -1,6 +1,6 @@
 import React from "react";
 import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
-import { Authors, PostQuery } from "../../../../tina/__generated__/types";
+import { PostQuery } from "../../../../tina/__generated__/types";
 import {
   RichTextSectionRenderer,
   ShortAuthorRenderer,
@@ -57,7 +57,7 @@ export default function BlogPost({
         )}
       </h1>
       <p className="placeholder-glow">
-        Written by <ShortAuthorRenderer author={data.post.author as Authors} />
+        Written by <ShortAuthorRenderer author={data.post.author} />
         <br />
         {data.post.createdAt != null ? (
           <>

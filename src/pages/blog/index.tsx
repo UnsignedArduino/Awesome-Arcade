@@ -1,7 +1,6 @@
 import client from "../../../tina/__generated__/client";
 import getAppProps, { AppProps } from "@/components/WithAppProps";
 import Layout from "@/components/Layout";
-import { Authors } from "../../../tina/__generated__/types";
 import React from "react";
 import BlogPostPreviewRenderer, {
   BlogPostPreview,
@@ -112,7 +111,7 @@ export async function getStaticProps(): Promise<{
     previews.push({
       title: post.title,
       heroImage: makeUndefinedNull(post.heroImage),
-      author: post.author as Authors,
+      author: post.author,
       description: post.description ?? "",
       createdAt: makeUndefinedNull(post.createdAt),
       lastUpdated: makeUndefinedNull(post.lastUpdated),

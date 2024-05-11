@@ -5,7 +5,10 @@ import { AnalyticEvents } from "@/components/Analytics";
 import { useRouter } from "next/router";
 import Tippy from "@tippyjs/react";
 import { Tool, ToolRef, URLLink } from "@/scripts/FetchListsFromCMS/types";
-import { RichTextSectionRenderer } from "@/components/Blog/Elements";
+import {
+  RichTextSectionRenderer,
+  ShortAuthorRenderer,
+} from "@/components/Blog/Elements";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
@@ -92,14 +95,7 @@ export function AwesomeArcadeTool({
           ) : undefined}
         </h5>
         <h6 className="card-subtitle mb-2 ttool-body-secondary">
-          Made by{" "}
-          <a
-            href={`https://github.com/${tool.author}`}
-            target="_blank"
-            rel="noopener noreferer"
-          >
-            {tool.author}
-          </a>
+          Made by <ShortAuthorRenderer author={tool.author} />
         </h6>
         <>
           Access this{" "}

@@ -12,7 +12,10 @@ import {
   ExtensionRef,
   URLLink,
 } from "@/scripts/FetchListsFromCMS/types";
-import { RichTextSectionRenderer } from "@/components/Blog/Elements";
+import {
+  RichTextSectionRenderer,
+  ShortAuthorRenderer,
+} from "@/components/Blog/Elements";
 import useMasonry from "@/hooks/useMasonry";
 import HashLink from "@/components/Linkable/HashLink";
 import { ShareButton } from "@/components/Linkable/ShareButton";
@@ -117,14 +120,7 @@ export function AwesomeArcadeExtension({
           ) : undefined}
         </h5>
         <h6 className="card-subtitle mb-2 text-body-secondary">
-          Made by{" "}
-          <a
-            href={`https://github.com/${ext.author}`}
-            target="_blank"
-            rel="noopener noreferer"
-          >
-            {ext.author}
-          </a>
+          Made by <ShortAuthorRenderer author={ext.author} />
         </h6>
         {showImportURL == undefined || showImportURL ? (
           <>
