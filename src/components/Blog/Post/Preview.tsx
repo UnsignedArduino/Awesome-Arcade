@@ -1,4 +1,3 @@
-import { Authors } from "../../../../tina/__generated__/types";
 import React from "react";
 import { ShortAuthorRenderer } from "@/components/Blog/Elements";
 import { formatDateAndTime } from "@/scripts/Utils/DateAndTime/Format";
@@ -10,7 +9,7 @@ import { motion } from "framer-motion";
 export type BlogPostPreview = {
   title: string;
   heroImage: string | null;
-  author: Authors;
+  author: string;
   description: string;
   createdAt: string | null;
   lastUpdated: string | null;

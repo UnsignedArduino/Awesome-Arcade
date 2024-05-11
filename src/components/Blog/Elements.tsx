@@ -1,7 +1,5 @@
 import { TinaMarkdown, TinaMarkdownContent } from "tinacms/dist/rich-text";
 import React from "react";
-import { Authors } from "../../../tina/__generated__/types";
-import Link from "next/link";
 import ThemedSyntaxHighlighter from "@/components/Themed/SyntaxHighlighter";
 import MakeCodeArcadeBlockDoc from "@/components/MakeCodeArcade/BlockDoc";
 import AutoLink from "@/components/Linkable/AutoLink";
@@ -63,17 +61,17 @@ export function AvatarImageRenderer({
 export function ShortAuthorRenderer({
   author,
 }: {
-  author: Authors;
+  author: string;
 }): React.ReactNode {
   return (
     <>
-      <Link href={`/blog/authors/${author.name}`}>
+      <AutoLink href={`https://github.com/${author}`}>
         <AvatarImageRenderer
-          url={author.avatarURL as string}
-          name={author.name}
+          url={`https://github.com/${author}.png`}
+          name={author}
         />{" "}
-        {author.name}
-      </Link>
+        {author}
+      </AutoLink>
     </>
   );
 }

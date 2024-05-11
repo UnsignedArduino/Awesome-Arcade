@@ -12,10 +12,7 @@ import { smoothScrollToID } from "@/components/Linkable/Header";
 import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
 import { Tool } from "@/scripts/FetchListsFromCMS/types";
 import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
-import ListLayoutButton, {
-  ListLayout,
-} from "@/components/AwesomeArcadeList/listLayout";
-import { ToolTableOfContents } from "@/components/AwesomeArcadeList/toolTableOfContents";
+import { ToolTableOfContents } from "@/components/AwesomeArcadeList/Tool/toolTableOfContents";
 
 const pageName = "Tools";
 
@@ -104,8 +101,6 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
     }
   }, [search, showNotWebsiteTools, list]);
 
-  const [listLayout, setListLayout] = React.useState<ListLayout>("masonry");
-
   return (
     <Layout
       title={pageName}
@@ -184,9 +179,6 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
             </label>
           </div>
         </div>
-        <div className="col-auto">
-          <ListLayoutButton state={listLayout} setState={setListLayout} />
-        </div>
       </div>
       {resultCount != undefined ? (
         <p>
@@ -202,7 +194,7 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
         </div>
       </details>
       <div>
-        <AwesomeArcadeToolsList list={filteredList} layout={listLayout} />
+        <AwesomeArcadeToolsList list={filteredList} />
       </div>
       <p>
         Looking for Awesome Arcade Extensions? They have been split up into the{" "}
