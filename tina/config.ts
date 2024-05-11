@@ -219,38 +219,6 @@ export default defineConfig({
         ],
       },
       {
-        name: "authors",
-        label: "Authors",
-        path: "content/authors",
-        fields: [
-          {
-            type: "string",
-            name: "name",
-            label: "Name",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "string",
-            name: "link",
-            label: "Link",
-            required: true,
-          },
-          {
-            type: "rich-text",
-            name: "bio",
-            label: "Bio",
-            required: true,
-            isBody: true,
-          },
-          {
-            type: "string",
-            name: "avatarURL",
-            label: "Avatar URL",
-          },
-        ],
-      },
-      {
         name: "post",
         label: "Posts",
         path: "content/posts",
@@ -266,8 +234,7 @@ export default defineConfig({
           {
             label: "Author",
             name: "author",
-            type: "reference",
-            collections: ["authors"],
+            type: "string",
             required: true,
           },
           {

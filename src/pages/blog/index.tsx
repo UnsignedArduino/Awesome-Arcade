@@ -109,7 +109,6 @@ export async function getStaticProps(): Promise<{
       continue;
     }
     const post = edge.node;
-    console.log(post);
     previews.push({
       title: post.title,
       heroImage: makeUndefinedNull(post.heroImage),
