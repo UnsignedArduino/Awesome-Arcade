@@ -373,6 +373,19 @@
                     ],
                     "searchable": true,
                     "uid": false
+                  },
+                  {
+                    "name": "blocksPkg",
+                    "label": "Package string",
+                    "type": "string",
+                    "namespace": [
+                      "post",
+                      "body",
+                      "MakeCodeArcadeBlockDoc",
+                      "blocksPkg"
+                    ],
+                    "searchable": true,
+                    "uid": false
                   }
                 ],
                 "namespace": ["post", "body", "MakeCodeArcadeBlockDoc"]
@@ -2607,6 +2620,14 @@
           {
             "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "python" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "blocksPkg" },
             "type": {
               "kind": "NamedType",
               "name": { "kind": "Name", "value": "StringFilter" }

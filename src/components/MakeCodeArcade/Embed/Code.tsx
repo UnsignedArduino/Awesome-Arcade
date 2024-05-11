@@ -46,23 +46,18 @@ export default function MakeCodeArcadeProjectCode({
           >
             {showCode ? "Hide" : "Show"} code
           </button>
-          {!showCode && (
-            <p>
-              <i>The blank space below is reserved for the code.</i>
-            </p>
-          )}
         </>
       )}
-      <div
-        className="mb-2"
-        style={{
-          position: "relative",
-          height: "calc(300px + 5em)",
-          width: "100%",
-          overflow: "hidden",
-        }}
-      >
-        {showCode && (
+      {showCode && (
+        <div
+          className="mb-2"
+          style={{
+            position: "relative",
+            height: "calc(300px + 5em)",
+            width: "100%",
+            overflow: "hidden",
+          }}
+        >
           <iframe
             style={{
               position: "absolute",
@@ -76,8 +71,8 @@ export default function MakeCodeArcadeProjectCode({
             frameBorder="0"
             sandbox="allow-scripts allow-same-origin"
           />
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

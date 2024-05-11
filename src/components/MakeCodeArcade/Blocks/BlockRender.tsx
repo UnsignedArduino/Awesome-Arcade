@@ -8,10 +8,12 @@ import inContextualEditor from "@/scripts/Utils/In/ContextualEditingMode";
 
 export default function BlockRender({
   js,
+  pkg,
   packageId,
   snippetMode,
 }: {
   js: string;
+  pkg?: string;
   packageId?: string;
   snippetMode?: boolean;
 }): React.ReactNode {
@@ -35,7 +37,7 @@ export default function BlockRender({
     }
     setBlockStatus("loading");
     functions
-      ?.renderBlocksToSVG(js, packageId, snippetMode)
+      ?.renderBlocksToSVG(js, pkg, packageId, snippetMode)
       .then((result) => {
         setSVG(result);
         setBlockStatus("loaded");
@@ -43,7 +45,7 @@ export default function BlockRender({
       .catch(() => {
         setBlockStatus("error");
       });
-  }, [showBlocks, functions, js, packageId, snippetMode]);
+  }, [showBlocks, functions, js, packageId, snippetMode, pkg]);
 
   function onContextualEditingPostAssist(event: CustomEvent) {
     if (event.detail === "showall") {

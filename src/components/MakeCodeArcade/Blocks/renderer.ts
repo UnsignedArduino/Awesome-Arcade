@@ -2,6 +2,7 @@ type MakeCodeArcadeBlockRendererParams = {
   code: string;
   id: string;
   packageId?: string;
+  package?: string;
   snippetMode?: boolean;
   callback: (result: MakeCodeArcadeBlockRendererResult) => void;
 };
@@ -60,6 +61,7 @@ export class MakeCodeArcadeBlockRenderer {
 
   public renderBlocksToSVG(
     js: string,
+    pkg?: string,
     packageId?: string,
     snippetMode?: boolean,
   ): Promise<MakeCodeArcadeBlockRendererResult> {
@@ -68,6 +70,7 @@ export class MakeCodeArcadeBlockRenderer {
         code: js,
         id: `${this.nextID++}`,
         packageId,
+        package: pkg,
         snippetMode,
         callback: (result: MakeCodeArcadeBlockRendererResult) => {
           resolve(result);
@@ -126,6 +129,7 @@ export class MakeCodeArcadeBlockRenderer {
         code: params.code,
         options: {
           packageId: params.packageId,
+          package: params.package,
           snippetMode: params.snippetMode,
         },
       },

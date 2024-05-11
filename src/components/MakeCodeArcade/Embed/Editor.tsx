@@ -46,23 +46,18 @@ export default function MakeCodeArcadeProjectEditor({
           >
             {showEditor ? "Hide" : "Show"} editor
           </button>
-          {!showEditor && (
-            <p>
-              <i>The blank space below is reserved for the editor.</i>
-            </p>
-          )}
         </>
       )}
-      <div
-        className="mb-2"
-        style={{
-          position: "relative",
-          height: 0,
-          paddingBottom: "50vh",
-          overflow: "hidden",
-        }}
-      >
-        {showEditor && (
+      {showEditor && (
+        <div
+          className="mb-2"
+          style={{
+            position: "relative",
+            height: 0,
+            paddingBottom: "50vh",
+            overflow: "hidden",
+          }}
+        >
           <iframe
             style={{
               position: "absolute",
@@ -75,8 +70,8 @@ export default function MakeCodeArcadeProjectEditor({
             frameBorder="0"
             sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
           />
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

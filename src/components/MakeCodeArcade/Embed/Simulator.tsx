@@ -46,23 +46,18 @@ export default function MakeCodeArcadeProjectSimulator({
           >
             {showSim ? "Hide" : "Show"} simulator
           </button>
-          {!showSim && (
-            <p>
-              <i>The blank space below is reserved for the simulator.</i>
-            </p>
-          )}
         </>
       )}
-      <div
-        className="mb-2"
-        style={{
-          position: "relative",
-          height: 0,
-          paddingBottom: "calc(min(100%, 364px))",
-          overflow: "hidden",
-        }}
-      >
-        {showSim && (
+      {showSim && (
+        <div
+          className="mb-2"
+          style={{
+            position: "relative",
+            height: 0,
+            paddingBottom: "calc(min(100%, 364px))",
+            overflow: "hidden",
+          }}
+        >
           <iframe
             style={{
               position: "absolute",
@@ -76,8 +71,8 @@ export default function MakeCodeArcadeProjectSimulator({
             sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
             frameBorder="0"
           />
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }
