@@ -6,19 +6,30 @@ export default function MakeCodeArcadeBlockDoc({
   blocksJS,
   javascript,
   python,
+  blocksPkg,
 }: {
   blocksJS: string;
   javascript: string;
   python: string;
+  blocksPkg?: string;
 }): React.ReactNode {
   return (
     <div>
-      <BlockRender js={blocksJS} snippetMode={true} />
+      <BlockRender
+        js={blocksJS}
+        caption={
+          <>
+            Blocks for <code>{blocksJS}</code>.
+          </>
+        }
+        pkg={blocksPkg}
+        snippetMode={true}
+      />
       <ThemedSyntaxHighlighter language="js">
-        {javascript}
+        {"// JavaScript\n" + javascript}
       </ThemedSyntaxHighlighter>
       <ThemedSyntaxHighlighter language="python">
-        {python}
+        {"# Python\n" + python}
       </ThemedSyntaxHighlighter>
     </div>
   );

@@ -306,6 +306,11 @@ export default defineConfig({
                       component: "textarea",
                     },
                   },
+                  {
+                    name: "blocksPkg",
+                    label: "Package string",
+                    type: "string",
+                  },
                 ],
               },
               {
