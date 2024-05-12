@@ -1,0 +1,118 @@
+---
+title: Animating Sprites in MakeCode Arcade
+author: UnsignedArduino
+heroImage: ""
+description: >-
+  Adding animations to sprites is a common method in making games look polished
+  and professional. Learn how to add animations to your MakeCode Arcade games!
+  This is part 1 of a 3-part series.
+tags:
+  - Sprites
+  - Animations
+createdAt: 2024-05-12T04:10:00.000Z
+lastUpdated:
+---
+
+Animations are a good way to make a game look polished and professional. Many popular games on the MakeCode Forums use animations of all types. I'll be going over how to add animations to all areas of your MakeCode Arcade games to make them look beautiful!
+
+This will be a three-part series, this blog post will go over animating sprites. The next posts will go over animating backgrounds and tiles.
+
+(All code will be provided in blocks unless specified - click the edit button in the embedded editors to open the project. If you want the JavaScript or Python versions, open the project and convert it to the preferred programming language.)
+
+## Adding animations to sprites
+
+It's extremely common to add animations to sprites such as projectiles a character shoots or coins in a level. There are two main types of sprite animations: simple animations that don't depend on state, and more complex animations that depend on what the sprite is doing. (such as moving in a certain direction)
+
+### Simple animations
+
+For simple animations that don't depend on a state, use the animation blocks in the `Animation` category. (it's hidden under the `Advanced` expander)
+
+There are two different main blocks in the `Animation` category: one for animating a sprite's frames and one for animating a sprite's movement.
+
+#### Image animations
+
+<MakeCodeArcadeBlockDoc
+  javascript="function animation.runImageAnimation(sprite: Sprite, frames: Image[], frameInterval: number, loop: boolean): void;"
+  python="def animation.run_image_animation(sprite: Sprite, frames: List[Image], frameInterval: number, loop: bool): None"
+  blocksJS="animation.runImageAnimation(mySprite, [], 500, false);"
+/>
+
+This block will change the image on a sprite at every interval you specify, (each frame lasts the same amount of time) running through all the frames. You can enable looping to repeat the animation after it finishes. For more information, find the block in the toolbox and right click it for documentation.
+
+#### Movement animations
+
+<MakeCodeArcadeBlockDoc
+  javascript="function animation.runMovementAnimation(sprite: Sprite, pathString: string, duration: number, loop: boolean): void;"
+  python="def animation.run_movement_animation(sprite: Sprite, pathString: str, duration: number, loop: bool): None"
+  blocksJS="animation.runMovementAnimation(mySprite, animation.animationPresets(animation.flyToCenter), 2000, false);"
+/>
+
+This block will change the movement of a sprite. (the entire movement animation lasts some amount of time) You can enable looping to repeat the animation after it finishes. For more information, find the block in the toolbox and right click it for documentation.
+
+You can also use [SVG paths](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths) by dragging in a string block (the first block in the `Text` category) and writing SVG paths directly in the string block. For example, `m 10 5 m -10 -5` will move the sprite relatively 10px right and 5px down and then move it 10px left and 5px up. (using capitals will use absolute positioning) The duration will be evenly distributed across all the steps.
+
+Funny enough, at the time of writing this (which will be a long time ago since it takes me a while to write these 🤭) @richard on the MakeCode Forums had just released a quick guide on [this exact block](https://forum.makecode.com/t/richards-arcade-tips-1-svg-paths-for-moving-sprites/28212?u=unsignedarduino)! Check it out if you want a more detailed guide on SVG pathing in MakeCode Arcade.
+
+You can combine these two blocks to give animations to a coin sprite, for example:
+
+<MakeCodeArcadeProjectEditor id="_WFUHct0MXgvj" />
+
+Which gives you the following output:
+
+<MakeCodeArcadeProjectSimulator id="_WFUHct0MXgvj" />
+
+### State animations
+
+Although the built-in animation blocks are helpful in animating simple sprites, we often have players, enemies, etc. in our games that have many character animations based on a certain state, usually the direction they are facing.
+
+A great extension for this is the `arcade-character-animations` extension in the recommended list of extensions - search for "arcade character animations" to find this one:
+
+![](</assets/blog/Animating-Sprites-in-MakeCode-Arcade/extension-card arcade-character-animations.png>)
+
+A new category `Character` in the toolbox will show up. There are two blocks that we care about the most, which look similar to the blocks before:
+
+#### Looping animations while a state is true
+
+<MakeCodeArcadeBlockDoc
+  javascript="function characterAnimations.loopFrames(sprite: Sprite, frames: Image[], frameInterval: number, rule: number): void;"
+  python="def characterAnimations.loop_frames(sprite: Sprite, frames: List[Image], frameInterval: number, rule: Rule): None"
+  blocksJS="characterAnimations.loopFrames(mySprite, [img`.`], 500, characterAnimations.rule(Predicate.NotMoving));"
+  blocksPkg="arcade-story=github:microsoft/arcade-character-animations"
+/>
+
+This block will continuously loop the animation as long as a certain rule is true. For example, you can run your walking right animation while the sprite is moving right!
+
+#### Running an animation when a state becomes true
+
+<MakeCodeArcadeBlockDoc
+  blocksJS="characterAnimations.runFrames(mySprite, [img`.`], 500, characterAnimations.rule(Predicate.NotMoving));"
+  blocksPkg="arcade-story=github:microsoft/arcade-character-animations"
+  javascript="function characterAnimations.runFrames(sprite: Sprite, frames: Image[], frameInterval: number, rule: number): void;"
+  python="def characterAnimations.run_frames(sprite: Sprite, frames: List[Image], frameInterval: number, rule: Rule): None"
+/>
+
+This block will run the animation once a rule becomes true. For example, you can run an animation once a sprite hits the floor. I often use this block so that when a character stops moving, the animation ends correctly.
+
+Here is an example that uses both blocks in the character animations extension:
+
+<MakeCodeArcadeProjectEditor id="_58tYRLWH6Xzk" />
+
+Which gives you the following output:
+
+<MakeCodeArcadeProjectSimulator id="_58tYRLWH6Xzk" />
+
+## Combing it all together
+
+With all these blocks, we can create smooth and fluid animations that will greatly enhance the appeal of our games!
+
+The example below demonstrates the features of all the blocks in order to animate a character in a platformer:
+
+<MakeCodeArcadeProjectEditor id="_W8tCem0Jme7P" />
+
+It uses another recommended extension called `timers` that allow you to schedule code to run after a certain amount of time has passed. In our case, it is used to renable the extension after all the fighting has ended.
+
+And here is the result:
+
+<MakeCodeArcadeProjectSimulator id="_W8tCem0Jme7P" />
+
+Thanks for reading, I hope this post helped you! Don't forget to subscribe to this blog with [RSS](/rss.xml "RSS") to know when a new blog is posted!

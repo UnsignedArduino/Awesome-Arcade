@@ -11,11 +11,13 @@ export default function BlockRender({
   pkg,
   packageId,
   snippetMode,
+  caption,
 }: {
   js: string;
   pkg?: string;
   packageId?: string;
   snippetMode?: boolean;
+  caption?: React.ReactNode | string;
 }): React.ReactNode {
   const inEditor = inContextualEditor();
 
@@ -82,9 +84,13 @@ export default function BlockRender({
             height={svg.height}
             alt={`Block for ${js}`}
             caption={
-              <>
-                Block for <code>{js}</code>
-              </>
+              caption ? (
+                caption
+              ) : (
+                <>
+                  Block for <code>{js}</code>
+                </>
+              )
             }
           />
         </div>
