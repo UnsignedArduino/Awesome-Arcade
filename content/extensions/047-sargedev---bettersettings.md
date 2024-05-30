@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/S0m3randomguy/bettersettings"
+repo: "https://github.com/sargedev/bettersettings"
 links:
   - title: Forum post
     url: >-

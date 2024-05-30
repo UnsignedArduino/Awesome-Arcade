@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/S0m3randomguy/control"
+repo: "https://github.com/sargedev/control"
 links:
   - title: Forum post
     url: >-

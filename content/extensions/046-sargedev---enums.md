@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/S0m3randomguy/enums"
+repo: "https://github.com/sargedev/enums"
 links:
   - title: Forum post
     url: >-
