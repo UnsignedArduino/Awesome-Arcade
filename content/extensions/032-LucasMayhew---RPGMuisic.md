@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/LucasMayhew/RPGMuisic"
+repo: "https://github.com/D4ngerKitty/RPGMuisic"
 links:
   - title: Forum post
     url: >-
@@ -8,4 +8,4 @@ links:
     url: "https://arcade.makecode.com/06547-32796-52098-57963"
 ---
 
-This extension adds another category called `Music` which contains a block to play some (very nice) looping music made by @LucasMayhew!
+This extension adds another category called `Music` which contains a block to play some (very nice) looping music made by @D4ngerKitty!
