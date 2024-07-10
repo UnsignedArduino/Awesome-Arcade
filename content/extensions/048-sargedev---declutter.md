@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/S0m3randomguy/declutter"
+repo: "https://github.com/sargedev/declutter"
 links:
   - title: Forum post
     url: >-
