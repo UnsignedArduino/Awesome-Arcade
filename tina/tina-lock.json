@@ -1,10 +1,10 @@
 {
   "schema": {
     "version": {
-      "fullVersion": "1.4.33",
+      "fullVersion": "1.4.36",
       "major": "1",
       "minor": "4",
-      "patch": "33"
+      "patch": "36"
     },
     "meta": { "flags": ["experimentalData"] },
     "collections": [
@@ -3045,6 +3045,38 @@
                   "type": {
                     "kind": "NamedType",
                     "name": { "kind": "Name", "value": "DocumentMutation" }
+                  }
+                }
+              }
+            ],
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": { "kind": "Name", "value": "DocumentNode" }
+              }
+            }
+          },
+          {
+            "kind": "FieldDefinition",
+            "name": { "kind": "Name", "value": "createFolder" },
+            "arguments": [
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "collection" },
+                "type": {
+                  "kind": "NamedType",
+                  "name": { "kind": "Name", "value": "String" }
+                }
+              },
+              {
+                "kind": "InputValueDefinition",
+                "name": { "kind": "Name", "value": "relativePath" },
+                "type": {
+                  "kind": "NonNullType",
+                  "type": {
+                    "kind": "NamedType",
+                    "name": { "kind": "Name", "value": "String" }
                   }
                 }
               }

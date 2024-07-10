@@ -59,6 +59,7 @@ export default function ContextualEditingPostAssist(): React.ReactNode {
             <p>In contextual editing mode. Here are some helpful links:</p>
             {(() => {
               const links = [
+                "https://github.com/users/UnsignedArduino/projects/3",
                 "https://arcade.makecode.com/blocks-embed",
                 "https://makecode.com/writing-docs/snippets#package",
               ];
