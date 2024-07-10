@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/S0m3randomguy/string-formatting"
+repo: "https://github.com/sargedev/string-formatting"
 links:
   - title: Forum post
     url: >-
