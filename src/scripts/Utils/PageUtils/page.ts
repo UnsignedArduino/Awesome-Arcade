@@ -10,9 +10,13 @@ export function isExternalLink(url: string): boolean {
       "https://awesome-arcade.vercel.app",
       "https://awesome-arcade-beta.vercel.app",
     ];
-    return !urls.some((u) => {
-      return new URL(url).host === new URL(u).host;
-    });
+    try {
+      return !urls.some((u) => {
+        return new URL(url).host === new URL(u).host;
+      });
+    } catch {
+      return false;
+    }
   }
 }
 
