@@ -8,24 +8,32 @@ export function smoothScrollHash(
   e.preventDefault();
   const href = e.currentTarget.href;
   setTimeout(() => {
-    const hash = href.split("#")[1];
-    console.log(`Smooth scrolling to ${hash}`);
-    smoothScrollToID(hash);
-    window.dispatchEvent(new HashChangeEvent("hashchange", { newURL: href }));
+    const newHash = href.split("#")[1];
+    console.log(`Smooth scrolling to ${newHash}`);
+    smoothScrollToID(newHash);
   });
 }
 
 export function smoothScrollToID(id: string) {
   const u = new URL(window.location.toString());
+  if (u.hash === `#${id}`) {
+    console.log("Already scrolled to hash, removing it");
+    id = "";
+  }
   u.hash = id;
   setTimeout(() => {
     window.history.replaceState({}, "", u.toString());
   });
-  const e = document.getElementById(id);
-  e?.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-  });
+  if (id.length > 0) {
+    const e = document.getElementById(id);
+    e?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+  window.dispatchEvent(
+    new HashChangeEvent("hashchange", { newURL: u.toString() }),
+  );
 }
 
 export function LinkableH2({

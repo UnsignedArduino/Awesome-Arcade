@@ -47,8 +47,8 @@ export function AwesomeArcadeToolCard({
                   : "rgba(255,255,255,0.15)",
             }
       }
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
+      // whileHover={{ scale: 1.01 }}
+      // whileTap={{ scale: 0.99 }}
       // exit={{ x: 300, opacity: 0 }}
       transition={{
         type: "spring",

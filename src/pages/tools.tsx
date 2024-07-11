@@ -138,10 +138,17 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
           </label>
         </div>
         <div className="col-auto">
+          <style>
+            {`
+              input[type=search]::-webkit-search-cancel-button {
+                -webkit-appearance: searchfield-cancel-button;
+              }
+            `}
+          </style>
           <Tippy content="Search tools by author, name, or URL!">
             <input
               id="searchBar"
-              type="text"
+              type="search"
               className="form-control"
               placeholder="Search tools by author, name, or URL!"
               defaultValue={search}

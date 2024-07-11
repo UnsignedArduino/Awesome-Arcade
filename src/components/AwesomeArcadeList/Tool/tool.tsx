@@ -69,7 +69,10 @@ export function AwesomeArcadeToolGroup({
   }, [router.events]);
 
   return (
-    <div className={pad == undefined || pad ? "mb-3" : ""}>
+    <div
+      className={pad == undefined || pad ? "mb-3" : ""}
+      style={{ overflow: "hidden" }}
+    >
       {title}
       {description}
       {(() => {
