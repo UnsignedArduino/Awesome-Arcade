@@ -1,6 +1,6 @@
 export function isExternalLink(url: string): boolean {
   if (url.startsWith("/")) {
-    return true;
+    return false;
   }
   try {
     return new URL(url).host !== window.location.host;
