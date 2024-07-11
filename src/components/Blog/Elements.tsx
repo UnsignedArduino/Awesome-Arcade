@@ -18,6 +18,23 @@ const tinaComponents = {
       </ThemedSyntaxHighlighter>
     );
   },
+  Quote: (props: any) => {
+    return (
+      <div className="border-start border-secondary border-2 ps-2">
+        <blockquote cite={props.originalPlaceURL}>
+          <RichTextSectionRenderer content={props.quote} />
+          <footer>
+            —<AutoLink href={props.authorNameURL}>{props.authorName}</AutoLink>,{" "}
+            <cite>
+              <AutoLink href={props.originalPlaceURL}>
+                {props.originalPlace}
+              </AutoLink>
+            </cite>
+          </footer>
+        </blockquote>
+      </div>
+    );
+  },
   MakeCodeArcadeBlockDoc,
   MakeCodeArcadeProjectCode,
   MakeCodeArcadeProjectEditor,

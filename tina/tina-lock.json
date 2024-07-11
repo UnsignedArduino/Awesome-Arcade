@@ -329,6 +329,55 @@
             "isBody": true,
             "templates": [
               {
+                "name": "Quote",
+                "label": "Quote",
+                "fields": [
+                  {
+                    "name": "quote",
+                    "label": "Quote",
+                    "type": "rich-text",
+                    "required": true,
+                    "namespace": ["post", "body", "Quote", "quote"],
+                    "searchable": true,
+                    "parser": { "type": "mdx" },
+                    "uid": false
+                  },
+                  {
+                    "name": "originalPlace",
+                    "label": "Original place",
+                    "type": "string",
+                    "namespace": ["post", "body", "Quote", "originalPlace"],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "name": "originalPlaceURL",
+                    "label": "Original place URL",
+                    "type": "string",
+                    "namespace": ["post", "body", "Quote", "originalPlaceURL"],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "name": "authorName",
+                    "label": "Author",
+                    "type": "string",
+                    "namespace": ["post", "body", "Quote", "authorName"],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "name": "authorNameURL",
+                    "label": "Author URL",
+                    "type": "string",
+                    "namespace": ["post", "body", "Quote", "authorNameURL"],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": ["post", "body", "Quote"]
+              },
+              {
                 "name": "MakeCodeArcadeBlockDoc",
                 "label": "MakeCode Arcade Block Documentation",
                 "fields": [
@@ -2596,6 +2645,52 @@
       },
       {
         "kind": "InputObjectTypeDefinition",
+        "name": { "kind": "Name", "value": "PostBodyQuoteFilter" },
+        "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "quote" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "RichTextFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "originalPlace" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "originalPlaceURL" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "authorName" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          },
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "authorNameURL" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "StringFilter" }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "InputObjectTypeDefinition",
         "name": {
           "kind": "Name",
           "value": "PostBodyMakeCodeArcadeBlockDocFilter"
@@ -2690,6 +2785,14 @@
         "kind": "InputObjectTypeDefinition",
         "name": { "kind": "Name", "value": "PostBodyFilter" },
         "fields": [
+          {
+            "kind": "InputValueDefinition",
+            "name": { "kind": "Name", "value": "Quote" },
+            "type": {
+              "kind": "NamedType",
+              "name": { "kind": "Name", "value": "PostBodyQuoteFilter" }
+            }
+          },
           {
             "kind": "InputValueDefinition",
             "name": { "kind": "Name", "value": "MakeCodeArcadeBlockDoc" },

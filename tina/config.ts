@@ -279,6 +279,38 @@ export default defineConfig({
             isBody: true,
             templates: [
               {
+                name: "Quote",
+                label: "Quote",
+                fields: [
+                  {
+                    name: "quote",
+                    label: "Quote",
+                    type: "rich-text",
+                    required: true,
+                  },
+                  {
+                    name: "originalPlace",
+                    label: "Original place",
+                    type: "string",
+                  },
+                  {
+                    name: "originalPlaceURL",
+                    label: "Original place URL",
+                    type: "string",
+                  },
+                  {
+                    name: "authorName",
+                    label: "Author",
+                    type: "string",
+                  },
+                  {
+                    name: "authorNameURL",
+                    label: "Author URL",
+                    type: "string",
+                  },
+                ],
+              },
+              {
                 name: "MakeCodeArcadeBlockDoc",
                 label: "MakeCode Arcade Block Documentation",
                 fields: [
