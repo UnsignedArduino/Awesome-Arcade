@@ -24,7 +24,7 @@ export default function BlogPostPreviewRenderer({
   const [showCardActions, setShowCardActions] = React.useState(false);
 
   return (
-    <>
+    <div className="col h-100">
       <motion.div
         // initial={{ x: 300, opacity: 0 }}
         // animate={{ x: 0, opacity: 1 }}
@@ -36,7 +36,7 @@ export default function BlogPostPreviewRenderer({
           stiffness: 260,
           damping: 20,
         }}
-        className="card mb-2"
+        className="card h-100"
       >
         {preview.heroImage && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -95,6 +95,6 @@ export default function BlogPostPreviewRenderer({
           </Link>
         </div>
       </motion.div>
-    </>
+    </div>
   );
 }

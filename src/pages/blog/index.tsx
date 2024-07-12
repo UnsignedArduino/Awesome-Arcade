@@ -63,7 +63,7 @@ export default function BlogPage(props: BlogProps) {
       </p>
       <h2>Latest blog posts</h2>
       {
-        <div className="p-2">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 px-1 pt-1 pb-3">
           {props.blogPostPreviews.map((preview, index) => {
             return (
               <motion.div
@@ -131,7 +131,7 @@ export async function getStaticProps(): Promise<{
 
   await fs.writeFile("./public/rss.xml", await generateRSSFeed(previews));
 
-  previews.splice(5);
+  previews.splice(4);
 
   return {
     props: {

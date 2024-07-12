@@ -66,10 +66,7 @@ export function Legal({ appProps }: { appProps: AppProps }): React.ReactNode {
         </a>
         .
       </p>
-      <QuickLinkCards
-        quickLinks={legalLinks}
-        divColumnClasses="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
-      />
+      <QuickLinkCards quickLinks={legalLinks} />
       <p>
         If you have any problems, you can join me on{" "}
         <a
