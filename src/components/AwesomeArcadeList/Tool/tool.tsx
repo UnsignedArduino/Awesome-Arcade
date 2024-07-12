@@ -78,8 +78,6 @@ export function AwesomeArcadeToolGroup({
       {(() => {
         switch (layout) {
           case "masonry":
-          case "grid":
-          default:
             return (
               <div
                 id={`${title}ToolRow`}
@@ -89,6 +87,40 @@ export function AwesomeArcadeToolGroup({
                   return (
                     <motion.div
                       className="col py-3"
+                      key={tool.repo}
+                      custom={index}
+                      variants={CARD_VARIANTS}
+                      initial="initial"
+                      animate="animate"
+                      whileHover="whileHover"
+                      whileTap="whileTap"
+                      transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                      }}
+                    >
+                      <AwesomeArcadeToolCard
+                        tool={tool}
+                        highlight={tool.repo === toolToHighlight}
+                        pad={index < tools.length - 1 || true}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </div>
+            );
+          case "grid":
+          default:
+            return (
+              <div
+                id={`${title}ToolRow`}
+                className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3"
+              >
+                {tools.map((tool, index) => {
+                  return (
+                    <motion.div
+                      className="col py-1"
                       key={tool.repo}
                       custom={index}
                       variants={CARD_VARIANTS}

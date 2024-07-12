@@ -33,7 +33,7 @@ export default function AllBlogPosts(props: BlogProps) {
       <h1>All blog posts</h1>
       <p>Here is a list of all blog posts on Awesome Arcade. Enjoy reading!</p>
       {
-        <div className="p-2">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 px-1 pt-1 pb-3">
           {props.blogPostPreviews.map((preview, index) => {
             return (
               <motion.div

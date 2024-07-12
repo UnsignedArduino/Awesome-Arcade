@@ -6,7 +6,7 @@ import { CARD_VARIANTS } from "@/animations/card";
 
 export default function QuickLinkCards({
   quickLinks,
-  divColumnClasses = "row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4",
+  divColumnClasses = "row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3 px-1 pt-1 pb-3",
 }: {
   quickLinks: QuickLink[];
   divColumnClasses?: string;
@@ -28,7 +28,6 @@ export default function QuickLinkCards({
                 stiffness: 260,
                 damping: 20,
               }}
-              className="p-3"
               key={`help-card-${index}`}
             >
               <div className="col h-100" key={`help-card-${index}`}>

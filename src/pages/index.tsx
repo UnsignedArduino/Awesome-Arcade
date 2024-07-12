@@ -53,10 +53,7 @@ export function Home({ appProps }: HomeProps): React.ReactNode {
         This is a website of awesome MakeCode Arcade extensions and tools that I
         find super useful (or just plain cool) in my projects.
       </p>
-      <QuickLinkCards
-        quickLinks={quickLinks}
-        divColumnClasses="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2"
-      />
+      <QuickLinkCards quickLinks={quickLinks} />
       <p>
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
