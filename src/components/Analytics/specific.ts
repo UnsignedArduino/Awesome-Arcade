@@ -31,4 +31,12 @@ export namespace AnalyticEvents {
       variationId,
     });
   }
+
+  export function setUserPreferredTheme(
+    theme: "light" | "dark" | "auto light" | "auto dark",
+  ) {
+    // https://ithoughthecamewithyou.com/post/user-scoped-custom-dimensions-in-google-analytics-4-using-gtag
+    // console.log(`Setting user preferred theme to ${theme}`);
+    window.gtag("set", "user_properties", { theme: theme });
+  }
 }
