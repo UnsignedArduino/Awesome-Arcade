@@ -5,8 +5,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "katex/dist/katex.min.css";
 import "tippy.js/dist/tippy.css";
-import Adsense from "../components/Adsense";
-import Analytics from "../components/Analytics";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -115,8 +113,8 @@ export default function AwesomeArcadeExtensions({
               options={{ showSpinner: false }}
             />
             <GoogleTagManager id={process.env.NEXT_PUBLIC_GTM_ID!} />
-            <Analytics />
-            <Adsense />
+            {/*<Analytics />*/}
+            {/*<Adsense />*/}
             <GrowthBookProvider growthbook={growthbook}>
               <SessionProvider session={session}>
                 <AnimatePresence
