@@ -6,6 +6,13 @@ export function Adsense(): React.ReactNode {
   const [useGA, setUseGA] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    if (
+      process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID === "pub-XXXXXXXXXXXXXXXX" ||
+      !process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
+    ) {
+      // console.info("No publisher ID provided, disabling Google Adsense");
+      return;
+    }
     if (getEnvironment() === "development") {
       if (process.env.NEXT_PUBLIC_ENABLE_ADS) {
         console.info("Enabling Google Adsense during development");
@@ -13,12 +20,6 @@ export function Adsense(): React.ReactNode {
         console.info("Google Adsense disabled during development");
         return;
       }
-    } else if (
-      process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID === "pub-XXXXXXXXXXXXXXXX" ||
-      !process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
-    ) {
-      // console.info("No publisher ID provided, disabling Google Adsense");
-      return;
     }
 
     setUseGA(true);
