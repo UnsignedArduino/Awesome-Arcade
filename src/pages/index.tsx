@@ -13,6 +13,7 @@ import darkExtensions from "../assets/images/index/for-dark-theme/extensions.png
 import lightExtensions from "../assets/images/index/for-light-theme/extensions.png";
 import darkTools from "../assets/images/index/for-dark-theme/tools.png";
 import lightTools from "../assets/images/index/for-light-theme/tools.png";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 
 const pageName = "Home";
 
@@ -21,6 +22,8 @@ type HomeProps = { appProps: AppProps };
 export function Home({ appProps }: HomeProps): React.ReactNode {
   const { data: session } = useSession();
 
+  const showImages = useFeatureIsOn("home-page-card-images");
+
   // https://arcade.makecode.com/S14537-75361-35697-31523
   const quickLinks: QuickLink[] = [
     {
@@ -28,23 +31,27 @@ export function Home({ appProps }: HomeProps): React.ReactNode {
       description: `A list of ${Math.floor(appProps.extensionsListed / 10) * 10}+ awesome MakeCode Arcade extensions to further your games!`,
       link: "/extensions",
       linkText: "View awesome extensions",
-      image: {
-        darkTheme: darkExtensions,
-        lightTheme: lightExtensions,
-        altText:
-          "A picture of the MakeCode Arcade extension puzzle piece icon in MakeCode Arcade image style.",
-      },
+      image: showImages
+        ? {
+            darkTheme: darkExtensions,
+            lightTheme: lightExtensions,
+            altText:
+              "A picture of the MakeCode Arcade extension puzzle piece icon in MakeCode Arcade image style.",
+          }
+        : undefined,
     },
     {
       name: "Tools",
       description: `A list of ${Math.floor(appProps.toolsListed / 10) * 10}+ awesome MakeCode Arcade tools to help you develop great games!`,
       link: "/tools",
       linkText: "View awesome tools",
-      image: {
-        darkTheme: darkTools,
-        lightTheme: lightTools,
-        altText: "A picture of tools in MakeCode Arcade image style.",
-      },
+      image: showImages
+        ? {
+            darkTheme: darkTools,
+            lightTheme: lightTools,
+            altText: "A picture of tools in MakeCode Arcade image style.",
+          }
+        : undefined,
     },
     {
       name: "Blog",
@@ -52,11 +59,13 @@ export function Home({ appProps }: HomeProps): React.ReactNode {
         "Read about the latest news and updates in the MakeCode Arcade world!",
       link: "/blog",
       linkText: "Read the blog",
-      image: {
-        darkTheme: darkBlog,
-        lightTheme: lightBlog,
-        altText: "A picture of a newspaper in MakeCode Arcade image style.",
-      },
+      image: showImages
+        ? {
+            darkTheme: darkBlog,
+            lightTheme: lightBlog,
+            altText: "A picture of a newspaper in MakeCode Arcade image style.",
+          }
+        : undefined,
     },
   ];
 
