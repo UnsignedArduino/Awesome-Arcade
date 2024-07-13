@@ -1,4 +1,5 @@
 import React from "react";
+import { AnalyticEvents } from "@/components/Analytics/specific";
 
 export type Theme = "Light" | "Dark";
 export type ThemeOptions = Theme | "Auto";
@@ -175,6 +176,16 @@ export function ThemeProxy({
         }),
       );
       window.localStorage.setItem("theme", dropdownTheme);
+
+      if (dropdownTheme === "Auto") {
+        AnalyticEvents.setUserPreferredTheme(
+          osWantsDark.matches ? "auto dark" : "auto light",
+        );
+      } else {
+        AnalyticEvents.setUserPreferredTheme(
+          dropdownTheme.toLowerCase() as "light" | "dark",
+        );
+      }
     }
   }, [dropdownTheme, loadedPreferredTheme]);
 

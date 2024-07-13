@@ -1,4 +1,5 @@
 import React from "react";
+import { AnalyticEvents } from "@/components/Analytics/specific";
 
 const ListLayouts = ["masonry", "grid", "github"] as const;
 export type ListLayout = (typeof ListLayouts)[number];
@@ -28,12 +29,10 @@ export default function NavbarDropdownListLayoutPicker({
   const [layout, setLayout] = React.useState<ListLayout>("masonry");
 
   React.useEffect(() => {
-    const l = window.localStorage.getItem("listLayout");
-    if (l) {
-      setLayout(l as ListLayout);
-    } else {
-      setLayout("masonry");
-    }
+    const l = (window.localStorage.getItem("listLayout") ??
+      "masonry") as ListLayout;
+    setLayout(l);
+    AnalyticEvents.setUserPreferredLayout(l);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

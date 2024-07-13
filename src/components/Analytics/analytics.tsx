@@ -67,6 +67,13 @@ export function Analytics(): React.ReactNode {
       analytics_storage: getAnalyticsStorageConsent(),
     });
 
+    if (
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === "G-XXXXXXXXXX" ||
+      !process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+    ) {
+      console.info("No measurement ID provided, disabling Google Analytics");
+      return;
+    }
     if (getEnvironment() === "development") {
       if (process.env.NEXT_PUBLIC_ENABLE_ANALYTICS) {
         console.info("Enabling Google Analytics during development");
