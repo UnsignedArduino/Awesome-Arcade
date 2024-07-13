@@ -15,6 +15,7 @@ import growthbook from "@/components/FeatureFlags";
 import { AnimatePresence } from "framer-motion";
 import { Theme } from "@/components/Navbar/ThemePicker/themePicker";
 import { ACCENT_COLOR } from "@/themes/colors";
+import GoogleTagManager from "@magicul/next-google-tag-manager";
 
 export type BootstrapLibContextType = typeof import("bootstrap") | null;
 export const BootstrapLibContext =
@@ -113,6 +114,7 @@ export default function AwesomeArcadeExtensions({
               color={ACCENT_COLOR[nprogressTheme]}
               options={{ showSpinner: false }}
             />
+            <GoogleTagManager id={process.env.NEXT_PUBLIC_GTM_ID!} />
             <Analytics />
             <Adsense />
             <GrowthBookProvider growthbook={growthbook}>
