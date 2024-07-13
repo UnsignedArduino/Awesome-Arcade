@@ -158,13 +158,10 @@ export function ThemeProxy({
 
   React.useEffect(() => {
     if (loadedPreferredTheme) {
+      const osWantsDark = window.matchMedia("(prefers-color-scheme: dark)");
       switch (dropdownTheme) {
         case "Auto": {
-          setActualTheme(
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "Dark"
-              : "Light",
-          );
+          setActualTheme(osWantsDark ? "Dark" : "Light");
           break;
         }
         default: {
