@@ -52,7 +52,6 @@
   "dependencies": {
     "@codemirror/language": "6.0.0",
     "@growthbook/growthbook-react": "^1.1.0",
-    "@magicul/next-google-tag-manager": "^2.0.0",
     "@popperjs/core": "2.11.8",
     "@tippyjs/react": "^4.2.6",
     "@types/bootstrap": "^5.2.10",

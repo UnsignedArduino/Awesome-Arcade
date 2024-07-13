@@ -5,7 +5,12 @@ import { getEnvironment } from "@/scripts/Utils/Environment";
 export function Adsense(): React.ReactNode {
   React.useEffect(() => {
     if (getEnvironment() === "development") {
-      console.info("Google Adsense disabled during development");
+      if (process.env.NEXT_PUBLIC_ENABLE_ADS) {
+        console.info("Enabling Google Adsense during development");
+      } else {
+        console.info("Google Adsense disabled during development");
+        return;
+      }
     }
   }, []);
 

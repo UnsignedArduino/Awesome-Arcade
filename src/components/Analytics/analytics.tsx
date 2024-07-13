@@ -68,14 +68,22 @@ export function Analytics(): React.ReactNode {
     });
 
     if (getEnvironment() === "development") {
-      console.info("Google Analytics disabled during development");
-      return;
+      if (process.env.NEXT_PUBLIC_ENABLE_ANALYTICS) {
+        console.info("Enabling Google Analytics during development");
+      } else {
+        console.info("Google Analytics disabled during development");
+        return;
+      }
     }
 
     setUseGA(true);
   }, []);
 
-  return useGA ? <GoogleAnalytics trackPageViews /> : <></>;
+  return useGA ? (
+    <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+  ) : (
+    <></>
+  );
 }
 
 export default Analytics;
