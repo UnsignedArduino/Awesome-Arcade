@@ -34,10 +34,6 @@ function Footer({ appProps }: { appProps: AppProps }): React.ReactNode {
         link: "/tools",
       },
       {
-        title: "Blog",
-        link: "/blog",
-      },
-      {
         title: "Help",
         link: "/help",
       },

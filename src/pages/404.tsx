@@ -28,6 +28,10 @@ export function PageNotFound({
           </a>{" "}
           in the GitHub repository if you believe there should be a page here.
         </p>
+        <p>
+          If you are looking for the Awesome Arcade blog, it has been removed.
+          Thank you for reading.
+        </p>
       </>
     </Layout>
   );
