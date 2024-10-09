@@ -14,6 +14,8 @@ This is the source code for the Awesome Arcade website!
 1. Have `nodejs`.
 2. Clone this repo.
 3. `yarn` to install dependencies.
+4. Create a TinaCMS cloud project.
+5. Copy [`.env.sample`](.env.sample) to `.env` and fill in the values.
 
 ## Development
 
