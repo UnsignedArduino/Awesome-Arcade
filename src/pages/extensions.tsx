@@ -4,7 +4,6 @@ import Layout from "../components/Layout";
 import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import { AwesomeArcadeExtensionsList } from "@/components/AwesomeArcadeList";
-import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import { useSession } from "next-auth/react";
 import Tippy from "@tippyjs/react";
@@ -27,7 +26,9 @@ export function Extensions({
 }: ExtensionsProps): React.ReactNode {
   const { data: session } = useSession();
 
-  const [search, setSearch] = React.useState("");
+  const [disableSearch, setDisableSearch] = React.useState(false);
+  const [searchParamsChanged, setSearchParamsChanged] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [showJSOnlyExts, setShowJSOnlyExts] = React.useState(false);
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<number | undefined>(
@@ -40,7 +41,7 @@ export function Extensions({
   React.useEffect(() => {
     const q = new URLSearchParams(window.location.search).get(searchParam);
     if (q !== null) {
-      setSearch(q);
+      setSearchQuery(q);
     }
     const showJSOnly = new URLSearchParams(window.location.search).get(
       showJSOnlyParam,
@@ -48,76 +49,75 @@ export function Extensions({
     if (showJSOnly !== null) {
       setShowJSOnlyExts(stringToBool(showJSOnly));
     }
+    runSearch(q, showJSOnly != null ? stringToBool(showJSOnly) : null);
     if (window.location.hash.length > 0) {
       smoothScrollToID(window.location.hash.replace("#", ""));
     }
+    // eslint-disable-next-line
   }, []);
 
-  React.useEffect(() => {
-    const url = new URL(window.location.toString());
-    if (search === "") {
-      url.searchParams.delete(searchParam);
-    } else {
-      url.searchParams.set(searchParam, search);
-    }
-    if (showJSOnlyExts) {
-      url.searchParams.set(showJSOnlyParam, "true");
-    } else {
-      url.searchParams.delete(showJSOnlyParam);
-    }
-    window.history.replaceState({}, "", url.toString());
-  }, [search, showJSOnlyExts]);
-
-  // React.useEffect(() => {
-  //   document.addEventListener("keydown", (e) => {
-  //     if (e.keyCode === 114 || ((e.ctrlKey || e.metaKey) && e.keyCode === 70)) {
-  //       e.preventDefault();
-  //     }
-  //     if ((e.ctrlKey || e.metaKey) && e.code == "KeyF") {
-  //       setTimeout(() => {
-  //         console.log("FOCUS FIND");
-  //         const searchBar = getElement("searchBar") as HTMLInputElement;
-  //         searchBar.focus();
-  //       }, 1000);
-  //     }
-  //   });
-  // }, []);
-
-  React.useEffect(() => {
-    if (search.length > 0 || showJSOnlyExts) {
-      const filtered = structuredClone(list);
-      let extCount = 0;
-      const group = filtered;
-      const normalizeString = (s: string): string => {
-        return s.trim().toLowerCase();
-      };
-      const normalizedSearch = normalizeString(search);
-      for (let i = group.length - 1; i >= 0; i--) {
-        const ext = group[i];
-        if (
-          !(
-            normalizeString(ext.repo).includes(normalizedSearch) ||
-            normalizeString(ext.url).includes(normalizedSearch) ||
-            // normalizeString(ext.description).includes(normalizedSearch) ||
-            normalizeString(ext.author).includes(normalizedSearch)
-          ) ||
-          (!showJSOnlyExts && ext.javascriptOnly)
-        ) {
-          group.splice(i, 1);
+  const runSearch = (
+    query: string | null = null,
+    showJSOnly: boolean | null = null,
+  ) => {
+    setDisableSearch(true);
+    setTimeout(() => {
+      const q = query ?? searchQuery;
+      const showJS = showJSOnly ?? showJSOnlyExts;
+      setSearchQuery(q);
+      setShowJSOnlyExts(showJS);
+      if (q.length > 0 || showJS) {
+        const filtered = structuredClone(list);
+        let extCount = 0;
+        const group = filtered;
+        const normalizeString = (s: string): string => {
+          return s.trim().toLowerCase();
+        };
+        const normalizedSearch = normalizeString(q);
+        for (let i = group.length - 1; i >= 0; i--) {
+          const ext = group[i];
+          if (
+            !(
+              normalizeString(ext.repo).includes(normalizedSearch) ||
+              normalizeString(ext.url).includes(normalizedSearch) ||
+              normalizeString(
+                JSON.stringify(ext["description"]["children"]),
+              ).includes(normalizedSearch) ||
+              normalizeString(ext.author).includes(normalizedSearch)
+            ) ||
+            (!showJS && ext.javascriptOnly)
+          ) {
+            group.splice(i, 1);
+          }
         }
+        extCount += group.length;
+        setFilteredList(filtered);
+        setResultCount(extCount);
+      } else {
+        setFilteredList(
+          list.filter((ext) => {
+            return !ext.javascriptOnly;
+          }),
+        );
+        setResultCount(undefined);
       }
-      extCount += group.length;
-      setFilteredList(filtered);
-      setResultCount(extCount);
-    } else {
-      setFilteredList(
-        list.filter((ext) => {
-          return !ext.javascriptOnly;
-        }),
-      );
-      setResultCount(undefined);
-    }
-  }, [search, showJSOnlyExts, list]);
+      const url = new URL(window.location.toString());
+      if (q === "") {
+        url.searchParams.delete(searchParam);
+      } else {
+        url.searchParams.set(searchParam, q);
+      }
+      if (showJS) {
+        url.searchParams.set(showJSOnlyParam, "true");
+      } else {
+        url.searchParams.delete(showJSOnlyParam);
+      }
+      window.history.replaceState({}, "", url.toString());
+      AnalyticEvents.sendSearch(q);
+      setDisableSearch(false);
+      setSearchParamsChanged(false);
+    });
+  };
 
   return (
     <Layout
@@ -164,36 +164,49 @@ export function Extensions({
               }
             `}
           </style>
-          <Tippy content="Search extensions by author, name, or URL!">
+          <Tippy content="Search extensions by author, name, description, or URL!">
             <input
               id="searchBar"
               type="search"
               className="form-control"
-              placeholder="Search extensions by author, name, or URL!"
-              defaultValue={search}
-              onChange={(event) => {
-                const v = event.target.value;
-                setSearch(v);
-                debounce(
-                  "extensionSearchChange",
-                  () => {
-                    AnalyticEvents.sendSearch(v);
-                  },
-                  1000,
-                );
+              placeholder="Search extensions by author, name, description, or URL!"
+              // disabled={disableSearch}
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setSearchParamsChanged(true);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  runSearch();
+                  e.currentTarget.focus();
+                }
               }}
               aria-label="Search query"
             />
           </Tippy>
         </div>
         <div className="col-auto">
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={disableSearch || !searchParamsChanged}
+            onClick={() => {
+              runSearch();
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="col-auto">
           <div className="form-check">
             <input
               className="form-check-input"
               type="checkbox"
-              defaultChecked={showJSOnlyExts}
+              checked={showJSOnlyExts}
               onChange={(e) => {
                 setShowJSOnlyExts(e.target.checked);
+                setSearchParamsChanged(true);
               }}
               id="showJSOnlyExtsCheckInput"
             />

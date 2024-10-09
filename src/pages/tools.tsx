@@ -4,7 +4,6 @@ import getAppProps, { AppProps } from "../components/WithAppProps";
 import Link from "next/link";
 import { promises as fs } from "fs";
 import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeList";
-import { debounce } from "@/scripts/Utils/Timers";
 import { AnalyticEvents } from "@/components/Analytics";
 import Tippy from "@tippyjs/react";
 import { useSession } from "next-auth/react";
@@ -24,7 +23,9 @@ type ToolsProps = {
 export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
   const { data: session } = useSession();
 
-  const [search, setSearch] = React.useState("");
+  const [disableSearch, setDisableSearch] = React.useState(false);
+  const [searchParamsChanged, setSearchParamsChanged] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [showNotWebsiteTools, setShowNotWebsiteTools] = React.useState(false);
   const [filteredList, setFilteredList] = React.useState(list);
   const [resultCount, setResultCount] = React.useState<number | undefined>(
@@ -37,7 +38,7 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
   React.useEffect(() => {
     const q = new URLSearchParams(window.location.search).get(searchParam);
     if (q !== null) {
-      setSearch(q);
+      setSearchQuery(q);
     }
     const showNotWebsite = new URLSearchParams(window.location.search).get(
       showNotWebsiteParam,
@@ -45,61 +46,73 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
     if (showNotWebsite !== null) {
       setShowNotWebsiteTools(stringToBool(showNotWebsite));
     }
+    runSearch(q, showNotWebsite != null ? stringToBool(showNotWebsite) : null);
     if (window.location.hash.length > 0) {
       smoothScrollToID(window.location.hash.replace("#", ""));
     }
+    // eslint-disable-next-line
   }, []);
 
-  React.useEffect(() => {
-    const url = new URL(window.location.toString());
-    if (search === "") {
-      url.searchParams.delete(searchParam);
-    } else {
-      url.searchParams.set(searchParam, search);
-    }
-    if (showNotWebsiteTools) {
-      url.searchParams.set(showNotWebsiteParam, "true");
-    } else {
-      url.searchParams.delete(showNotWebsiteParam);
-    }
-    window.history.replaceState({}, "", url.toString());
-  }, [search, showNotWebsiteTools]);
-
-  React.useEffect(() => {
-    if (search.length > 0 || showNotWebsiteTools) {
-      const filtered = structuredClone(list);
-      let toolCount = 0;
-      const group = filtered;
-      const normalizeString = (s: string): string => {
-        return s.trim().toLowerCase();
-      };
-      const normalizedSearch = normalizeString(search);
-      for (let i = group.length - 1; i >= 0; i--) {
-        const tool = group[i];
-        if (
-          !(
-            normalizeString(tool.repo).includes(normalizedSearch) ||
-            normalizeString(tool.url).includes(normalizedSearch) ||
-            // normalizeString(tool.description).includes(normalizedSearch) ||
-            normalizeString(tool.author).includes(normalizedSearch)
-          ) ||
-          (!showNotWebsiteTools && tool.notAWebsite)
-        ) {
-          group.splice(i, 1);
+  const runSearch = (
+    query: string | null = null,
+    showNotWebsites: boolean | null = null,
+  ) => {
+    setDisableSearch(true);
+    setTimeout(() => {
+      const q = query ?? searchQuery;
+      const showNon = showNotWebsites ?? showNotWebsiteTools;
+      if (q.length > 0 || showNon) {
+        const filtered = structuredClone(list);
+        let toolCount = 0;
+        const group = filtered;
+        const normalizeString = (s: string): string => {
+          return s.trim().toLowerCase();
+        };
+        const normalizedSearch = normalizeString(q);
+        for (let i = group.length - 1; i >= 0; i--) {
+          const tool = group[i];
+          if (
+            !(
+              normalizeString(tool.repo).includes(normalizedSearch) ||
+              normalizeString(tool.url).includes(normalizedSearch) ||
+              normalizeString(
+                JSON.stringify(tool["description"]["children"]),
+              ).includes(normalizedSearch) ||
+              normalizeString(tool.author).includes(normalizedSearch)
+            ) ||
+            (!showNon && tool.notAWebsite)
+          ) {
+            group.splice(i, 1);
+          }
         }
+        toolCount += group.length;
+        setFilteredList(filtered);
+        setResultCount(toolCount);
+      } else {
+        setFilteredList(
+          list.filter((tool) => {
+            return !tool.notAWebsite;
+          }),
+        );
+        setResultCount(undefined);
       }
-      toolCount += group.length;
-      setFilteredList(filtered);
-      setResultCount(toolCount);
-    } else {
-      setFilteredList(
-        list.filter((tool) => {
-          return !tool.notAWebsite;
-        }),
-      );
-      setResultCount(undefined);
-    }
-  }, [search, showNotWebsiteTools, list]);
+      const url = new URL(window.location.toString());
+      if (q === "") {
+        url.searchParams.delete(searchParam);
+      } else {
+        url.searchParams.set(searchParam, q);
+      }
+      if (showNon) {
+        url.searchParams.set(showNotWebsiteParam, "true");
+      } else {
+        url.searchParams.delete(showNotWebsiteParam);
+      }
+      window.history.replaceState({}, "", url.toString());
+      AnalyticEvents.sendSearch(q);
+      setDisableSearch(false);
+      setSearchParamsChanged(false);
+    });
+  };
 
   return (
     <Layout
@@ -145,27 +158,38 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
               }
             `}
           </style>
-          <Tippy content="Search tools by author, name, or URL!">
+          <Tippy content="Search tools by author, name, description, or URL!">
             <input
               id="searchBar"
               type="search"
               className="form-control"
-              placeholder="Search tools by author, name, or URL!"
-              defaultValue={search}
+              placeholder="Search tools by author, name, description, or URL!"
+              value={searchQuery}
               onChange={(event) => {
-                const v = event.target.value;
-                setSearch(v);
-                debounce(
-                  "toolSearchChange",
-                  () => {
-                    AnalyticEvents.sendSearch(v);
-                  },
-                  1000,
-                );
+                setSearchQuery(event.target.value);
+                setSearchParamsChanged(true);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  runSearch();
+                  e.currentTarget.focus();
+                }
               }}
               aria-label="Search query"
             />
           </Tippy>
+        </div>
+        <div className="col-auto">
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={disableSearch || !searchParamsChanged}
+            onClick={() => {
+              runSearch();
+            }}
+          >
+            Search
+          </button>
         </div>
         <div className="col-auto">
           <div className="form-check">
@@ -175,6 +199,7 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
               defaultChecked={showNotWebsiteTools}
               onChange={(e) => {
                 setShowNotWebsiteTools(e.target.checked);
+                setSearchParamsChanged(true);
               }}
               id="showNotWebsiteToolsCheckInput"
             />
