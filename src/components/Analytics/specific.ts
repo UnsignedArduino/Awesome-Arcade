@@ -14,10 +14,7 @@ export namespace AnalyticEvents {
     });
   }
 
-  export function sendShare(
-    type: "extension" | "tool" | "blog" | "blog preview",
-    name: string,
-  ) {
+  export function sendShare(type: "extension" | "tool", name: string) {
     window.gtag("event", "share", {
       type,
       name,

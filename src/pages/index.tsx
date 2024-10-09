@@ -7,8 +7,6 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
 import { QuickLink } from "@/components/QuickLinks/types";
-import darkBlog from "../assets/images/index/for-dark-theme/blog.png";
-import lightBlog from "../assets/images/index/for-light-theme/blog.png";
 import darkExtensions from "../assets/images/index/for-dark-theme/extensions.png";
 import lightExtensions from "../assets/images/index/for-light-theme/extensions.png";
 import darkTools from "../assets/images/index/for-dark-theme/tools.png";
@@ -53,20 +51,6 @@ export function Home({ appProps }: HomeProps): React.ReactNode {
           }
         : undefined,
     },
-    {
-      name: "Blog",
-      description:
-        "Read about the latest news and updates in the MakeCode Arcade world!",
-      link: "/blog",
-      linkText: "Read the blog",
-      image: showImages
-        ? {
-            darkTheme: darkBlog,
-            lightTheme: lightBlog,
-            altText: "A picture of a newspaper in MakeCode Arcade image style.",
-          }
-        : undefined,
-    },
   ];
 
   return (
@@ -85,7 +69,10 @@ export function Home({ appProps }: HomeProps): React.ReactNode {
         This is a website of awesome MakeCode Arcade extensions and tools that I
         find super useful (or just plain cool) in my projects.
       </p>
-      <QuickLinkCards quickLinks={quickLinks} />
+      <QuickLinkCards
+        quickLinks={quickLinks}
+        divColumnClasses="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-3 px-1 pt-1 pb-3"
+      />
       <p>
         Please note that this website is not developed, affiliated, or endorsed
         by Microsoft, the owner of MakeCode Arcade.
