@@ -255,7 +255,12 @@
       }
     ],
     "config": {
-      "media": { "tina": { "publicFolder": "public", "mediaRoot": "" } }
+      "media": { "tina": { "publicFolder": "public", "mediaRoot": "" } },
+      "search": {
+        "tina": { "stopwordLanguages": ["eng"] },
+        "indexBatchSize": 100,
+        "maxSearchIndexFieldLength": 100
+      }
     }
   },
   "lookup": {

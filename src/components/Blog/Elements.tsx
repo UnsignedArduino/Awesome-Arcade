@@ -84,7 +84,7 @@ export function ShortAuthorRenderer({
     <>
       <AutoLink href={`https://github.com/${author}`}>
         <AvatarImageRenderer
-          url={`https://github.com/${author}.png`}
+          url={`https://github.com/${author}.png?size=16`}
           name={author}
         />{" "}
         {author}
