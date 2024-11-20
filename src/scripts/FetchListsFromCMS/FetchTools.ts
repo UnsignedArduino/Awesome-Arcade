@@ -2,7 +2,7 @@ import { Tool, ToolRef } from "./types";
 import client from "../../../tina/__generated__/client";
 import NodeCache from "node-cache";
 
-const toolCache = new NodeCache({ stdTTL: 60 * 5 });
+const toolCache = new NodeCache({ stdTTL: 60 });
 
 export default async function fetchToolsFromCMS(): Promise<Tool[]> {
   const cachedTools: Tool[] | undefined = toolCache.get("tools");
