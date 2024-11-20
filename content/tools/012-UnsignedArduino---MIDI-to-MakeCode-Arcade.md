@@ -1,10 +1,10 @@
 ---
-url: "https://github.com/UnsignedArduino/Arcade-MIDI-to-Song"
-project: UnsignedArduino/Arcade-MIDI-to-Song
+url: "https://github.com/UnsignedArduino/MIDI-to-MakeCode-Arcade"
+project: UnsignedArduino/MIDI-to-MakeCode-Arcade
 isNotWebsite: true
 links:
   - title: GitHub repo
-    url: "https://github.com/UnsignedArduino/Arcade-MIDI-to-Song"
+    url: "https://github.com/UnsignedArduino/MIDI-to-MakeCode-Arcade"
   - title: Forum post
     url: "https://forum.makecode.com/t/new-song-format/17763/11?u=unsignedarduino"
   - title: Demos
