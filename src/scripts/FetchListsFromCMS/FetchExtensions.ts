@@ -3,7 +3,7 @@ import client from "../../../tina/__generated__/client";
 import { partsFromURL } from "@/scripts/FetchListsFromCMS/helpers";
 import NodeCache from "node-cache";
 
-const extensionCache = new NodeCache({ stdTTL: 60 * 5 });
+const extensionCache = new NodeCache({ stdTTL: 60 });
 
 export default async function fetchExtensionsFromCMS(): Promise<Extension[]> {
   const cachedExtensions: Extension[] | undefined =
