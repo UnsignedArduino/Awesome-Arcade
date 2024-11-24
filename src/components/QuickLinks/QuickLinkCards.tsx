@@ -51,19 +51,21 @@ export default function QuickLinkCards({
                     <div className="card-text">
                       <p>{quick.description}</p>
                     </div>
-                    <Link
-                      href={
-                        quick.link.startsWith("/")
-                          ? quick.link
-                          : `/help/${quick.link}`
-                      }
-                      passHref
-                      legacyBehavior
-                    >
-                      <a className="card-link stretched-link">
-                        {quick.linkText}
-                      </a>
-                    </Link>
+                    {quick.link ? (
+                      <Link
+                        href={
+                          quick.link.startsWith("/")
+                            ? quick.link
+                            : `/help/${quick.link}`
+                        }
+                        passHref
+                        legacyBehavior
+                      >
+                        <a className="card-link stretched-link">
+                          {quick.linkText}
+                        </a>
+                      </Link>
+                    ) : undefined}
                   </div>
                 </div>
               </div>

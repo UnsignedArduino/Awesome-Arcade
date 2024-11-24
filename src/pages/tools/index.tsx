@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../components/Layout";
-import getAppProps, { AppProps } from "../components/WithAppProps";
+import Layout from "../../components/Layout";
+import getAppProps, { AppProps } from "../../components/WithAppProps";
 import Link from "next/link";
 import { promises as fs } from "fs";
 import { AwesomeArcadeToolsList } from "@/components/AwesomeArcadeList";
@@ -12,6 +12,7 @@ import fetchToolsFromCMS from "@/scripts/FetchListsFromCMS/FetchTools";
 import { Tool } from "@/scripts/FetchListsFromCMS/types";
 import { stringToBool } from "@/scripts/Utils/StringParsing/FromBool";
 import { ToolTableOfContents } from "@/components/AwesomeArcadeList/Tool/toolTableOfContents";
+import { useFeatureIsOn, useFeatureValue } from "@growthbook/growthbook-react";
 
 const pageName = "Tools";
 
@@ -114,6 +115,17 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
     });
   };
 
+  const showBuiltinTools = useFeatureIsOn("built-in-tools");
+  const builtinToolsTag = useFeatureValue("built-in-tools-tag", "");
+  const builtinToolsDesc = useFeatureValue(
+    "built-in-tools-description",
+    "Use Awesome Arcade's tools to make your game development experience even better!",
+  );
+  const builtinToolsLinkText = useFeatureValue(
+    "built-in-tools-link",
+    "Try them out!",
+  );
+
   return (
     <Layout
       title={pageName}
@@ -144,6 +156,24 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
         <Link href="/help/contributing/tools">guide</Link> on how to submit a
         tool to Awesome Arcade!
       </p>
+      {showBuiltinTools ? (
+        <div className="alert alert-info">
+          {builtinToolsTag ? (
+            <>
+              <span className="badge text-bg-info">{builtinToolsTag}</span>{" "}
+            </>
+          ) : (
+            <></>
+          )}
+          {builtinToolsDesc}
+          {"  "}
+          <Link href="/tools/built-in" className="stretched-link">
+            {builtinToolsLinkText}
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="row g-3 align-items-center mb-2">
         <div className="col-auto">
           <label htmlFor="searchBar" className="col-form-label">
@@ -230,8 +260,8 @@ export function Tools({ appProps, list }: ToolsProps): React.ReactNode {
       </div>
       <p>
         Looking for Awesome Arcade Extensions? They have been split up into the{" "}
-        <Link href="/">Extensions</Link> page! (Which you can also find in the
-        navigation bar!)
+        <Link href="/public">Extensions</Link> page! (Which you can also find in
+        the navigation bar!)
       </p>
     </Layout>
   );

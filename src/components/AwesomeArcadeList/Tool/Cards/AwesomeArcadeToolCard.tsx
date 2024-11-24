@@ -149,7 +149,7 @@ export function AwesomeArcadeToolCard({
                   return (
                     <li key={t.repo}>
                       <Link
-                        href={`/tools#${t.repo}`}
+                        href={`/src/pages/tools/index.tsx#${t.repo}`}
                         onClick={smoothScrollHash}
                       >
                         {t.repo}
@@ -171,7 +171,7 @@ export function AwesomeArcadeToolCard({
                   return (
                     <li key={t.repo}>
                       <Link
-                        href={`/tools#${t.repo}`}
+                        href={`/src/pages/tools/index.tsx#${t.repo}`}
                         onClick={smoothScrollHash}
                       >
                         {t.repo}
