@@ -18,47 +18,88 @@ function copyToClipboardFallback(text: string): boolean {
   return successful;
 }
 
-export function copyTextToClipboard(text: string): boolean {
-  if (!navigator.clipboard) {
-    return copyToClipboardFallback(text);
-  }
-  navigator.clipboard.writeText(text).then(
-    () => {},
-    (err) => {
-      console.error("Failed to copy text to clipboard, using fallback: " + err);
-      copyToClipboardFallback(text);
+export function copyTextToClipboard(text: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.clipboard) {
+      if (copyToClipboardFallback(text)) {
+        resolve();
+      } else {
+        reject();
+      }
+      return;
     }
-  );
-  return true;
+    navigator.clipboard.writeText(text).then(
+      () => {
+        resolve();
+      },
+      (err) => {
+        console.error(
+          "Failed to copy text to clipboard, using fallback: " + err,
+        );
+        if (copyToClipboardFallback(text)) {
+          resolve();
+        } else {
+          reject();
+        }
+      },
+    );
+  });
 }
 
-export function readTextFromClipboard(
-  callback: (_text: string | undefined) => void
-): void {
-  if (!navigator.clipboard) {
-    return;
-  }
-  navigator.clipboard.readText().then(
-    (text) => {
-      callback(text);
-    },
-    (err) => {
-      console.error("Failed to read from clipboard: " + err);
-      callback(undefined);
+export function readTextFromClipboard(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.clipboard) {
+      reject();
     }
-  );
+    navigator.clipboard.readText().then(
+      (text) => {
+        resolve(text);
+      },
+      (err) => {
+        console.error("Failed to read from clipboard: " + err);
+        reject();
+      },
+    );
+  });
 }
 
 // https://stackoverflow.com/a/59162806/10291933
-export function copyPNGImageBlobToClipboard(imgBlob: Blob): boolean {
-  if (!navigator.clipboard) {
-    return false;
-  }
-  try {
-    navigator.clipboard.write([new ClipboardItem({ "image/png": imgBlob })]);
-    return true;
-  } catch (err) {
-    console.error("Failed to copy image to clipboard");
-    return false;
-  }
+export function copyBlobsToClipboard(items: ClipboardItems): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.clipboard) {
+      reject();
+      return;
+    }
+    try {
+      navigator.clipboard
+        .write(items)
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          console.error("Failed to copy items to clipboard");
+          reject();
+        });
+    } catch (err) {
+      console.error("Failed to copy items to clipboard");
+      reject();
+    }
+  });
+}
+
+export function readBlobsFromClipboard(): Promise<ClipboardItems> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.clipboard) {
+      reject();
+    }
+    navigator.clipboard
+      .read()
+      .then((clipboardItems) => {
+        resolve(clipboardItems);
+      })
+      .catch(() => {
+        console.error("Failed to read items from clipboard");
+        reject();
+      });
+  });
 }

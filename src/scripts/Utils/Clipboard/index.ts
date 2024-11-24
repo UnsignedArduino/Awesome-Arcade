@@ -1,5 +1,5 @@
 export {
   copyTextToClipboard,
   readTextFromClipboard,
-  copyPNGImageBlobToClipboard,
+  copyBlobToClipboard,
 } from "./clipboard";

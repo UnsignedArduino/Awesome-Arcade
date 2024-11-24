@@ -67,14 +67,16 @@ export class ErrorBoundary extends React.Component {
               className="btn btn-primary"
               onClick={() => {
                 if (this.errorStack != undefined) {
-                  if (copyTextToClipboard(this.errorStack)) {
-                    notify("Copied to clipboard!", NotificationType.Success);
-                  } else {
-                    notify(
-                      "Unable to copy to clipboard!",
-                      NotificationType.Error,
-                    );
-                  }
+                  copyTextToClipboard(this.errorStack)
+                    .then(() => {
+                      notify("Copied to clipboard!", NotificationType.Success);
+                    })
+                    .catch(() => {
+                      notify(
+                        "Unable to copy to clipboard!",
+                        NotificationType.Error,
+                      );
+                    });
                 } else {
                   notify(
                     "Unable to copy to clipboard!",
