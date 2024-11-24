@@ -7,7 +7,11 @@ import QuickLinkCards from "@/components/QuickLinks/QuickLinkCards";
 
 const pageName = "Built In Tools";
 
-export function About({ appProps }: { appProps: AppProps }): React.ReactNode {
+export function BuiltInTools({
+  appProps,
+}: {
+  appProps: AppProps;
+}): React.ReactNode {
   const quickLinks: QuickLink[] = [
     {
       name: "Image Importer (beta)",
@@ -48,6 +52,7 @@ export function About({ appProps }: { appProps: AppProps }): React.ReactNode {
   return (
     <Layout
       title={pageName}
+      description="Use Awesome Arcade's tools to make your game development experience even better!"
       currentPage={pageName}
       appProps={appProps}
       breadCrumbs={[
@@ -84,4 +89,4 @@ export async function getStaticProps(): Promise<{
   };
 }
 
-export default About;
+export default BuiltInTools;
