@@ -3,12 +3,17 @@ import AutoLink from "@/components/Linkable/AutoLink";
 import {
   copyTextToClipboard,
   readBlobsFromClipboard,
-} from "@/scripts/Utils/Clipboard/clipboard";
-import { NotificationType, notify } from "@/components/Notifications";
+} from "@/scripts/Utils/Clipboard";
+import {
+  loadingNotify,
+  NotificationType,
+  notify,
+} from "@/components/Notifications";
 import getElement from "@/scripts/Utils/Element";
 import ImagePreview from "@/components/BuiltInTools/ImagePreview";
 import PaletteEditor from "@/components/BuiltInTools/PaletteEditor";
 import { makeNaNUndefined } from "@/scripts/Utils/TypeHelp/NullUndefined";
+import { LoadingNotifyReturn } from "@/components/Notifications/notifications";
 
 export type ImageImporterToolInput = {
   width?: number | undefined;
@@ -33,6 +38,7 @@ export default function ImageImporterTool(): React.ReactNode {
   const [outputBuf, setOutputBuf] = React.useState<ArrayBuffer | null>(null);
 
   const [iframeReady, setIframeReady] = React.useState(false);
+  const notifyCbs = React.useRef<LoadingNotifyReturn | null>();
 
   const handleMessage = React.useCallback((e: MessageEvent) => {
     let data = e.data;
@@ -50,6 +56,7 @@ export default function ImageImporterTool(): React.ReactNode {
       setOutputCode(data.output_image_code);
       setOutputBuf(Buffer.from(data.output_preview_img, "base64"));
       setIframeReady(true);
+      notifyCbs.current?.successCallback();
     } catch (e) {
       console.warn(e);
     }
@@ -78,6 +85,12 @@ export default function ImageImporterTool(): React.ReactNode {
             setIframeReady(false);
             setOutputCode(null);
             setOutputBuf(null);
+            notifyCbs.current = loadingNotify(
+              "Converting image...",
+              "Conversion complete!",
+              "Failed to convert!",
+              "Canceled conversion.",
+            );
             setTimeout(() => {
               iframe.contentWindow!.postMessage(
                 JSON.stringify({
@@ -247,7 +260,6 @@ export default function ImageImporterTool(): React.ReactNode {
                   aria-describedby="width-label"
                   placeholder="Leave blank to auto-calculate from height and keep aspect ratio"
                   onChange={(e) => {
-                    const v = e.target.value.trim();
                     setOptions({
                       ...options,
                       width: makeNaNUndefined(parseInt(e.target.value.trim())),
@@ -272,7 +284,6 @@ export default function ImageImporterTool(): React.ReactNode {
                   aria-describedby="height-label"
                   placeholder="Leave blank to auto-calculate from width and keep aspect ratio"
                   onChange={(e) => {
-                    const v = e.target.value.trim();
                     setOptions({
                       ...options,
                       height: makeNaNUndefined(parseInt(e.target.value.trim())),
