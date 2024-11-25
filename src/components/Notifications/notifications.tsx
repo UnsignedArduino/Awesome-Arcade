@@ -93,10 +93,10 @@ export function promiseNotify(
   );
 }
 
-type LoadingNotifyReturn = {
+export type LoadingNotifyReturn = {
   successCallback: () => void;
   errorCallback: () => void;
-  canceledCallback: () => void;
+  cancelCallback: () => void;
 };
 
 export function loadingNotify(
@@ -123,7 +123,7 @@ export function loadingNotify(
         autoClose: 5000,
       });
     },
-    canceledCallback: () => {
+    cancelCallback: () => {
       toast.update(id, {
         render: canceledText,
         type: "default",

@@ -109,13 +109,15 @@ export function AwesomeArcadeExtensionOldCard({
                   setTooltip("Click to copy");
                 }}
                 onClick={() => {
-                  if (copyTextToClipboard(ext.url)) {
-                    setTooltip("Copied!");
-                  } else {
-                    setTooltip(
-                      "Failed to copy - did you give us clipboard permission?",
-                    );
-                  }
+                  copyTextToClipboard(ext.url)
+                    .then(() => {
+                      setTooltip("Copied!");
+                    })
+                    .catch(() => {
+                      setTooltip(
+                        "Failed to copy - did you give us clipboard permission?",
+                      );
+                    });
                   tippyRef.current?.show();
                   window.document.documentElement.dispatchEvent(
                     new CustomEvent<string>("clickrepo", {
