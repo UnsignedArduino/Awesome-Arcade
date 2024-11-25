@@ -13,3 +13,15 @@ export function makeNullUndefined<T>(
   }
   return value;
 }
+
+export function makeNaNUndefined(
+  value: number | undefined,
+): number | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (isNaN(value)) {
+    return undefined;
+  }
+  return value;
+}

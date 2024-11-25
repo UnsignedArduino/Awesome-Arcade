@@ -7,16 +7,25 @@ import {
 import { NotificationType, notify } from "@/components/Notifications";
 import getElement from "@/scripts/Utils/Element";
 import ImagePreview from "@/components/BuiltInTools/ImagePreview";
+import PaletteEditor from "@/components/BuiltInTools/PaletteEditor";
+import { makeNaNUndefined } from "@/scripts/Utils/TypeHelp/NullUndefined";
 
 export type ImageImporterToolInput = {
   width?: number | undefined;
   height?: number | undefined;
-  palette?: boolean | undefined;
+  palette?: string | undefined;
   gif?: boolean | undefined;
 };
 
 export default function ImageImporterTool(): React.ReactNode {
   const [inputBuf, setInputBuf] = React.useState<ArrayBuffer | null>(null);
+
+  const [options, setOptions] = React.useState<ImageImporterToolInput>({
+    width: undefined,
+    height: undefined,
+    palette: undefined,
+    gif: undefined,
+  });
 
   const [outputCode, setOutputCode] = React.useState<string | null>(null);
   const [outputBuf, setOutputBuf] = React.useState<ArrayBuffer | null>(null);
@@ -26,6 +35,11 @@ export default function ImageImporterTool(): React.ReactNode {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          console.log(
+            // @ts-ignore
+            `Converting image of size ${inputBuf?.byteLength / 1024} kb`,
+          );
+          console.log(`Using options {${JSON.stringify(options)}}`);
         }}
       >
         <div>
@@ -181,6 +195,13 @@ export default function ImageImporterTool(): React.ReactNode {
                   aria-label="Width"
                   aria-describedby="width-label"
                   placeholder="Leave blank to auto-calculate from height and keep aspect ratio"
+                  onChange={(e) => {
+                    const v = e.target.value.trim();
+                    setOptions({
+                      ...options,
+                      width: makeNaNUndefined(parseInt(e.target.value.trim())),
+                    });
+                  }}
                 />
               </div>
             </div>
@@ -199,6 +220,13 @@ export default function ImageImporterTool(): React.ReactNode {
                   aria-label="Height"
                   aria-describedby="height-label"
                   placeholder="Leave blank to auto-calculate from width and keep aspect ratio"
+                  onChange={(e) => {
+                    const v = e.target.value.trim();
+                    setOptions({
+                      ...options,
+                      height: makeNaNUndefined(parseInt(e.target.value.trim())),
+                    });
+                  }}
                 />
               </div>
             </div>
@@ -211,6 +239,16 @@ export default function ImageImporterTool(): React.ReactNode {
               </span>
             </div>
           </div>
+          <div className="row mb-2">
+            <div className="col">
+              <PaletteEditor
+                palette={options.palette}
+                setPalette={(p) => {
+                  setOptions({ ...options, palette: p });
+                }}
+              />
+            </div>
+          </div>
           <div className="row mb-3">
             <div className="col">
               <div className="form-check">
@@ -218,6 +256,12 @@ export default function ImageImporterTool(): React.ReactNode {
                   type="checkbox"
                   className="form-check-input"
                   id="gif-checkbox"
+                  onChange={(e) => {
+                    setOptions({
+                      ...options,
+                      gif: e.target.checked ? true : undefined,
+                    });
+                  }}
                 />
                 <label className="form-check-label" htmlFor="gif-checkbox">
                   Try parsing GIF to image array/animation (experimental)
@@ -226,6 +270,7 @@ export default function ImageImporterTool(): React.ReactNode {
             </div>
           </div>
         </div>
+        {/*<pre>{JSON.stringify(options, null, 2)}</pre>*/}
         <button
           type="submit"
           className="btn btn-primary"
