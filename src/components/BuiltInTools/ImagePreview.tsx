@@ -34,7 +34,11 @@ export default function ImagePreview({
         className="img-fluid"
         src={imageSrc}
         alt="Preview"
-        style={{ maxWidth: "50vw", maxHeight: "50vh" }}
+        style={{
+          maxWidth: "50vw",
+          maxHeight: "50vh",
+          imageRendering: "pixelated",
+        }}
         onLoad={(e) => {
           setImageDims({
             width: (e.target as HTMLImageElement).naturalWidth,

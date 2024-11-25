@@ -17,6 +17,8 @@ export type ImageImporterToolInput = {
   gif?: boolean | undefined;
 };
 
+// TODO: FIX GIFS
+//  https://pyscript.com/@ckyiu/image-to-makecode-arcade/latest?files=main.py,index.html
 export default function ImageImporterTool(): React.ReactNode {
   const [inputBuf, setInputBuf] = React.useState<ArrayBuffer | null>(null);
 
@@ -30,6 +32,36 @@ export default function ImageImporterTool(): React.ReactNode {
   const [outputCode, setOutputCode] = React.useState<string | null>(null);
   const [outputBuf, setOutputBuf] = React.useState<ArrayBuffer | null>(null);
 
+  const [iframeReady, setIframeReady] = React.useState(false);
+
+  const handleMessage = React.useCallback((e: MessageEvent) => {
+    let data = e.data;
+    console.log("Received message from iframe");
+    if (e.origin !== "https://ckyiu.pyscriptapps.com") {
+      console.warn("Received message from unknown origin", e.origin);
+      return;
+    }
+    if (data === "ready") {
+      setIframeReady(true);
+      return;
+    }
+    try {
+      data = JSON.parse(data);
+      setOutputCode(data.output_image_code);
+      setOutputBuf(Buffer.from(data.output_preview_img, "base64"));
+      setIframeReady(true);
+    } catch (e) {
+      console.warn(e);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [handleMessage]);
+
   return (
     <div style={{ overflowX: "hidden" }}>
       <form
@@ -37,9 +69,28 @@ export default function ImageImporterTool(): React.ReactNode {
           e.preventDefault();
           console.log(
             // @ts-ignore
-            `Converting image of size ${inputBuf?.byteLength / 1024} kb`,
+            `Converting image of size ${Math.round(inputBuf?.byteLength / 1024)} kb`,
           );
-          console.log(`Using options {${JSON.stringify(options)}}`);
+          console.log(`Using options ${JSON.stringify(options)}`);
+
+          const iframe = getElement("worker-iframe") as HTMLIFrameElement;
+          if (iframe.contentWindow) {
+            setIframeReady(false);
+            setOutputCode(null);
+            setOutputBuf(null);
+            setTimeout(() => {
+              iframe.contentWindow!.postMessage(
+                JSON.stringify({
+                  input_image: Buffer.from(inputBuf!).toString("base64"),
+                  input_options: JSON.stringify(options),
+                }),
+                "*",
+              );
+              console.log("Posted message to iframe");
+            });
+          } else {
+            console.error("Failed to get worker iframe content window");
+          }
         }}
       >
         <div>
@@ -274,7 +325,9 @@ export default function ImageImporterTool(): React.ReactNode {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={inputBuf == null || inputBuf.byteLength == 0}
+          disabled={
+            inputBuf == null || inputBuf.byteLength == 0 || !iframeReady
+          }
         >
           Convert
         </button>
@@ -288,6 +341,7 @@ export default function ImageImporterTool(): React.ReactNode {
             <textarea
               id="output-code"
               className="form-control"
+              style={{ fontFamily: "monospace" }}
               placeholder="No image code generated yet."
               rows={10}
               readOnly
@@ -339,6 +393,33 @@ export default function ImageImporterTool(): React.ReactNode {
           </div>
         </div>
         <br />
+      </div>
+      <div>
+        <iframe
+          src="https://ckyiu.pyscriptapps.com/image-to-makecode-arcade/latest/"
+          sandbox="allow-scripts allow-same-origin"
+          referrerPolicy="no-referrer"
+          style={{ width: "50vw", height: "50vh" }}
+          id="worker-iframe"
+        />
+        <br />
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => {
+            const iframe = getElement("worker-iframe") as HTMLIFrameElement;
+            const url = iframe.src;
+            iframe.src = "";
+            setTimeout(() => {
+              iframe.src = url;
+            }, 100);
+          }}
+        >
+          reload iframe
+        </button>
+        <p>
+          iframeReady: <code>{iframeReady.toString()}</code>
+        </p>
       </div>
     </div>
   );
