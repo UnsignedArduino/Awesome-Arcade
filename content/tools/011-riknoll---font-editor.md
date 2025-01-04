@@ -5,7 +5,7 @@ links:
   - title: GitHub repo
     url: "https://github.com/riknoll/font-editor"
 betaStatus:
-  inBeta: true
+  inBeta: false
   since: "July 17, 2022"
   reason: |
     Currently no way to use these exported fonts.
