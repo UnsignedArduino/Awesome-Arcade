@@ -1,5 +1,5 @@
 ---
-repo: "https://github.com/novawithapizza/neural-networks"
+repo: "https://github.com/rando-muser/neural-networks"
 links:
   - title: Forum post
     url: >-
