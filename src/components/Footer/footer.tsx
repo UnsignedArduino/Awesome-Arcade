@@ -73,7 +73,7 @@ function Footer({ appProps }: { appProps: AppProps }): React.ReactNode {
           style={{ objectFit: "contain", width: "2em", height: "2em" }}
         />
       </Link>
-      © 2024 UnsignedArduino. All rights reserved.
+      © 2026 UnsignedArduino. All rights reserved.
       <br />
       Keeping track of {appProps.extensionsListed} extensions and{" "}
       {appProps.toolsListed} tools since {formatDateLong(CREATION_DATE)}.
