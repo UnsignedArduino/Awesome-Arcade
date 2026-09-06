@@ -19,6 +19,8 @@ const phrases = [
   "ignorebuild",
   "ignoredeploy",
   "ignoredeployment",
+  "skipci",
+  "skipdeploy",
 ];
 
 const isToBuild = phrases.some((phrase) => {
